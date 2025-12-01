@@ -1,3 +1,20 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+class Trainee(models.Model):
+    GOAL_CHOICES = [
+        ('lose','إنقاص الوزن'),
+        ('gain', 'زيادة الوزن'),
+        ('maintain', 'المحافظة على الوزن')
+    ]
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="trainee")
+    age =models.PositiveIntegerField()
+    height =models.FloatField()
+    weight =models.FloatField()
+    goal = models.CharField(max_length=10, choices=GOAL_CHOICES)
+    avatar =models.ImageField(upload_to="images/" ,default='avatars/default.png')
+
+    def __str__(self):
+        return self.age

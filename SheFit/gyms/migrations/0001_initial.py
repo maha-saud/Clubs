@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('has_coach', models.BooleanField(default=True)),
                 ('about', models.TextField()),
                 ('rating', models.SmallIntegerField(choices=[(1, 'One Star'), (2, 'Two Stars'), (3, 'Three Stars'), (4, 'Four Stars'), (5, 'Five Stars')])),
-                ('hood', models.ManyToManyField(to='clubs.hood')),
+                ('hood', models.ManyToManyField(to='gyms.hood')),
             ],
         ),
     ]

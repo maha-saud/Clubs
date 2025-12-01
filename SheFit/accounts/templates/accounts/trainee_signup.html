@@ -1,0 +1,79 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}إنشاء حساب{% endblock %}
+
+{% block content %}
+
+<section class=" d-flex justify-content-center align-items-center ">
+    <div class="col-12 col-md-6 contact-container">
+        <div class="col-12">
+            <h2 style="font-size: 40px;"><strong>إنشاء حساب متدربة</strong></h2>
+
+        </div>
+
+        <form class="row g-3 needs-validation" action="{% url 'accounts:trainee_signup_view' %}" method="post"
+            enctype="application/x-www-form-urlencoded">
+            {%csrf_token %}
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" name="username" placeholder="" required>
+                <label for="floatingInput">اسم المستخدم </label>
+            </div>
+            <div class="form-floating col-md-6">
+                <input type="text" class="form-control" id="floatingInput" name="first_name" placeholder="" required>
+                <label for="floatingInput">الاسم الاول</label>
+            </div>
+            <div class="form-floating col-md-6">
+                <input type="text" class="form-control" id="floatingInput" name="last_name" placeholder="" required>
+                <label for="floatingInput">الاسم الاخير</label>
+            </div>
+
+             <div class="form-floating">
+                <input type="number" class="form-control" id="floatingInput" name="age" placeholder="" required>
+                <label for="floatingInput">العمر</label>
+            </div>
+             <div class="form-floating">
+                <input type="number" class="form-control" id="floatingInput" name="height" placeholder="" required>
+                <label for="floatingInput">الطول</label>
+            </div>
+             <div class="form-floating">
+                <input type="number" class="form-control" id="floatingInput" name="weight" placeholder="" required>
+                <label for="floatingInput">الوزن</label>
+            </div>
+
+            
+                <select name="category" class="form-control">
+                    <option value="">الهدف</option>
+                    <option value="flowering">إنقاص الوزن</option>
+                    <option value="succulents">زيادة الوزن</option>
+                    <option value="trees">المحافظة على الوزن</option>
+                </select>
+
+            <div class="d-flex align-items-center gap-2">
+                {% for h in hood %}
+                <input type="checkbox" class="form-check-input" name="hood" id="check-{{c.id}}" value="{{c.id}}" />
+                <label for="check-{{c.id}}">{{c.name}}</label>
+                {% endfor %}
+            </div>
+
+            <label for="">صورة الحساب</label>
+            <input type="file" name="avatar" class="form-control" accept="image/*" >
+
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" name="email" placeholder="" required>
+                <label for="floatingInput">الايميل</label>
+            </div>
+
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingInput" name="password" placeholder="" required>
+                <label for="floatingInput">كلمة المرور</label>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-dark w-100" type="submit">إنشاء حساب</button>
+            </div>
+        </form>
+        </body>
+
+        </html>
+
+    {% endblock %}
