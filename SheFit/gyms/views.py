@@ -49,7 +49,11 @@ def all_gyms_view(request: HttpRequest, hood_name):
         "gyms": gyms_page,
         "hoods": Hood.objects.all(),
         "current_hood": hood_name,
-    })
+
+        "selected_rating": rating_order,
+        "selected_has_coach": has_coach,
+        "selected_hood": str(hood_id),
+    }) # اخر ثلاث عشان الفلتره تحتفظ بالي حددته 
 
 def gym_detail_view(request: HttpRequest, gym_id: int):
 
@@ -73,31 +77,41 @@ def gym_detail_view(request: HttpRequest, gym_id: int):
 
 def gym_update_view(request: HttpRequest, gym_id: int):
 
-    # فقط الإدمن يقدر يعدل
-    if not request.user.is_staff:
-        messages.warning(request, "only staff can update gym", "alert-warning")
+    # بس الستاف يقدرون يعدلون
+    if not (request.user.is_staff and request.user.has_perm("gyms.change_gym")):
+        messages.warning(request, "Only staff can update gym", "alert-warning")
         return redirect("main:home_view")
 
-    # نجيب النادي اللي بنعدله
+    # نجيب بيانات النادي
     gym = Gym.objects.get(pk=gym_id)
+    hoods = Hood.objects.all()   # نعرض كل الأحياء
 
-    # لو تم إرسال البيانات من الفورم
     if request.method == "POST":
-        gym_form = GymForm(instance=gym, data=request.POST, files=request.FILES)
 
-        # إذا كل شيء صحيح نحفظ التعديلات
-        if gym_form.is_valid():
-            gym_form.save()
-        else:
-            print(gym_form.errors)
+        # لو غيّر الصورة
+        if "image" in request.FILES:
+            gym.image = request.FILES["image"]
 
-        # نرجع لصفحة التفاصيل بعد التعديل
+        # تحديث الأحياء (ManyToMany)
+        selected_hoods = request.POST.getlist("hoods")
+        gym.hoods.set(selected_hoods)
+
+        # تحديث هل يوجد مدربين
+        gym.has_coach = True if request.POST.get("has_coach") == "true" else False
+
+        # تحديث الوصف
+        gym.about = request.POST.get("about")
+
+        # نحفظ التعديل
+        gym.save()
+
+        messages.success(request, "تم تحديث بيانات النادي بنجاح", "alert-success")
         return redirect("gyms:gym_detail_view", gym_id=gym.id)
 
-    # لو فتح الصفحة فقط (GET) نعرض بيانات النادي
-    return render(request, "gyms/gym_update.html", {"gym": gym})
-
-
+    return render(request, "gyms/gym_update.html", {
+        "gym": gym,
+        "hoods": hoods,
+    })
 
 def gym_delete_view(request: HttpRequest, gym_id: int):
 

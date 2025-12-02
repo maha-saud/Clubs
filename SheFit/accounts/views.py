@@ -20,7 +20,7 @@ def signin_view (request:HttpRequest):
         if user:
             login(request,user)
             messages.success(request,"تم تسجيل الدخول بنجاح", "alert-success")
-            return redirect(request.GET.get("next",'/'))
+            return redirect(request.GET.get("next", "/"))
         else:
             messages.error(request, "الرجاء المحاولة مرة اخرى، هناك خطأ في بيانات تسجيل الدخول", "alert-wrong")
 

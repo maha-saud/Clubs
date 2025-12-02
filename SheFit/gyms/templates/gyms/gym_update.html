@@ -6,49 +6,56 @@
 
 <h1 class="mb-4">تعديل بيانات النادي</h1>
 
-<form method="POST" enctype="multipart/form-data" class="mt-3">
-    {% csrf_token %}
+<div class="row">
+    <div class="col-6">
 
-    <!-- اسم صاحب النادي (user) يظهر كـ نص فقط -->
-    <div class="mb-3">
-        <label class="form-label">صاحب النادي</label>
-        <input type="text" class="form-control" value="{{ gym.user.username }}" disabled>
+        <form class="d-flex flex-column gap-3"
+              action="{% url 'gyms:gym_update_view' gym.id %}"
+              method="post"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- نبين الصورة الحالية -->
+            <div class="row">
+                <div class="col-4">
+                    <img src="{{ gym.image.url }}" class="w-100 rounded">
+                </div>
+                <div class="col">
+                    <input type="file" name="image" class="form-control">
+                </div>
+            </div>
+
+            <!-- الأحياء -->
+            <h5>الأحياء</h5>
+            <div class="d-flex flex-column gap-1">
+                {% for h in hoods %}
+                <div class="d-flex align-items-center gap-2">
+                    <input type="checkbox"
+                           name="hoods"
+                           value="{{ h.id }}"
+                           id="hood-{{h.id}}"
+                           class="form-check-input"
+                           {% if h in gym.hoods.all %}checked{% endif %}>
+                    <label for="hood-{{h.id}}">{{ h.name }}</label>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- وجود مدربين -->
+            <select name="has_coach" class="form-select">
+                <option value="true" {% if gym.has_coach %}selected{% endif %}>يوجد مدربين</option>
+                <option value="false" {% if not gym.has_coach %}selected{% endif %}>لا يوجد مدربين</option>
+            </select>
+
+            <!-- وصف النادي -->
+            <textarea name="about" class="form-control" rows="4">{{ gym.about }}</textarea>
+
+            <button class="btn btn-primary">تحديث</button>
+
+        </form>
+
     </div>
-
-    <!-- صورة النادي -->
-    <div class="mb-3">
-        <label class="form-label">الصورة الحالية</label><br>
-        <img src="{{ gym.image.url }}" class="rounded mb-2" width="200">
-        <input type="file" name="image" class="form-control mt-2">
-    </div>
-
-    <!-- الأحياء -->
-    <div class="mb-3">
-        <label class="form-label">الأحياء</label>
-        <select name="hoods" multiple class="form-select">
-            {% for h in gym.hoods.all %}
-            <option selected>{{ h.name }}</option>
-            {% endfor %}
-        </select>
-        <small class="text-muted">يمكنك تعديل الأحياء لاحقًا من لوحة التحكم إذا تبين تعديلات أكثر.</small>
-    </div>
-
-    <!-- هل يوجد مدربين -->
-    <div class="mb-3">
-        <label class="form-label">هل يوجد مدربين؟</label>
-        <select name="has_coach" class="form-select">
-            <option value="true" {% if gym.has_coach %}selected{% endif %}>نعم</option>
-            <option value="false" {% if not gym.has_coach %}selected{% endif %}>لا</option>
-        </select>
-    </div>
-
-    <!-- وصف النادي -->
-    <div class="mb-3">
-        <label class="form-label">الوصف</label>
-        <textarea name="about" class="form-control" rows="4">{{ gym.about }}</textarea>
-    </div>
-
-    <button class="btn btn-primary mt-3">تحديث</button>
-</form>
+</div>
 
 {% endblock %}
