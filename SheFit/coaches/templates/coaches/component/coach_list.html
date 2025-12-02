@@ -1,0 +1,19 @@
+<section class="cards mt-5">
+  <div class="row  row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-3 g-4">
+    {% for coach in coaches %}
+    <div class="col">
+      <a href="{% url 'coaches:profile_coach_view' coach.id %}" class="text-decoration-none w-100">
+        <div class="card h-100 border-0" style="width: 100%;">
+          <img src="{{ coach.avatar.url }}" class="card-img-top" >
+          <div class="card-body">
+            <p class="card-text fw-bold">{{ coach.user.first_name }} {{ coach.user.last_name }}</p>
+            <p>{{ coach.speciality }}</p>
+            <p class="card-text fw-bold">{{ coach.experience_years }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    {% endfor %}
+  </div>
+</section>

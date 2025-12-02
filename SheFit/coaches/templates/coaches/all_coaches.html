@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Coaches{% endblock %}
+
+
+{% block content %}
+
+<div class="d-flex align-items-center justify-content-between mt-5">
+    <h3>all Coaches</h3>
+</div>
+
+{% include 'coaches/component/coach_list.html' %}
+{% endblock %}

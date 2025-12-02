@@ -15,5 +15,27 @@ class Coach(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class CoachComment(models.Model):
+    class RatingChoices(models.IntegerChoices):
+        STAR1 = 1, "One Star"
+        STAR2 = 2, "Two Stars"
+        STAR3 = 3, "Three Stars"
+        STAR4 = 4, "Four Stars"
+        STAR5 = 5, "Five Stars"
+
+    TYPE_COMMENT = [
+        ('inquiry','استفسار'),
+        ('previous_member', 'مشترك سابق')
+    ]  
+    coach=models.ForeignKey(Coach, on_delete=models.CASCADE)
+    user =models.ForeignKey(User, on_delete=models.CASCADE)
+    type = models.CharField(max_length=20, choices=TYPE_COMMENT ,default='inquiry')
+    comment= models.TextField()
+    rating = models.SmallIntegerField(choices=RatingChoices.choices ,default=RatingChoices.STAR5)
+    created_at= models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} on {self.Coach.user.username}"    
 
  
