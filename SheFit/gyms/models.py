@@ -13,7 +13,8 @@ class Hood(models.Model):
 class Gym(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="gym", null=True, blank=True)
-    image =models.ImageField(upload_to="images/")
+    name =models.CharField(max_length=2048 ,default="")
+    image =models.ImageField(upload_to="images/", default='avatars/default.png')
     hoods =models.ManyToManyField(Hood)
     has_coach=models.BooleanField(default=True)
     about =models.TextField()

@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <title>{% block title %}{% endblock %}</title>
     {% block style %}{% endblock %}
 </head>
@@ -41,7 +42,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">المدربين</a>
+                        <a class="nav-link" href="{% url 'coaches:all_coaches_view'%}">المدربين</a>
                     </li>
 
                 </ul>
@@ -57,6 +58,7 @@
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" data-bs-toggle="dropdown">
                         <i class="bi bi-person-circle fs-5"></i>
+                        {{request.user.username}}
                     </button>
                     <ul class="dropdown-menu text-end">
                         <li><a class="dropdown-item" href="">الصفحة الشخصية</a></li>
@@ -72,8 +74,7 @@
                         <i class="bi bi-person-circle fs-5"></i>
                     </button>
                     <ul class="dropdown-menu text-end">
-                        <li><a class="dropdown-item"
-                                href="{% url 'accounts:signup_view' %}">إنشاء حساب</a>
+                        <li><a class="dropdown-item" href="{% url 'accounts:signup_view' %}">إنشاء حساب</a>
                         </li>
                         <li><a class="dropdown-item"
                                 href="{% url 'accounts:signin_view' %}?next={{ request.path }}">تسجيل دخول</a></li>
@@ -81,27 +82,36 @@
                 </div>
                 {% endif %}
 
-
+            
                 <div class="ms-3">
-                    <a href="{% url 'main:mode_view' 'light'%}?next={{request.path}}"><i class="bi bi-brightness-high  {% if 'mode' not in request.COOKIES or 'mode' in request.COOKIES and request.COOKIES.mode != 'dark' %}active-icon {% endif %}"></i></a>
-                    <a href="{% url 'main:mode_view' 'dark'%}?next={{request.path}}"><i class="bi bi-moon-stars-fill {% if 'mode' in request.COOKIES and request.COOKIES.mode == 'dark' %}active-icon {% endif %}"></i></a>
+                    <a href="{% url 'main:mode_view' 'light'%}?next={{request.path}}"><i
+                            class="bi bi-brightness-high  {% if 'mode' not in request.COOKIES or 'mode' in request.COOKIES and request.COOKIES.mode != 'dark' %}active-icon {% endif %}"></i></a>
+                    <a href="{% url 'main:mode_view' 'dark'%}?next={{request.path}}"><i
+                            class="bi bi-moon-stars-fill {% if 'mode' in request.COOKIES and request.COOKIES.mode == 'dark' %}active-icon {% endif %}"></i></a>
                 </div>
 
-                
-      
 
             </div>
         </div>
     </nav>
 
-    
+     <!--Message-->
+    {% if messages %}
+    {%for message in messages %}
+    <div class="container alert {{message.tags}} alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
     <main class="container py-4">
         {% block content %}{% endblock %}
     </main>
 
-   
+
     <footer class="bg-light text-center py-4 mt-5 border-top">
-        <p class="mb-1">© 2024 شيفت - جميع الحقوق محفوظة</p>
+        <p class="mb-1">© 2025 شيفت - جميع الحقوق محفوظة</p>
         <a href="/" class="mx-2">الرئيسية</a>
         <a href="/" class="mx-2">عنا</a>
         <a href="/" class="mx-2">تواصل معنا</a>

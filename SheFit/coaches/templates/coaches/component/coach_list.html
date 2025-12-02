@@ -1,19 +1,45 @@
 <section class="cards mt-5">
-  <div class="row  row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-3 g-4">
-    {% for coach in coaches %}
-    <div class="col">
-      <a href="{% url 'coaches:profile_coach_view' coach.id %}" class="text-decoration-none w-100">
-        <div class="card h-100 border-0" style="width: 100%;">
-          <img src="{{ coach.avatar.url }}" class="card-img-top" >
-          <div class="card-body">
-            <p class="card-text fw-bold">{{ coach.user.first_name }} {{ coach.user.last_name }}</p>
-            <p>{{ coach.speciality }}</p>
-            <p class="card-text fw-bold">{{ coach.experience_years }}</p>
-          </div>
-        </div>
-      </a>
-    </div>
+  <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-3 g-4">
 
+    {% for coach in coaches %}
+    <div class="col d-flex justify-content-center">
+
+        <div class="card text-center shadow p-4 border-0"
+             style="width: 18rem; border-radius: 20px;  ">
+
+          <!-- Profile Image -->
+          <img src="{{ coach.avatar.url }}"
+               class="rounded-circle mx-auto"
+               style="width: 120px; height: 120px; object-fit: cover;">
+
+          <!-- Name -->
+          <h4 class="mt-3">
+            {{ coach.user.first_name }} {{ coach.user.last_name }}
+          </h4>
+
+          <!-- Speciality -->
+          <p class="mb-1" >
+            {{ coach.speciality }}
+          </p>
+
+          <!-- Experience -->
+          <p class="text-warning">
+            خبرة: {{ coach.experience_years }} سنوات
+          </p>
+
+      
+          <a href="{% url 'coaches:profile_coach_view' coach.id %}"
+             class="btn-outline-success btn px-4 py-2 mt-2 "
+             style="border-radius: 30px;">
+            التفاصيل
+          </a>
+
+        </div>
+
+   
+
+    </div>
     {% endfor %}
+
   </div>
 </section>

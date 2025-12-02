@@ -4,28 +4,32 @@
 {% block title %}إنشاء حساب{% endblock %}
 
 {% block content %}
-<section class="d-flex justify-content-center align-items-center">
-    <div class="col-12 col-md-6 contact-container">
-        <div class="col-12 mb-4">
-            <h2 style="font-size: 40px;"><strong>إنشاء حساب للنادي</strong></h2>
-        </div>
+<section class="d-flex justify-content-center align-items-center mt-5 mb-5">
+    <div class="col-12 col-md-6">
+        <div class="card shadow-sm p-4">
+            <h2 class="mb-4 text-center"><strong>إنشاء حساب للنادي</strong></h2>
+        
 
-        <form class="row g-3 needs-validation" action="{% url 'accounts:gym_signup_view' %}" method="post" enctype="multipart/form-data">
+        <form class="needs-validation" action="{% url 'accounts:gym_signup_view' %}" method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="nameInput" placeholder="" name="username" required>
+                <input type="text" class="form-control" id="usernameInput" placeholder="اسم المستخدم" name="username" required>
+                <label for="usernameInput">اسم المستخدم لنادي</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nameInput" placeholder="اسم النادي" name="name" required>
                 <label for="nameInput">اسم النادي</label>
             </div>
 
             <div class="form-floating mb-3">
-                <textarea class="form-control" id="aboutInput" name="about" placeholder="" required></textarea>
+                <textarea class="form-control" id="aboutInput" name="about" placeholder="عن النادي" required></textarea>
                 <label for="aboutInput">عن النادي</label>
             </div>
 
             <div class="mb-3">
-                <label for="hood-select" class="form-label">اختر الحي</label>
-                <select name="hood" id="hood-select" class="form-select" multiple>
+                <label for="hood-select" class="form-label">اختر الحي /الأحياء</label>
+                <select name="hoods" id="hood-select" class="form-select" multiple required>
                     {% for h in hood %}
                         <option value="{{ h.id }}">{{ h.name }}</option>
                     {% endfor %}
@@ -33,29 +37,29 @@
             </div>
 
             <div class="mb-3">
-                <label>يوجد مدربين؟</label>
-                <div class="form-check">
+                <label class="form-label d-block">يوجد مدربين؟</label>
+                <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="has_coach" id="radioYes" value="True" checked>
                     <label class="form-check-label" for="radioYes">نعم</label>
                 </div>
-                <div class="form-check">
+                <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="has_coach" id="radioNo" value="False">
                     <label class="form-check-label" for="radioNo">لا</label>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="imageInput" class="form-label">صورة الحساب</label>
+                <label for="imageInput" class="form-label">صورة النادي</label>
                 <input type="file" name="image" id="imageInput" class="form-control" accept="image/*" >
             </div>
 
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="emailInput" name="email" placeholder="" required>
+                <input type="email" class="form-control" id="emailInput" name="email" placeholder="الايميل" required>
                 <label for="emailInput">الايميل</label>
             </div>
 
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="passwordInput" name="password" placeholder="" required>
+                <input type="password" class="form-control" id="passwordInput" name="password" placeholder="كلمة المرور" required>
                 <label for="passwordInput">كلمة المرور</label>
             </div>
 
@@ -63,6 +67,7 @@
                 <button class="btn btn-dark w-100" type="submit">إنشاء حساب</button>
             </div>
         </form>
+        </div>
     </div>
 </section>
 {% endblock %}

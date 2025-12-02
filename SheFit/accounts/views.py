@@ -72,7 +72,7 @@ def trainee_signup_view (request:HttpRequest):
 
 def gym_signup_view (request:HttpRequest):
     gym_form=GymSignUpForm()
-    neighborhood = Hood.objects.all()
+    hoods = Hood.objects.all()
     if request.method =="POST":
         try:
             new_user =User.objects.create_user(username=request.POST["username"], email=request.POST["email"], password=request.POST["password"])
@@ -82,16 +82,20 @@ def gym_signup_view (request:HttpRequest):
             if gym_form.is_valid():
                 gym = gym_form.save(commit=False)
                 gym.user = new_user
+                gym.has_coach = request.POST.get("has_coach") == "True"
                 gym.save()
-                gym.hood.set(request.POST.getlist("hood"))
-                messages.success(request, "تم تسجيل الحساب بنجاح", "alert-success")
+
+                selected_hoods = request.POST.getlist('hoods')
+                gym.hoods.set(selected_hoods)
+
+                messages.success(request, "تم تسجيل النادي بنجاح", "alert-success")
                 return redirect('accounts:signin_view')
             else:
                 messages.error(request, "هناك خطأ في بيانات النادي", "alert-warning")
         except Exception as e:
             messages.error(request, f"حدث خطأ أثناء التسجيل {str(e)}", "alert-warning")  
 
-    return render(request,"accounts/gym_signup.html",{"form":gym_form, "hood":neighborhood})
+    return render(request,"accounts/gym_signup.html",{"form":gym_form, "hood":hoods})
 
 
 def logout_view (request:HttpRequest):
