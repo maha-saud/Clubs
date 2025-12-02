@@ -15,7 +15,7 @@
 <body class="{% if request.COOKIES.mode == 'dark' %}bg-dark text-light{% endif %}">
 
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm sticky-top">
         <div class="container">
 
 
@@ -37,7 +37,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">النوادي</a>
+                        <a class="nav-link" href="{% url 'gyms:all_gyms_view' 'all' %}">النوادي</a>
                     </li>
 
                     <li class="nav-item">
