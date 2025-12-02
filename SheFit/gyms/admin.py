@@ -1,35 +1,24 @@
 from django.contrib import admin
-from .models import Gym ,Hood
+from .models import Gym, Hood, GymComment
 from coaches.models import Coach
 
 
-
-
-# Register your models here.
-
 class GymAdmin(admin.ModelAdmin):
-    list_display=("username",) 
+    list_display = ("user", "has_coach")
+    list_filter = ("has_coach", "hoods")
 
-    def username(self, obj):
-        return obj.user.username
-    username.short_description =username 
 
-class HoodAdmin  (admin.ModelAdmin):
-    list_display=("name",)  
-
+class GymCommentAdmin(admin.ModelAdmin):
+    list_display = ("user", "gym", "comment_type", "rating")
+    list_filter = ("comment_type", "rating", "gym")
 
 
 class CoachAdmin(admin.ModelAdmin):
-    list_display=("username",) 
-
-    def username(self, obj):
-        return obj.user.username
-    username.short_description =username   
+    list_display = ("user", "gym")
+    list_filter = ("gym",)
 
 
-admin.site.register(Gym,GymAdmin)
-admin.site.register(Hood,HoodAdmin)
-admin.site.register(Coach,CoachAdmin)
-
-
-
+admin.site.register(Gym, GymAdmin)
+admin.site.register(GymComment, GymCommentAdmin)
+admin.site.register(Hood)            
+admin.site.register(Coach, CoachAdmin)

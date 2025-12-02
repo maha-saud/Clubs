@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+
+{% block title %}النوادي{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">النوادي</h1>
+<form method="GET" class="d-flex gap-3 mb-4">
+
+    <!-- فلترة التقييم -->
+    <select name="rating" class="form-select w-auto">
+        <option value="all">التقييم (الكل)</option>
+        <option value="high" {% if selected_rating == "high" %}selected{% endif %}>الأعلى تقييم</option>
+        <option value="low" {% if selected_rating == "low" %}selected{% endif %}>الأقل تقييم</option>
+    </select>
+
+    <!-- فلترة وجود مدربين -->
+    <select name="has_coach" class="form-select w-auto">
+        <option value="all">المدربين (الكل)</option>
+        <option value="yes" {% if selected_has_coach == "yes" %}selected{% endif %}>يوجد مدربين</option>
+        <option value="no" {% if selected_has_coach == "no" %}selected{% endif %}>بدون مدربين</option>
+    </select>
+
+    <!-- فلترة حسب الحي -->
+    <select name="hood" class="form-select w-auto">
+        <option value="all">الأحياء (الكل)</option>
+        {% for h in hoods %}
+            <option value="{{ h.id }}"
+                {% if selected_hood == h.id|stringformat:"s" %}selected{% endif %}>
+                {{ h.name }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <!-- زر تطبيق الفلترة -->
+    <button class="btn btn-primary">تطبيق</button>
+
+</form>
+
+
+{% include 'gyms/gyms_list.html' %}
+
+<div class="pagination d-flex justify-content-center mt-4">
+
+    {% if gyms.has_previous %}
+        <a href="?page=1">الأولى</a>
+        <a href="?page={{ gyms.previous_page_number }}">السابق</a>
+    {% endif %}
+
+    {% for page in gyms.paginator.page_range %}
+        {% if page == gyms.number %}
+            <a class="active-page">{{ page }}</a>
+        {% else %}
+            <a href="?page={{ page }}">{{ page }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if gyms.has_next %}
+        <a href="?page={{ gyms.next_page_number }}">التالي</a>
+        <a href="?page={{ gyms.paginator.num_pages }}">الأخيرة</a>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}
