@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}تعديل باقة {% endblock %}
+
+{% block content %}
+
+<section class="d-flex justify-content-center align-items-center mt-5 mb-5">
+    <div class="col-12 col-md-6">
+        <div class="card shadow-sm p-4">
+            <h2 class="mb-5 mt-3 text-center"><strong>تعديل باقة </strong></h2>
+
+        <form class="row g-3 needs-validation" action="{% url 'coaches:update_plan_view' plan.id %}" method="post" enctype="multipart/form-data">
+            {%csrf_token %}
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" name="name" placeholder="" value="{{plan.name}}" >
+                <label for="floatingInput">اسم الباقة </label>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="aboutInput" name="description" placeholder="" >{{plan.description}}</textarea>
+                <label for="aboutInput">تفاصيل الخطة</label>
+            </div>
+             <div class="form-floating">
+                <input type="number" class="form-control" id="floatingInput" name="duration_days" placeholder="" value="{{plan.duration_days}}" >
+                <label for="floatingInput">مدة الباقة (بالأيام)</label>
+            </div>
+             <div class="form-floating">
+                <input type="number" class="form-control" id="floatingInput" name="price" placeholder="" value="{{plan.price}}">
+                <label for="floatingInput">السعر</label>
+            </div>
+             <div class="form-floating">
+                <input type="number" class="form-control" id="floatingInput" name="max_subscribers" placeholder="" value="{{plan.max_subscribers}}">
+                <label for="floatingInput">الحد الأقصى للمشتركين</label>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-dark w-100" type="submit">تحديث باقة</button>
+            </div>
+        </form>
+     
+        </div>
+    </div>
+</section>
+    {% endblock %}

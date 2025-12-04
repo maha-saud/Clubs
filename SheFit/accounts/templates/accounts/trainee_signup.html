@@ -37,23 +37,18 @@
                 <label for="floatingInput">الوزن</label>
             </div>
 
-            
-                <select name="category" class="form-control">
-                    <option value="">الهدف</option>
-                    <option value="flowering">إنقاص الوزن</option>
-                    <option value="succulents">زيادة الوزن</option>
-                    <option value="trees">المحافظة على الوزن</option>
+                <div class="form-floating">
+                <select name="goal"  id="floatingInput" placeholder="" class="form-control" required>
+                    <option value="" for="floatingInput">الهدف</option>
+                    <option value="flowering" for="floatingInput">إنقاص الوزن</option>
+                    <option value="succulents" for="floatingInput">زيادة الوزن</option>
+                    <option value="trees" for="floatingInput">المحافظة على الوزن</option>
                 </select>
+                </div>
 
-            <div class="d-flex align-items-center gap-2">
-                {% for h in hood %}
-                <input type="checkbox" class="form-check-input" name="hood" id="check-{{c.id}}" value="{{c.id}}" />
-                <label for="check-{{c.id}}">{{c.name}}</label>
-                {% endfor %}
-            </div>
 
             <label for="">صورة الحساب</label>
-            <input type="file" name="avatar" class="form-control" accept="image/*" >
+            <input type="file" name="avatar" class="form-control" accept="image/*" required>
 
             <div class="form-floating">
                 <input type="text" class="form-control" id="floatingInput" name="email" placeholder="" required>

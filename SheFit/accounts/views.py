@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate ,login,logout
 from django.contrib import messages
 from .forms import CoachSignUpForm, TraineeSignUpForm, GymSignUpForm
+from .models import Trainee
 from gyms.models import Hood
 
 
@@ -20,7 +21,7 @@ def signin_view (request:HttpRequest):
         if user:
             login(request,user)
             messages.success(request,"تم تسجيل الدخول بنجاح", "alert-success")
-            return redirect(request.GET.get("next", "/"))
+            return redirect(request.GET.get("next",'/'))
         else:
             messages.error(request, "الرجاء المحاولة مرة اخرى، هناك خطأ في بيانات تسجيل الدخول", "alert-wrong")
 
@@ -103,5 +104,10 @@ def logout_view (request:HttpRequest):
     messages.success(request, "تم تسجيل خروج بنجاح", "alert-warning")
 
     return redirect(request.GET.get("next","/"))
+
+
+def profile_trainee_view(request:HttpRequest, train_id:int):
+    trainee=Trainee.objects.get(pk=train_id)
+    return render(request,"accounts/profile_trainee.html", {"trainee":trainee})
 
 

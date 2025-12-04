@@ -12,5 +12,5 @@ urlpatterns=[
    path('signup/gym',views.gym_signup_view,name="gym_signup_view"),
    path('signup/trainee',views.trainee_signup_view,name="trainee_signup_view"),
    path('logout/',views.logout_view,name="logout_view"),
-   
+   path('profile/<int:train_id>/',views.profile_trainee_view,name="profile_trainee_view"),
 ]
