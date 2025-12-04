@@ -3,135 +3,165 @@
 
 {% block content %}
 
-<!-- عنوان النادي -->
-<div class="gym-title-section text-center">
-    <h1 class="gym-title">{{ gym.user.username }}</h1>
+<!-- عنوان -->
+<div class="text-center mb-5">
+    <h1 class="fw-bold display-6">{{ gym.user.username }}</h1>
 </div>
 
-<!--  صورة النادي الرئيسية -->
-<div class="gym-hero-container">
-    <img src="{{ gym.image.url }}" class="gym-hero-img">
-    <div class="gym-hero-overlay"></div>
-
-    <div class="gym-hero-text">
-        <h2 class="gym-hero-name">{{ gym.user.username }}</h2>
-
-        <!-- الأحياء -->
-        <div class="gym-hoods">
-            {% for h in gym.hoods.all %}
-            <a href="{% url 'gyms:all_gyms_view' h.name %}">
-                <span class="hood-badge">{{ h.name }}</span>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
+<!-- صورة رئيسية -->
+<div class="gym-image-wrapper mb-5">
+    <img src="{{ gym.image.url }}" class="gym-detail-img">
 </div>
 
 
-<div class="container mt-5">
 
-    <div class="row g-4">
+<div class="container">
 
-        <!--  معلومات النادي  -->
-        <div class="col-md-6 gym-info">
+    <div class="row g-5">
 
-            <div class="gym-info-item">
-                <span class="label">متوسط التقييم:</span>
-                <i class="bi bi-star-fill star-icon"></i>
-                <strong>{{ average_rating|default:"0" }}</strong>
-            </div>
+        <!-- معلومات -->
+        <div class="col-md-6">
 
-            <div class="gym-info-item">
-                <span class="label">عدد التعليقات:</span>
-                <span class="material-symbols-outlined chat-icon">chat_bubble</span>
-                <strong>{{ gym.comments.count }}</strong>
-            </div>
+            <div class="p-4 rounded shadow-sm border bg-white">
 
-            <div class="gym-info-item">
-                <span class="label">توفر المدربين:</span>
-                {% if gym.has_coach %}
-                <span class="status-yes">يوجد مدربين</span>
-                {% else %}
-                <span class="status-no">بدون مدربين</span>
+                <h4 class="fw-bold mb-4">معلومات النادي</h4>
+
+                <div class="d-flex flex-column gap-3">
+
+                    <!-- متوسط التقييم -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">متوسط التقييم</span>
+                        <div class="d-flex align-items-center gap-1">
+                            <i class="bi bi-star-fill text-warning fs-5"></i>
+                            <strong class="fs-5">{{ average_rating|default:"0" }}</strong>
+                        </div>
+                    </div>
+
+                    <!-- عدد التعليقات -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">عدد التعليقات</span>
+                        <div class="d-flex align-items-center gap-1">
+                            <span class="material-symbols-outlined"
+                                  style="font-size:22px; background:var(--orange-grad); -webkit-background-clip:text; color:transparent;">
+                                  chat_bubble
+                            </span>
+                            <strong class="fs-5">{{ gym.comments.count }}</strong>
+                        </div>
+                    </div>
+
+                    <!-- توفر المدربين -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">توفر المدربين</span>
+                        {% if gym.has_coach %}
+                            <span class="text-success fw-semibold">يوجد مدربين</span>
+                        {% else %}
+                            <span class="text-danger fw-semibold">بدون مدربين</span>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+
+                <!-- وصف -->
+                <h5 class="fw-bold mb-2">عن النادي</h5>
+                <p class="text-muted lh-lg">{{ gym.about }}</p>
+
+                {% if request.user.is_staff %}
+                <div class="d-flex gap-3 mt-4">
+                    <a href="{% url 'gyms:gym_update_view' gym.id %}" class="btn btn-warning px-4">تعديل</a>
+                    <a href="{% url 'gyms:gym_delete_view' gym.id %}" class="btn btn-danger px-4"
+                       onclick="return confirm('هل أنت متأكدة؟');">حذف</a>
+                </div>
                 {% endif %}
             </div>
-
-            <div class="gym-about">
-                <h4 class="section-title">عن النادي</h4>
-                <p class="about-text">{{ gym.about }}</p>
-            </div>
-
-            {% if request.user.is_staff %}
-            <div class="gym-admin-btns">
-                <a href="{% url 'gyms:gym_update_view' gym.id %}" class="btn btn-warning px-4">تعديل</a>
-                <a href="{% url 'gyms:gym_delete_view' gym.id %}" class="btn btn-danger px-4"
-                   onclick="return confirm('هل انت متأكد من حذفك لهذا النادي؟');">حذف</a>
-            </div>
-            {% endif %}
         </div>
 
-
-        <!--  المدربين  -->
+        <!-- المدربات / الفروع -->
         <div class="col-md-6">
-            <h4 class="section-title">مدربات النادي</h4>
 
-            <div class="coaches-list">
+            <!-- مدربات -->
+            <div class="p-4 rounded shadow-sm border bg-white mb-4">
+                <h4 class="fw-bold mb-3">مدربات النادي</h4>
+
                 {% for c in coaches %}
-                <div class="coach-card">
-                    <img src="{{ c.avatar.url }}" class="coach-avatar">
+                <div class="d-flex align-items-center gap-3 p-2 border rounded mb-2">
+                    <img src="{{ c.avatar.url }}" class="rounded-circle" width="55" height="55">
                     <div>
-                        <h6 class="coach-name">{{ c.user.username }}</h6>
-                        <small class="coach-speciality">{{ c.speciality }}</small>
+                        <h6 class="fw-bold mb-0">{{ c.user.username }}</h6>
+                        <small class="text-muted">{{ c.speciality }}</small>
                     </div>
                 </div>
                 {% empty %}
-                <p class="empty-text">لا يوجد مدربين مسجلين حالياً.</p>
+                <p class="text-muted m-0">لا يوجد مدربات مسجلات.</p>
                 {% endfor %}
             </div>
-        </div>
 
-    </div>
+            <!-- فروع -->
+            <div class="p-4 rounded shadow-sm border bg-white">
+                <h4 class="fw-bold mb-3">فروع النادي</h4>
 
-
-    <hr class="my-5">
-
-
-    <!-- التعليقات  -->
-    <h3 class="section-title mb-4">التعليقات</h3>
-
-    <div class="comments-list row gap-3">
-        {% for c in gym.comments.all %}
-        <div class="comment-card ">
-            <div class="comment-header">
-                <h6 class="comment-user">{{ c.user.username }}</h6>
-                <div class="rating-display">
-                    <i class="bi bi-star-fill star-icon"></i>
-                    <span>{{ c.rating }}</span>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for h in gym.hoods.all %}
+                    <a href="{% url 'gyms:all_gyms_view' h.name %}">
+                        <span class="badge text-white px-3 py-2"
+                              style="background: var(--orange-grad); border-radius: 30px;">
+                            {{ h.name }}
+                        </span>
+                    </a>
+                    {% endfor %}
                 </div>
             </div>
 
-            <p class="comment-text">{{ c.comment }}</p>
-            <small class="comment-type">{{ c.comment_type }}</small>
+        </div>
+
+    </div>
+
+    <!-- التعليقات -->
+    <hr class="my-5">
+
+    <div class="d-flex align-items-center gap-2 mb-4">
+        <h3 class="fw-bold m-0">التعليقات</h3>
+        <span class="badge bg-dark rounded-pill px-3 py-2">{{ gym.comments.count }}</span>
+    </div>
+
+    <div class="row gy-4">
+        {% for c in gym.comments.all %}
+        <div class="col-12">
+            <div class="p-4 bg-white shadow-sm rounded border">
+
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="fw-bold m-0">{{ c.user.username }}</h6>
+                    <div class="d-flex align-items-center gap-1">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span>{{ c.rating }}</span>
+                    </div>
+                </div>
+
+                <p class="mb-1">{{ c.comment }}</p>
+                <small class="text-muted">{{ c.comment_type }}</small>
+
+            </div>
         </div>
         {% empty %}
-        <p class="empty-text">لا يوجد تعليقات.</p>
+        <p class="text-muted">لا يوجد تعليقات بعد.</p>
         {% endfor %}
     </div>
 
+    <!-- إضافة تعليق -->
     <hr class="my-5">
 
-    <!-- إضافة تعليق -->
-    <h3 class="section-title mt-5">أضف تعليقك</h3>
+    <h3 class="fw-bold mb-4">أضف تعليقك</h3>
 
     {% if request.user.is_authenticated %}
-    <form method="POST" action="{% url 'gyms:add_comment_view' gym.id %}" class="comment-form">
+    <form method="POST" action="{% url 'gyms:add_comment_view' gym.id %}" class="p-4 rounded shadow-sm bg-white border">
         {% csrf_token %}
 
-        <label class="form-label">التعليق:</label>
+        <label class="form-label fw-semibold">التعليق:</label>
         <textarea name="comment" class="form-control" required></textarea>
 
-        <label class="form-label mt-3">التقييم:</label>
-        <select name="rating" class="form-select" required>
+        <label class="form-label fw-semibold mt-3">التقييم:</label>
+        <select name="rating" class="form-select">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -139,8 +169,8 @@
             <option value="5">5</option>
         </select>
 
-        <label class="form-label mt-3">نوع التعليق:</label>
-        <select name="comment_type" class="form-select" required>
+        <label class="form-label fw-semibold mt-3">نوع التعليق:</label>
+        <select name="comment_type" class="form-select">
             <option value="member">مشترك</option>
             <option value="visitor">زائر</option>
             <option value="question">استفسار</option>
@@ -149,7 +179,7 @@
         <button class="btn btn-primary mt-4 px-4">إرسال</button>
     </form>
     {% else %}
-    <p class="empty-text">يجب عليك تسجيل الدخول لإضافة تعليق.</p>
+    <p class="text-muted">يجب تسجيل الدخول لإضافة تعليق.</p>
     {% endif %}
 
 </div>
