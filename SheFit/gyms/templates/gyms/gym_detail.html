@@ -1,4 +1,6 @@
 {% extends 'main/base.html' %}
+{% load ar_time %}
+
 {% block title %}تفاصيل النادي{% endblock %}
 
 {% block content %}
@@ -13,17 +15,13 @@
     <img src="{{ gym.image.url }}" class="gym-detail-img">
 </div>
 
-
-
 <div class="container">
 
     <div class="row g-5">
 
         <!-- معلومات -->
         <div class="col-md-6">
-
             <div class="p-4 rounded shadow-sm border bg-white">
-
                 <h4 class="fw-bold mb-4">معلومات النادي</h4>
 
                 <div class="d-flex flex-column gap-3">
@@ -33,19 +31,19 @@
                         <span class="text-muted">متوسط التقييم</span>
                         <div class="d-flex align-items-center gap-1">
                             <i class="bi bi-star-fill text-warning fs-5"></i>
-                            <strong class="fs-5">{{ average_rating|default:"0" }}</strong>
+                            <strong class="fs-5">{{ average_rating|floatformat:2 }}</strong>
                         </div>
                     </div>
 
-                    <!-- عدد التعليقات -->
+                    <!-- عدد التعليقات (تعليقات أساسية فقط) -->
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-muted">عدد التعليقات</span>
                         <div class="d-flex align-items-center gap-1">
                             <span class="material-symbols-outlined"
-                                  style="font-size:22px; background:var(--orange-grad); -webkit-background-clip:text; color:transparent;">
-                                  chat_bubble
+                                style="font-size:22px; background:var(--orange-grad); -webkit-background-clip:text; color:transparent;">
+                                chat_bubble
                             </span>
-                            <strong class="fs-5">{{ gym.comments.count }}</strong>
+                            <strong class="fs-5">{{ parent_comments.count }}</strong>
                         </div>
                     </div>
 
@@ -53,9 +51,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-muted">توفر المدربين</span>
                         {% if gym.has_coach %}
-                            <span class="text-success fw-semibold">يوجد مدربين</span>
+                        <span class="text-success fw-semibold">يوجد مدربين</span>
                         {% else %}
-                            <span class="text-danger fw-semibold">بدون مدربين</span>
+                        <span class="text-danger fw-semibold">بدون مدربين</span>
                         {% endif %}
                     </div>
 
@@ -66,12 +64,12 @@
                 <!-- وصف -->
                 <h5 class="fw-bold mb-2">عن النادي</h5>
                 <p class="text-muted lh-lg">{{ gym.about }}</p>
-
-                {% if request.user.is_staff %}
+                
+                {% if request.user == gym.user or request.user.is_staff %}
                 <div class="d-flex gap-3 mt-4">
                     <a href="{% url 'gyms:gym_update_view' gym.id %}" class="btn btn-warning px-4">تعديل</a>
                     <a href="{% url 'gyms:gym_delete_view' gym.id %}" class="btn btn-danger px-4"
-                       onclick="return confirm('هل أنت متأكدة؟');">حذف</a>
+                       onclick="return confirm('هل تريدين حذف هذا النادي فعلا؟ ');">حذف</a>
                 </div>
                 {% endif %}
             </div>
@@ -105,7 +103,7 @@
                     {% for h in gym.hoods.all %}
                     <a href="{% url 'gyms:all_gyms_view' h.name %}">
                         <span class="badge text-white px-3 py-2"
-                              style="background: var(--orange-grad); border-radius: 30px;">
+                            style="background: var(--orange-grad); border-radius: 30px;">
                             {{ h.name }}
                         </span>
                     </a>
@@ -122,29 +120,16 @@
 
     <div class="d-flex align-items-center gap-2 mb-4">
         <h3 class="fw-bold m-0">التعليقات</h3>
-        <span class="badge bg-dark rounded-pill px-3 py-2">{{ gym.comments.count }}</span>
+        <!-- هنا برضه نعدّ تعليقات أساسية فقط -->
+        <span class="badge bg-dark rounded-pill px-3 py-2">{{ parent_comments.count }}</span>
     </div>
 
-    <div class="row gy-4">
-        {% for c in gym.comments.all %}
-        <div class="col-12">
-            <div class="p-4 bg-white shadow-sm rounded border">
-
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h6 class="fw-bold m-0">{{ c.user.username }}</h6>
-                    <div class="d-flex align-items-center gap-1">
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <span>{{ c.rating }}</span>
-                    </div>
-                </div>
-
-                <p class="mb-1">{{ c.comment }}</p>
-                <small class="text-muted">{{ c.comment_type }}</small>
-
-            </div>
-        </div>
+    <!-- بلوك التعليقات (تيكتوك ستايل) -->
+    <div class="comments-wrapper">
+        {% for c in parent_comments %}
+            {% include "gyms/comment_block.html" with comment=c %}
         {% empty %}
-        <p class="text-muted">لا يوجد تعليقات بعد.</p>
+            <p class="text-muted">لا يوجد تعليقات بعد.</p>
         {% endfor %}
     </div>
 
@@ -154,7 +139,9 @@
     <h3 class="fw-bold mb-4">أضف تعليقك</h3>
 
     {% if request.user.is_authenticated %}
-    <form method="POST" action="{% url 'gyms:add_comment_view' gym.id %}" class="p-4 rounded shadow-sm bg-white border">
+    <form method="POST" action="{% url 'gyms:add_comment_view' gym.id %}"
+        class="p-4 rounded shadow-sm bg-white border">
+
         {% csrf_token %}
 
         <label class="form-label fw-semibold">التعليق:</label>
@@ -162,6 +149,7 @@
 
         <label class="form-label fw-semibold mt-3">التقييم:</label>
         <select name="rating" class="form-select">
+            <option value="">بدون تقييم</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -183,5 +171,39 @@
     {% endif %}
 
 </div>
+
+<!-- سكربت التحكم في الردود -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // فتح/إغلاق فورم الرد
+    document.querySelectorAll(".reply-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            const form = this.nextElementSibling;
+            if (form) {
+                form.classList.toggle("d-none");
+            }
+        });
+    });
+
+    // عرض/إخفاء الردود + تغيير النص والسهم
+    document.querySelectorAll(".toggle-replies").forEach(btn => {
+        btn.addEventListener("click", function () {
+            const targetId = this.dataset.target;
+            const target = document.getElementById(targetId);
+            if (!target) return;
+
+            const isHidden = target.classList.toggle("d-none");
+
+            if (isHidden) {
+                this.textContent = this.dataset.labelClosed;
+            } else {
+                this.textContent = this.dataset.labelOpen;
+            }
+        });
+    });
+
+});
+</script>
 
 {% endblock %}

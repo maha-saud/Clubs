@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize', #عشان اعرض التاريخ بطريقه حلوه داخل التعليقات 
     'main',
     'gyms',
     'coaches',

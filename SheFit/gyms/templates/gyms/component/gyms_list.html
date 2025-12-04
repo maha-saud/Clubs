@@ -19,15 +19,13 @@
 
                         <!-- متوسط التقييم -->
                         <div class="d-flex align-items-center gap-1">
-                            <span class="small text-muted">متوسط التقييم:</span>
                             <i class="bi bi-star-fill" style="color: #f1c40f; font-size:18px;"></i>
-                            <span class="fw-semibold">{{ gym.avg_rating|default:"0" }}</span>
+                            <span class="fw-semibold">{{ gym.avg_rating|floatformat:2 }}</span>
                         </div>
 
 
                         <!-- عدد التعليقات -->
                         <div class="d-flex align-items-center gap-1">
-                        <span class="small text-muted mt-2">عدد التعليقات:</span>
                             <span class="material-symbols-outlined" style="
                                       font-size:20px;
                                       background: var(--orange-grad);
