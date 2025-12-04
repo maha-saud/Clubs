@@ -11,7 +11,7 @@
     --text-dark: #222222;
     --text-light: #f5f5f5;
 
-    --nav-light: rgba(255, 255, 255, 0.85);
+    --nav-light: rgba(255, 255, 255, 0.421);
     --nav-dark: rgba(40, 40, 40, 0.85);
 }
 
@@ -28,6 +28,7 @@ body {
 .navbar {
     background: var(--nav-light) !important;
     backdrop-filter: blur(12px);
+    
     padding: 14px 0;
 }
 
@@ -474,3 +475,28 @@ body.bg-dark .hero-content {
     object-position: center;    /* تركز الصورة في النص */
     display: block;
 }
+
+
+.gym-detail-img {
+    width: 100%;
+    max-width: 1100px;
+    display: block;
+    margin-inline: auto;
+    border-radius: 20px;
+    object-fit: cover;
+    height: 430px;
+}
+
+.comment-card-custom {
+    transition: 0.2s;
+}
+
+.comment-card-custom:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.comment-card-custom img {
+    object-fit: cover;
+}
+

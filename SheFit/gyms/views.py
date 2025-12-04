@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, Avg
 from django.core.paginator import Paginator
 from django.http import HttpRequest
@@ -55,36 +55,56 @@ def all_gyms_view(request: HttpRequest, hood_name):
         "selected_hood": str(hood_id),
     }) # اخر ثلاث عشان الفلتره تحتفظ بالي حددته 
 
+
 def gym_detail_view(request: HttpRequest, gym_id: int):
 
-    # نجيب النادي حسب الـ id
-    gym = Gym.objects.get(pk=gym_id)
+    gym = get_object_or_404(Gym, pk=gym_id)
 
-    # نحسب متوسط تقييمات النادي
-    avg = gym.comments.all().aggregate(Avg("rating"))
+    # متوسط التقييم (فقط للتعليقات الأساسية اللي فيها تقييم)
+    avg = (
+        gym.comments
+           .filter(parent__isnull=True, rating__isnull=False)
+           .aggregate(Avg("rating"))
+    )
 
-    # نجيب المدربين اللي بالنادي
+    # التعليقات الأساسية (parent = NULL) مع المستخدم والردود
+    parent_comments = (
+    gym.comments
+       .filter(parent__isnull=True)
+       .select_related("user")
+       .prefetch_related("replies__user", "replies__reply_to")
+       .order_by("-created_at")
+)
+
+
+
     coaches = gym.coaches.all()
 
-    # نرسل البيانات للصفحة
-    return render(request, "gyms/gym_detail.html", {
-        "gym": gym,
-        "average_rating": avg["rating__avg"],
-        "coaches": coaches
-    })
+    return render(
+        request,
+        "gyms/gym_detail.html",
+        {
+            "gym": gym,
+            "average_rating": avg["rating__avg"],
+            "coaches": coaches,
+            "parent_comments": parent_comments,   # هذا المهم
+        },
+    )
 
 
 
 def gym_update_view(request: HttpRequest, gym_id: int):
 
-    # بس الستاف يقدرون يعدلون
-    if not (request.user.is_staff and request.user.has_perm("gyms.change_gym")):
-        messages.warning(request, "Only staff can update gym", "alert-warning")
-        return redirect("main:home_view")
-
     # نجيب بيانات النادي
     gym = Gym.objects.get(pk=gym_id)
     hoods = Hood.objects.all()   # نعرض كل الأحياء
+
+
+    # بس الستاف يقدرون يعدلون
+    if not request.user.is_staff and request.user != gym.user :
+        messages.warning(request, "Only staff can update gym", "alert-warning")
+        return redirect("main:home_view")
+
 
     if request.method == "POST":
 
@@ -115,10 +135,7 @@ def gym_update_view(request: HttpRequest, gym_id: int):
 
 def gym_delete_view(request: HttpRequest, gym_id: int):
 
-    # فقط الإدمن يقدر يحذف
-    if not request.user.is_staff:
-        messages.warning(request, "only staff can delete gym", "alert-warning")
-        return redirect("main:home_view")
+   
 
     try:
         # نحاول نجيب النادي ونحذفه
@@ -130,37 +147,79 @@ def gym_delete_view(request: HttpRequest, gym_id: int):
         # لو صار خطأ
         messages.error(request, "Couldn't delete gym", "alert-danger")
 
+ # فقط الإدمن يقدر يحذف
+    if not request.user.is_staff and request.user != gym.user :
+        messages.warning(request, "only staff can delete gym", "alert-warning")
+        return redirect("main:home_view")
     # نرجع للصفحة الرئيسية
     return redirect("main:home_view")
 
+def add_comment_view(request: HttpRequest, gym_id: int):
 
-def add_comment_view(request: HttpRequest, gym_id):
-
-    # اذا المستخدم مو مسجّل دخول
     if not request.user.is_authenticated:
-        messages.error(request, "Only registered users can add comments", "alert-danger")
+        messages.error(request, "يجب تسجيل الدخول أولاً")
         return redirect("accounts:sign_in")
 
-    # اذا جتنا بيانات الفورم
     if request.method == "POST":
+        gym_object = get_object_or_404(Gym, pk=gym_id)
 
-        # نجيب النادي اللي بنضيف له تعليق
-        gym_object = Gym.objects.get(pk=gym_id)
+        parent_id = request.POST.get("parent")
+        parent_comment = None
+        reply_to = None
 
-        # نسوي تعليق جديد من البيانات اللي ارسلها المستخدم
-        new_comment = GymComment(
+        # لو فيه parent معناته هذا رد
+        if parent_id:
+            parent_comment = get_object_or_404(GymComment, pk=parent_id)
+            reply_to = parent_comment.user   # عشان المنشن
+
+        # لو تعليق رئيسي  نأخذ التقييم و النوع
+        if parent_comment is None:
+            rating_value = request.POST.get("rating") or None
+            comment_type_value = request.POST.get("comment_type") or None
+        else:
+            rating_value = None
+            comment_type_value = None
+
+        GymComment.objects.create(
             gym=gym_object,
             user=request.user,
             comment=request.POST["comment"],
-            rating=request.POST["rating"],
-            comment_type=request.POST["comment_type"]
+            rating=rating_value,
+            comment_type=comment_type_value,
+            parent=parent_comment,
+            reply_to=reply_to,
         )
 
-        # نحفظ التعليق
-        new_comment.save()
+        messages.success(request, "تم إضافة تعليقك بنجاح ❤️", "alert-success")
 
-        # نعطي رسالة نجاح
-        messages.success(request, "تم إضافة التعليق بنجاح", "alert-success")
+    return redirect("gyms:gym_detail_view", gym_id=gym_id)
+
+
+
+def add_reply_view(request: HttpRequest, comment_id: int):
+
+    # لو مو مسجّل دخول نرجعه لتسجيل الدخول
+    if not request.user.is_authenticated:
+        messages.error(request, "لا يمكنك الرد على التعليقات الا في حال تسجيل الدخول", "alert-danger")
+        return redirect("accounts:sign_in")
+
+    # نجيب التعليق الأساسي اللي بنرد عليه
+    parent_comment = GymComment.objects.get(pk=comment_id)
+
+    if request.method == "POST":
+
+        # نسوي رد جديد كتسجيل تعليق عادي بس مربوط بالتعليق الأساسي
+        GymComment.objects.create(
+            gym=parent_comment.gym, # نفس النادي حق التعليق الأساسي
+            user=request.user, # اللي كتب الرد
+            parent=parent_comment, # هذا أهم شي الربط كرد
+            comment=request.POST["reply_text"],  # نص الرد
+            comment_type=None,  # نخلي نوعه نفس نوع التعليق الأساسي
+            rating=None                          # الرد ما له تقييم
+        )
+
+        messages.success(request, "تم إضافة الرد بنجاح", "alert-success")
 
     # نرجع لصفحة تفاصيل النادي
-    return redirect("gyms:gym_detail_view", gym_id=gym_id)
+    return redirect("gyms:gym_detail_view", gym_id=parent_comment.gym.id)
+

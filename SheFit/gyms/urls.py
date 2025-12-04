@@ -9,6 +9,8 @@ urlpatterns=[
     path("delete/<gym_id>/", views.gym_delete_view, name="gym_delete_view"),
     path("<hood_name>/", views.all_gyms_view, name="all_gyms_view"),
     path("comment/add/<gym_id>/", views.add_comment_view, name="add_comment_view"),
+    path("comments/reply/<comment_id>/", views.add_reply_view, name="add_reply_view"),
+
 
 
 ]

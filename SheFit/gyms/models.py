@@ -31,9 +31,11 @@ class GymComment(models.Model):
         QUESTION = "question", "استفسار"
 
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE, related_name="comments")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment_type = models.CharField(max_length=20, choices=CommentType.choices)
-    rating = models.SmallIntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="written_comments") # لازم اعطي اسم لان استخدمت المودل مرتينfk
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="replies") # هذي عشان اربط الردود في بعض
+    reply_to = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name="mentioned_in_comments")  # fk مره ثانيه ,الشخص اللي تردين عليه مباشرة
+    comment_type = models.CharField(max_length=20, choices=CommentType.choices, null=True, blank=True) # عشان نوع التعليق بالردود يكون فاضي
+    rating = models.SmallIntegerField(null=True, blank=True) # عشان ما يطلع تقييم للردود 
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
