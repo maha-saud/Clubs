@@ -2,10 +2,15 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpRequest
 from django.contrib import messages
 from .models import Coach, CoachComment ,SubscriptionPlan, UserSubscription
+from accounts.models import Trainee
 from .forms import SubscriptionPlanForm
 from django.db.models import Count, Avg
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+import stripe
+from django.conf import settings
+from django.urls import reverse
+from django.utils import timezone
 
 # Create your views here.
 def all_coaches_view(request:HttpRequest):
@@ -18,13 +23,6 @@ def all_coaches_view(request:HttpRequest):
     elif rating_order == "low":
         coaches = coaches.order_by("avg_rating")
  
-    # فلترة السعر
-    price_order = request.GET.get("price", "all")
-    if price_order == "high":
-        coaches = coaches.order_by("-price")
-    elif price_order == "low":
-        coaches = coaches.order_by("price")
-    
     # فلترة الخبرة
     experience_order = request.GET.get("experience_years", "all")
     if experience_order == "high":
@@ -36,12 +34,14 @@ def all_coaches_view(request:HttpRequest):
     page_number = request.GET.get("page", 1)
     paginator = Paginator(coaches, 6)
     coaches_page = paginator.get_page(page_number)
-    return render(request,"coaches/all_coaches.html",{"coaches":coaches,"coach_page":coaches_page, "selected_rating": rating_order ,"selected_price": price_order , "selected_experience": experience_order})
+    return render(request,"coaches/all_coaches.html",{"coaches":coaches,"coach_page":coaches_page, "selected_rating": rating_order , "selected_experience": experience_order})
 
 def profile_coach_view(request:HttpRequest, coach_id:int):
     coach=Coach.objects.get(pk=coach_id)
     related_coaches= Coach.objects.all().exclude(pk=coach_id)[0:4]
-    return render(request,"coaches/profile_coach.html", {"coach":coach,"related_coaches":related_coaches})
+    subscribers = Trainee.objects.filter(usersubscription__plan__coach = coach).distinct()[0:4]
+    total_subscribers = subscribers.count()
+    return render(request,"coaches/profile_coach.html", {"coach":coach,"related_coaches":related_coaches ,"subscribers":subscribers, "total":total_subscribers})
 
 def coach_update_view(request: HttpRequest, coach_id: int):
     try:
@@ -100,6 +100,7 @@ def add_plan_view(request:HttpRequest):
 
     return render(request, "coaches/add_plan.html",{"form":form}) 
 
+@login_required
 def update_plan_view(request:HttpRequest, plan_id):
     try:
         coach= request.user.coach
@@ -125,6 +126,7 @@ def update_plan_view(request:HttpRequest, plan_id):
         return redirect("coaches:plans_list_view" ,coach_id=coach.id)
     return render(request,"coaches/update_plan.html", {"plan":plan} )
 
+@login_required
 def delete_plan_view(request:HttpRequest, plan_id):
     try:
         coach= request.user.coach
@@ -149,32 +151,126 @@ def delete_plan_view(request:HttpRequest, plan_id):
 def plans_list_view(request:HttpRequest, coach_id): 
     coach = get_object_or_404(Coach, pk =coach_id) 
     plans = SubscriptionPlan.objects.filter(coach=coach)
+    
     return render(request, "coaches/plans_list.html", {"coach":coach, "plans":plans})
 
 @login_required
-def subcribe_view(request:HttpRequest, plan_id):
+def checkout_srtipe_view(request:HttpRequest, plan_id):
+
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    #الباقة
     try:
         plan =SubscriptionPlan.objects.get(pk=plan_id)
-
     except SubscriptionPlan.DoesNotExist:
         messages.error(request,"الباقة غير موجودة","alert-danger")
-        return redirect("coaches:plans_list") 
+        return redirect(request.META.get('HTTP_REFERER'),"/")
     
+    
+    trainee= request.user.trainee
+
+
     #التحقق من عدد المقاعد
     if plan.remaining <= 0:
         messages.error(request,"عذرا، اكتمل عدد المشتركين في هذه الباقة.", "alert-warning")
-        return redirect("coaches:plans_list") 
+        return redirect(request.META.get('HTTP_REFERER') or "/")
+    
+    session = stripe.checkout.Session.create(
+        payment_method_types=["card"],
+        mode="payment",
+        line_items=[
+            {
+                "price_data":{
+                    "currency":"sar",
+                    "product_data":{"name":plan.name},
+                    "unit_amount":int(plan.price *100),
+                },
+                "quantity":1,
+            } 
+        ],
+        metadata={
+                "plan_id": str(plan.id),
+                "trainee_id": str(trainee.id),
+        },
+        success_url=request.build_absolute_uri(reverse("coaches:payment_success"))+ "?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url=request.build_absolute_uri(reverse("coaches:payment_cancel")),
+    )
+    return redirect(session.url)
+
+
+@login_required
+def payment_success(request:HttpRequest):
+    session_id = request.GET.get("session_id")
+    if not session_id:
+        messages.error(request, "لا توجد جلسة دفع صالحة", "alert-danger")
+        return redirect(request.META.get('HTTP_REFERER') or "/")
+    try:
+        session =stripe.checkout.Session.retrieve(session_id)
+    except Exception:
+        messages.error(request,"تعذر التحقق من عملية الدفع","alert-danger")
+        return redirect(request.META.get('HTTP_REFERER') or"/")
+    #التأكد من ان عملية الدفع تمت
+    if session.payment_status != "paid":
+        messages.error(request, "لم تكتمل عملية الدفع","alert-warning")
+        return redirect(request.META.get('HTTP_REFERER') or "/")
+    
+    plan_id = session.metadata.get("plan_id")
+    trainee_id = session.metadata.get("trainee_id")
+
+    try: 
+        plan = SubscriptionPlan.objects.get(pk=plan_id)
+        trainee = Trainee.objects.get(pk=trainee_id)
+
+    except (SubscriptionPlan.DoesNotExist, Trainee.DoesNotExist):
+        messages.error(request, "حدث خطأ في ربط الاشتراك بالباقة أو الدفعة","alert-danger")
+        return redirect(request.META.get('HTTP_REFERER') or "/")
+    
+        #التحقق من عدد المقاعد
+    if plan.remaining <= 0:
+        messages.error(request,"عذرا، اكتمل عدد المشتركين في هذه الباقة.", "alert-warning")
+        return redirect(request.META.get('HTTP_REFERER') or "/")
 
     # تحديث العدد
     plan.current_subscribers +=1
     plan.save()
 
     #إنشاء اشتراك
-    UserSubscription.objects.create(user= request.user, plan= plan)
+    UserSubscription.objects.create(trainee= trainee, plan= plan)
     messages.success(request, "تم الاشتراك بنجاح", "alert-success")
-    return redirect("coaches:profile_coach")
+    return redirect("coaches:profile_coach_view", coach_id=plan.coach.id)
 
+@login_required
+def payment_cancel(request:HttpRequest):
+    messages.warning(request, "تم إالغاء عملية الدفع", "alert-warning")
+    return redirect(request.META.get('HTTP_REFERER') or "/")
+    
+    
+def add_to_cart_view(request:HttpRequest, plan_id):
+    trainee= request.user.trainee
+    plan = get_object_or_404(SubscriptionPlan,pk = plan_id)
+    #التحقق من ان المتدرب مشترك او لا
+    already_subscribed = UserSubscription.objects.filter(trainee=trainee, plan=plan, end_date__gte=timezone.now()).exists()
+    if already_subscribed:
+        messages.error(request, "أنت مشترك بالفعل في هذه الباقة", "alert-warning")
+        return redirect(request.META.get("HTTP_REFERER") or "/")
 
+    request.session["cart"] =plan_id 
+    request.session.modified = True
+    return redirect("coaches:cart_view") 
+  
+def cart_view(request:HttpRequest):
+    plan_id = request.session.get("cart")
+    plan= None
+    if plan_id:
+        plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+    return render(request, "coaches/cart.html", {"plan":plan})
+
+def remove_from_cart_view(request:HttpRequest):
+
+    if "cart"  in request.session:
+        del request.session["cart"]
+    return redirect("coaches:cart_view")
+
+@login_required
 def add_comment_view(request:HttpRequest, coach_id):
     if not request.user.is_authenticated:
         messages.error(request, "يمكن فقط للمستخدمين المسجلين إضافة تعليقات", "alert-danger")

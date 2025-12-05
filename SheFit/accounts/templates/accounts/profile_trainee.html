@@ -3,239 +3,216 @@
 
 {% block title %}Profile Trainee{% endblock %}
 
+{% block style %}
+<style>
+    body{
+       background: radial-gradient(
+    circle at top left,
+    rgba(255, 155, 85, 0.45),   
+    rgba(255, 155, 85, 0.25),  
+    rgba(255, 255, 255, 0.6)   
+);
+    }
+    /* خلفية الهيدر المتدرجة */
+    .profile-header-bg {
+    
+        padding-top: 40px;
+        padding-bottom: 80px;
+        margin-top: 2rem;
+    }
+
+
+    .profile-wrapper {
+        margin-top: -60px;
+    }
+
+
+    .profile-sidebar {
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+        padding: 24px 24px 28px;
+    }
+
+    .profile-avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+    }
+
+    .profile-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #0f172a;
+    }
+
+    .profile-id {
+        font-size: 0.8rem;
+        color: #64748b;
+        word-break: break-all;
+    }
+
+    .profile-bio {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .profile-link a {
+        font-size: 0.85rem;
+        text-decoration: none;
+        color: #2563eb;
+        word-break: break-all;
+    }
+
+    .btn-follow {
+        border-radius: 999px;
+        padding: 8px 22px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        background: linear-gradient(90deg, #4f46e5, #06b6d4);
+        border: none;
+    }
+
+    .btn-follow:hover {
+        opacity: 0.95;
+    }
+
+    .social-icons a {
+        font-size: 1.05rem;
+        color: #9ca3af;
+        margin-right: 10px;
+    }
+
+    .social-icons a:hover {
+        color: #4b5563;
+    }
+
+    .member-since {
+        font-size: 0.78rem;
+        color: #9ca3af;
+        margin-top: 18px;
+    }
+
+ 
+    .profile-tabs .nav-link {
+        border-radius: 999px;
+        padding: 8px 18px;
+        font-size: 0.9rem;
+        color: #6b7280;
+    }
+
+    .profile-tabs .nav-link.active {
+        color: #ffffff;
+        background: linear-gradient(90deg, #4f46e5, #06b6d4);
+        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    @media (max-width: 991.98px) {
+        .profile-wrapper {
+            margin-top: -40px;
+        }
+
+        .profile-sidebar {
+            margin-bottom: 24px;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
+<div class="profile-header-bg">
+    <div class="container">
+        <div class="row profile-wrapper flex-row">
+     
+            <div class="col-lg-3 ">
+                <div class="profile-sidebar">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <div class="profile-avatar mb-3">
+                           
+                            <img src="{{trainee.avatar.url}}" alt="">
+                        </div>
+                        <div class="profile-name">{{ trainee.user.first_name }} {{ trainee.user.last_name }}</div>
+                        <div class="profile-id mt-1">@{{trainee.user.username}}</div>
 
-<div class="d-flex align-items-center justify-content-between mt-5">
-    <h3>الصفحة الشخصية لـ {{trainee.user.first_name}}</h3>
-</div>
+                        <p class="profile-bio">
+                         
+                                العمر: {{trainee.age}} سنة <br>
+                                الهدف: {{trainee.goal}}
+                           
+                            
+                        </p>
 
-
-
-<div class="container">
-
-    <div class="row g-3 mb-4">
-
-        <!--  معلومات المدرب -->
-        <div class="col-lg-8">
-            <div class="card p-4 shadow-sm">
-                <div class="d-flex gap-3 align-items-start">
-
-                    <!-- الصورة -->
-                    <img src="{{ coach.avatar.url }}" class="rounded-circle" width="120" height="120">
-
-                    <!-- بيانات المستخدم -->
-                    <div class="flex-grow-1">
-                        <h4 class="fw-bold">{{ coach.user.first_name }} {{ coach.user.last_name }}</h4>
-
-                        <p class="mb-1 text-muted">التخصص: {{ coach.speciality }}</p>
-                        <p class="mb-1 text-muted"> سنوات الخبرة: {{ coach.experience_years }}</p>
-                        <p class="mb-1 text-muted">الإيميل: {{ coach.user.email }}</p>
-                        <p class="mb-2 text-muted">الهاتف: {{ coach.phone }}</p>
-
-                        <div class="d-flex gap-3 mt-4 mb-4">
-                            {% if request.user == coach.user or request.user.is_staff %}
-                            <!-- زر التعديل -->
-                            <a href="{% url 'coaches:coach_update_view' coach.id %}" class="btn btn-warning">
-                                تعديل
-                            </a>
-
-                            <!-- زر الحذف -->
-                            <a href="{% url 'coaches:coach_delete_view' coach.id %}" class="btn btn-danger"
-                                onclick="return confirm('هل تردين حذف حسابك الشخصي؟');">
-                                حذف
-                            </a>
-                            {% endif %}
+                        <div class="profile-link mb-3">
+                            <a href="#" target="_blank">{{trainee.user.email}}</a>
                         </div>
 
 
-                    </div>
+                        <div class="d-flex justify-content-center align-items-center mb-2">
+                            <span class="badge bg-light text-dark border me-1" style="font-size: 0.7rem;">
+                                متدرب
+                            </span>
 
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- اشتراك -->
-        <div class="col-lg-4">
-            <div class="card p-4 shadow-sm text-white h-100" style="background: var(--orange-grad);">
-
-                <h5 class="fw-bold mb-3">الباقات المتاحة</h5>
-
-                <ul>
-                    <li>شاهدي جميع الباقات المتاحة للمدرب</li>
-                    <li>اشتركي في الباقات المناسبة لك</li>
-                    <li>سارعي بالاشتراك</li>
-                </ul>
-
-
-                {% if user.is_authenticated and user == coach.user %}
-                <a href="{% url 'coaches:add_plan_view' %}" class="btn btn-dark w-100 fw-bold mt-2">اضف باقة</a>
-                {% endif %}
-                <a href="{% url 'coaches:plans_list_view' coach.id %}" class="btn btn-light w-100 fw-bold mt-2">عرض الباقات</a>
-
-            </div>
-        </div>
-
-    </div>
-
-
-    <div class="row g-3 mb-4">
-
-        <!-- المنشورات -->
-        <div class="col-lg-8">
-            <div class="card p-4 shadow-sm">
-
-                <h5 class="fw-bold mb-3">دوراتي</h5>
-
-                <!-- المنشور -->
-                <div class="border rounded p-3 mb-2">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h6 class="fw-bold mb-1">UX/UI Design — المواقع</h6>
-                            <small class="text-muted">68 درس — نظرية اللون، التايبوغرافيا...</small>
-                        </div>
-                        <span class="badge bg-success">منتهي</span>
-                    </div>
+      
+            <div class="col-lg-9">
+                <!-- Tabs -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <ul class="nav nav-pills profile-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_tab == 'comments'%}active{%endif%}" href="?tab=comments">التعليقات</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_tab == 'favorite_coaches'%}active{%endif%}" href="?tab=favorite_coaches">المدربين المفضلين</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_tab == 'favorite_gyms'%}active{%endif%}" href="?tab=favorite_gyms">النوادي المفضلة</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if active_tab == 'Subscriptions'%}active{%endif%}" href="?tab=Subscriptions">الاشتراكات</a>
+                        </li>
+                    </ul>
                 </div>
 
+                <div class="tab-content mt-3">
+                    {% if active_tab == 'comments'%}
+                    <p>التعليقات</p>
 
-                <div class="border rounded p-3 mb-2">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h6 class="fw-bold mb-1">UX/UI Design — التطبيقات</h6>
-                            <small class="text-muted">12 درس — واجهات التطبيقات</small>
-                        </div>
-                        <span class="badge bg-success">منتهي</span>
-                    </div>
-                </div>
-
-
-                <div class="border rounded p-3 mb-2">
-                    <div class="d-flex justify-content-between">
-
-                        <div>
-                            <h6 class="fw-bold mb-1">UX/UI Design — الأنميشن</h6>
-                            <small class="text-muted">12 درس — تحريك العناصر</small>
-                            <div><small class="text-muted">البداية: 13-06-2023</small></div>
-                        </div>
-                        <button class="btn btn-light btn-sm">&larr;</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- مدربين اخرين -->
-        <div class="col-lg-4">
-            <div class="card p-4 shadow-sm h-100">
-                <h5 class="fw-bold mb-3">مدربين اخرين</h5>
-
-                {% for coach in related_coaches %}
-                <div class="d-flex align-items-center justify-content-between py-2 border-bottom">
-                    <div class="d-flex align-items-center">
-                        <img src="{{ coach.avatar.url }}" class="rounded-circle me-3" width="50" height="50">
-                        <div>
-                            <h6 class="mb-0 fw-bold">{{ coach.user.first_name }} {{ coach.user.last_name }}</h6>
-                            <small class="text-muted">{{ coach.speciality }} خبرة {{ coach.experience_years }} </small>
-                        </div>
-                    </div>
-                    <a href="{% url 'coaches:profile_coach_view' coach.id %}">
-                        <span class="btn btn-light border rounded-circle">
-                            <i class="bi bi-arrow-left-circle"></i>
-                        </span>
-                    </a>
-                </div>
-                {% endfor%}
-            </div>
-        </div>
-
-
-    </div>
-
-    <div class="row g-3 mb-4">
-
-        <!-- التعليقات -->
-        <div class="col-lg-8">
-            <div class="card p-4 shadow-sm">
-
-                <h5 class="fw-bold mb-3">التعليقات</h5>
-
-
-                {% for c in coach.coachcomment_set.all %}
-                <div class="card shadow-sm p-3 mb-3">
+                    {% elif active_tab == 'favorite_coaches'%}
+                        {% if favorite_coaches%}
+                            {% include 'coaches/component/coach_list.html' with coaches=favorite_coaches %}
+                         {%else%}  
+                         <p>لم تقم بإضافة أي مدرب للمفضلة</p> 
+                         {% endif %}
+                   
                     
-                    <div class="d-flex justify-content-between ">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ c.user.coach.avatar.url }}" class="rounded-circle me-3" width="50" height="50">
-                            <div>
-                                <h6 class="mb-0 fw-bold">{{ c.user.first_name }} {{ c.user.last_name }}</h6>
-                                <small class="text-muted">{{ c.created_at|date:"Y d M" }}</small>
-                            </div>
-                        </div>
+                    {% elif active_tab == 'favorite_gyms'%}
+                    <p>النوادي المفضلة</p>
+                    
+                    {% elif active_tab == 'Subscriptions'%}
+                    <p> الاشتراكات</p>
 
-                        <!-- Rating Stars -->
-                        <div class=" fs-5">
-                            {{c.rating}}
-                            <i class=" text-warning bi bi-star-fill"></i>
-                        </div>
-                    </div>
 
-                    <!-- Comment -->
-                    <p class="mt-3 mb-2 text-muted">
-                       {{ c.comment }}
-                    </p>
+                     {% endif %}   
 
                 </div>
-                {% empty %}
-                <p>لا يوجد تعليقات.</p>
-                {% endfor %}
-
+                
             </div>
+            
+            
         </div>
-
     </div>
-
-
-    <div class="row g-3">
-
-
-        <div class="col-lg-8">
-            <div class="card p-4 shadow-sm">
-                <!-- إضافة تعليق -->
-                {% if request.user.is_authenticated %}
-                <form method="POST" action="{% url 'coaches:add_comment_view' coach.id %}">
-                    {% csrf_token %}
-
-                    <label class="mt-2">التعليق:</label>
-                    <textarea name="comment" class="form-control" required></textarea>
-
-                    <label class="mt-3">التقييم:</label>
-                    <select name="rating" class="form-select" required>
-                        <option value="1"> 1</option>
-                        <option value="2"> 2</option>
-                        <option value="3"> 3</option>
-                        <option value="4"> 4</option>
-                        <option value="5"> 5</option>
-                    </select>
-
-                    <label class="mt-3">نوع التعليق:</label>
-                    <select name="type" class="form-select" required>
-                        <option value="inquiry">استفسار</option>
-                        <option value="previous_member">مشترك سابق </option>
-                        <option value="current_member">مشترك حالي</option>
-                    </select>
-
-                    <button class="btn btn-primary mt-4">إرسال</button>
-
-                </form>
-                {% else %}
-                <p>يجب عليك تسجيل الدخول لإضافة تعليق.</p>
-                {% endif %}
-
-            </div>
-        </div>
-
-    </div>
-
-
-    {% endblock %}
+</div>
+{% endblock %}

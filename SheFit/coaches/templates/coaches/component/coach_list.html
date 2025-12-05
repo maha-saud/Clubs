@@ -4,9 +4,33 @@
     {% for coach in coaches %}
     <div class="col d-flex justify-content-center mb-5">
 
-        <div class="card text-center shadow p-4 border-0"
-             style="width: 18rem; border-radius: 20px;  ">
+        <div class="card text-center shadow p-4 border-0 position-relative"
+             style="width: 18rem; border-radius: 20px; ">
 
+      <!-- favorite Icon -->
+      <a href="{%url 'accounts:add_favorite_coaches_view' coach.id%}" class="btn p-2 position-absolute top-0 start-0 m-3 " style="background: none; border: none;">
+       {% if user.is_authenticated and user.trainee %}
+          {% if coach in user.trainee.favorite_coaches.all %}
+          <i class="bi bi-heart-fill text-danger" style="font-size: 1.3rem;"></i>
+           
+         {%else%} 
+          <i class="bi bi-heart" style="font-size: 1.3rem;"></i>
+         
+         {% endif %}
+      {% endif %}
+   </a> 
+
+   {% if coach.gym %}
+        <p class="m-0 text-success fw-semibold">
+          منتسب لـ
+          <a href="{% url 'gyms:gym_detail_view' coach.gym.id %}">
+            {{ coach.gym.name|default:coach.gym.user.username }}
+          </a>
+        </p>
+        {% else %}
+        <p class="m-0 text-muted">غير منتسب لأي نادي</p>
+        {% endif %}
+        
           <!-- Profile Image -->
           <img src="{{ coach.avatar.url }}"
                class="rounded-circle mx-auto shadow"

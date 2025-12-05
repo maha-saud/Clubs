@@ -15,12 +15,14 @@ def home_view(request:HttpRequest):
 
 
 
-def mode_view(request:HttpRequest,mode):
+def mode_view(request:HttpRequest):
+
+    mode = request.COOKIES.get("mode", "light")
+
+    new_mode = "dark" if mode == "light" else "light"
+    
     res=redirect(request.GET.get("next","/"))# "/": for defult query
-    if mode=="light":
-        res.set_cookie("mode","light")
-    elif mode=="dark":
-        res.set_cookie("mode","dark")
+    res.set_cookie("mode", new_mode)
     return res
 
 def search_view(request:HttpRequest):

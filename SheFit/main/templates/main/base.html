@@ -27,7 +27,7 @@
                 aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+            
 
             <div class="collapse navbar-collapse" id="mainNavbar">
 
@@ -57,11 +57,13 @@
                 {% if request.user.is_authenticated %}
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle fs-5"></i>
+                        <i class="bi bi-person-circle fs-5n"></i>
                         {{request.user.username}}
                     </button>
                     <ul class="dropdown-menu text-end">
-                        <li><a class="dropdown-item" href="">الصفحة الشخصية</a></li>
+                        {% if request.user.is_authenticated and request.user.trainee %}
+                        <li><a  class="dropdown-item" href="{%url 'accounts:profile_trainee_view' request.user.trainee.id%}">الصفحة الشخصية</a></li>
+                        {% endif %}
                         <li><a class="dropdown-item text-danger"
                                 href="{% url 'accounts:logout_view' %}?next={{ request.path }}">
                                 تسجيل خروج
@@ -83,12 +85,21 @@
                 {% endif %}
 
             
-                <div class="ms-3">
-                    <a href="{% url 'main:mode_view' 'light'%}?next={{request.path}}"><i
-                            class="bi bi-brightness-high  {% if 'mode' not in request.COOKIES or 'mode' in request.COOKIES and request.COOKIES.mode != 'dark' %}active-icon {% endif %}"></i></a>
-                    <a href="{% url 'main:mode_view' 'dark'%}?next={{request.path}}"><i
-                            class="bi bi-moon-stars-fill {% if 'mode' in request.COOKIES and request.COOKIES.mode == 'dark' %}active-icon {% endif %}"></i></a>
+                
+                <a href="{% url 'main:mode_view' %}?next={{request.path}}" class="d-flex align-items-center justify-content-center border border-1 border-dark rounded-circle p-2 py-1 ms-2">
+                    {% if request.COOKIES.mode == "dark"%}
+                    <i class="bi bi-brightness-high"></i>
+                    {% else %}
+                    <i class="bi bi-moon-stars "></i>
+                    {% endif %}
+                </a>
+              
+
+                <div class="d-flex align-items-center justify-content-center border border-1 border-dark rounded-circle p-2 py-1 ms-3">
+                    <a href="{% url 'coaches:cart_view' %}">
+                       <i class="bi bi-bag"></i></a>
                 </div>
+
 
 
             </div>

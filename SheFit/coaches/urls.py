@@ -15,4 +15,10 @@ urlpatterns=[
     path("update/<coach_id>/", views.coach_update_view, name="coach_update_view"),
     path("delete/<coach_id>/", views.coach_delete_view, name="coach_delete_view"),
     path('comment/add/<coach_id>/',views.add_comment_view ,name="add_comment_view"),
+    path('plans/<plan_id>/checkout',views.checkout_srtipe_view ,name="checkout_srtipe_view"),
+    path('payment/success',views.payment_success ,name="payment_success"),
+    path('payment/cancel',views.payment_cancel ,name="payment_cancel"),
+    path("cart/",views.cart_view,name="cart_view"),
+    path("cart/add/<int:plan_id>",views.add_to_cart_view,name="add_to_cart_view"),
+    path("cart/remove/",views.remove_from_cart_view,name="remove_from_cart_view"),
 ]

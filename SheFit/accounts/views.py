@@ -2,9 +2,12 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate ,login,logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CoachSignUpForm, TraineeSignUpForm, GymSignUpForm
-from .models import Trainee
+from .models import Trainee 
+from coaches.models import Coach
+from gyms.models import Gym
 from gyms.models import Hood
 
 
@@ -106,8 +109,51 @@ def logout_view (request:HttpRequest):
     return redirect(request.GET.get("next","/"))
 
 
+@login_required
 def profile_trainee_view(request:HttpRequest, train_id:int):
     trainee=Trainee.objects.get(pk=train_id)
-    return render(request,"accounts/profile_trainee.html", {"trainee":trainee})
+    active_tab = request.GET.get('tab','favorite_coaches')
+    favorite_coaches = trainee.favorite_coaches.all() if active_tab == 'favorite_coaches' else None
+    favorite_gyms = trainee.favorite_gyms.all() if active_tab == 'favorite_gyms' else None
 
+    context = {
+        "trainee":trainee,
+        'active_tab':active_tab,
+        'favorite_coaches':favorite_coaches,
+        'favorite_gyms':favorite_gyms
+    }
+    return render(request,"accounts/profile_trainee.html", context)
 
+@login_required
+def add_favorite_coaches_view (request:HttpRequest, coach_id:int):
+    try:
+        coach = Coach.objects.get(pk=coach_id)
+        trainee= request.user.trainee
+        
+        if coach not in trainee.favorite_coaches.all():
+            trainee.favorite_coaches.add(coach)
+            messages.success(request, "تم إضافة الى المفضلة","alert-success")
+        else:
+            trainee.favorite_coaches.remove(coach)
+            messages.warning(request, "تم الإزالة من المفضلة","alert-warning")  
+
+    except Exception as e:
+        messages.error(request, "المدرب غير موجود","alert-error")  
+    return redirect(request.META.get('HTTP_REFERER'),"coaches:profile_coach_view" ,coach_id=coach_id)
+
+@login_required
+def add_favorite_gyms_view (request:HttpRequest, gym_id:int):
+    try:
+        gym = Gym.objects.get(pk=gym_id)
+        trainee= request.user.trainee
+        
+        if gym not in trainee.favorite_gyms.all():
+            trainee.favorite_gyms.add(gym)
+            messages.success(request, "تم إضافة الى المفضلة","alert-success")
+        else:
+            trainee.favorite_gyms.remove(gym)
+            messages.warning(request, "تم الإزالة من المفضلة","alert-warning")  
+
+    except Exception as e:
+        messages.error(request, "النادي غير موجود","alert-error")  
+    return redirect(request.META.get('HTTP_REFERER'),"gyms:gym_detail_view" ,gym_id=gym_id)

@@ -8,6 +8,6 @@ app_name = "main"
 
 urlpatterns=[
    path('',views.home_view,name="home_view"),
-   path('mode/<mode>/',views.mode_view,name="mode_view"),
+   path('mode/',views.mode_view,name="mode_view"),
    path('search/',views.search_view,name="search_view"),
 ]

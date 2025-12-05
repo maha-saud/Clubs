@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from accounts.models import Trainee
 from gyms.models import Gym
 from django.utils import timezone
 from datetime import timedelta
@@ -39,7 +40,7 @@ class SubscriptionPlan(models.Model):
 
 
 class UserSubscription(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    trainee = models.ForeignKey(Trainee, on_delete=models.CASCADE)
     plan = models.ForeignKey(SubscriptionPlan, on_delete=models.CASCADE, related_name="user_subscriptions")
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField()
