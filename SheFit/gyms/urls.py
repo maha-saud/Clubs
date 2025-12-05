@@ -10,6 +10,9 @@ urlpatterns=[
     path("<hood_name>/", views.all_gyms_view, name="all_gyms_view"),
     path("comment/add/<gym_id>/", views.add_comment_view, name="add_comment_view"),
     path("comments/reply/<comment_id>/", views.add_reply_view, name="add_reply_view"),
+    path('toggle_coach/<int:gym_id>/', views.toggle_coach_gym, name="toggle_coach_gym"),
+    path("comment/delete/<int:comment_id>/", views.delete_comment_view, name="delete_comment_view"),
+
 
 
 

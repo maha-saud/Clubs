@@ -7,7 +7,7 @@
 
 <!-- عنوان -->
 <div class="text-center mb-5">
-    <h1 class="fw-bold display-6">{{ gym.user.username }}</h1>
+    <h1 class="fw-bold display-6">{{ gym.name|default:gym.user.username }}</h1>
 </div>
 
 <!-- صورة رئيسية -->
@@ -57,6 +57,12 @@
                         {% endif %}
                     </div>
 
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">سعر الاشتراك الشهري</span>
+                        <strong class="fs-5">{{ gym.monthly_price }} ﷼</strong>
+                    </div>
+
+
                 </div>
 
                 <hr class="my-4">
@@ -64,14 +70,51 @@
                 <!-- وصف -->
                 <h5 class="fw-bold mb-2">عن النادي</h5>
                 <p class="text-muted lh-lg">{{ gym.about }}</p>
-                
+
+                <div class="d-flex justify-content-between align-items-center">
+
                 {% if request.user == gym.user or request.user.is_staff %}
                 <div class="d-flex gap-3 mt-4">
                     <a href="{% url 'gyms:gym_update_view' gym.id %}" class="btn btn-warning px-4">تعديل</a>
                     <a href="{% url 'gyms:gym_delete_view' gym.id %}" class="btn btn-danger px-4"
-                       onclick="return confirm('هل تريدين حذف هذا النادي فعلا؟ ');">حذف</a>
+                        onclick="return confirm('هل تريدين حذف هذا النادي فعلا؟ ');">حذف</a>
                 </div>
                 {% endif %}
+
+
+                {% if gym.website %}
+                <a href="{{ gym.website }}" target="_blank" class="btn btn-primary mt-3">
+                    زيارة موقع النادي
+                </a>
+                {% endif %}
+                </div>
+
+
+                <!-- الاشتراك للكوتش في النادي  -->
+
+                {% if request.user.is_authenticated and request.user.coach %}
+
+                {% if request.user.coach.gym == gym %}
+                <!-- لو المدرب مشترك -->
+                <a href="{% url 'gyms:toggle_coach_gym' gym.id %}" class="btn btn-danger mb-3">
+                    إلغاء الانتساب
+                </a>
+
+                {% elif request.user.coach.gym == None %}
+                <!-- لو المدرب بدون نادي -->
+                <a href="{% url 'gyms:toggle_coach_gym' gym.id %}" class="btn btn-primary mb-3">
+                    انتسب لهذا النادي
+                </a>
+
+                {% else %}
+                <!-- لو المدرب منتسب لنادي آخر -->
+                <div class="alert alert-warning mb-3">
+                    أنت منتسب لنادٍ آخر ولا يمكنك الانتساب لنادٍ جديد.
+                </div>
+                {% endif %}
+
+                {% endif %}
+
             </div>
         </div>
 
@@ -83,16 +126,30 @@
                 <h4 class="fw-bold mb-3">مدربات النادي</h4>
 
                 {% for c in coaches %}
-                <div class="d-flex align-items-center gap-3 p-2 border rounded mb-2">
-                    <img src="{{ c.avatar.url }}" class="rounded-circle" width="55" height="55">
-                    <div>
-                        <h6 class="fw-bold mb-0">{{ c.user.username }}</h6>
-                        <small class="text-muted">{{ c.speciality }}</small>
+                <a href="{% url 'coaches:profile_coach_view' c.id %}" class="text-decoration-none text-dark">
+
+                    <div class="d-flex align-items-center gap-3 p-3 border rounded mb-3 shadow-sm coach-card-hover"
+                        style="cursor:pointer; transition:0.3s;">
+
+                        <!-- صورة المدرب -->
+                        <img src="{{ c.avatar.url }}" class="rounded-circle" width="65" height="65">
+
+                        <!-- معلومات -->
+                        <div class="flex-grow-1">
+                            <h6 class="fw-bold mb-1">{{ c.user.username }}</h6>
+                            <small class="text-muted">{{ c.speciality|default:"مدرب" }}</small>
+                        </div>
+
+                        <!-- سهم -->
+                        <span class="material-symbols-outlined text-muted">chevron_left</span>
+
                     </div>
-                </div>
+
+                </a>
                 {% empty %}
-                <p class="text-muted m-0">لا يوجد مدربات مسجلات.</p>
+                <p class="text-muted">لا يوجد مدربات منتسبات لهاذا النادي في shefit حاليا.</p>
                 {% endfor %}
+
             </div>
 
             <!-- فروع -->
@@ -120,16 +177,16 @@
 
     <div class="d-flex align-items-center gap-2 mb-4">
         <h3 class="fw-bold m-0">التعليقات</h3>
-        <!-- هنا برضه نعدّ تعليقات أساسية فقط -->
+        <!-- هنا برضه نعد تعليقات أساسية فقط -->
         <span class="badge bg-dark rounded-pill px-3 py-2">{{ parent_comments.count }}</span>
     </div>
 
-    <!-- بلوك التعليقات (تيكتوك ستايل) -->
+    <!-- بلوك التعليقات  -->
     <div class="comments-wrapper">
         {% for c in parent_comments %}
-            {% include "gyms/comment_block.html" with comment=c %}
+        {% include "gyms/component/comment_block.html" with comment=c %}
         {% empty %}
-            <p class="text-muted">لا يوجد تعليقات بعد.</p>
+        <p class="text-muted">لا يوجد تعليقات بعد.</p>
         {% endfor %}
     </div>
 
@@ -139,8 +196,7 @@
     <h3 class="fw-bold mb-4">أضف تعليقك</h3>
 
     {% if request.user.is_authenticated %}
-    <form method="POST" action="{% url 'gyms:add_comment_view' gym.id %}"
-        class="p-4 rounded shadow-sm bg-white border">
+    <form method="POST" action="{% url 'gyms:add_comment_view' gym.id %}" class="p-4 rounded shadow-sm bg-white border">
 
         {% csrf_token %}
 
@@ -174,36 +230,36 @@
 
 <!-- سكربت التحكم في الردود -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-    // فتح/إغلاق فورم الرد
-    document.querySelectorAll(".reply-btn").forEach(btn => {
-        btn.addEventListener("click", function () {
-            const form = this.nextElementSibling;
-            if (form) {
-                form.classList.toggle("d-none");
-            }
+        // فتح/إغلاق فورم الرد
+        document.querySelectorAll(".reply-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const form = this.nextElementSibling;
+                if (form) {
+                    form.classList.toggle("d-none");
+                }
+            });
         });
-    });
 
-    // عرض/إخفاء الردود + تغيير النص والسهم
-    document.querySelectorAll(".toggle-replies").forEach(btn => {
-        btn.addEventListener("click", function () {
-            const targetId = this.dataset.target;
-            const target = document.getElementById(targetId);
-            if (!target) return;
+        // عرض/إخفاء الردود + تغيير النص والسهم
+        document.querySelectorAll(".toggle-replies").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const targetId = this.dataset.target;
+                const target = document.getElementById(targetId);
+                if (!target) return;
 
-            const isHidden = target.classList.toggle("d-none");
+                const isHidden = target.classList.toggle("d-none");
 
-            if (isHidden) {
-                this.textContent = this.dataset.labelClosed;
-            } else {
-                this.textContent = this.dataset.labelOpen;
-            }
+                if (isHidden) {
+                    this.textContent = this.dataset.labelClosed;
+                } else {
+                    this.textContent = this.dataset.labelOpen;
+                }
+            });
         });
-    });
 
-});
+    });
 </script>
 
 {% endblock %}

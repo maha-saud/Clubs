@@ -14,42 +14,9 @@
 
                 <div class="d-flex justify-content-between align-items-start w-100">
 
-                    <!--  الجهة اليمنى تقييم + تعليقات + مدربين -->
+                    <!--  الجهة اليسرى الأحياء + اسم النادي + تفاصيل  -->
                     <div class="d-flex flex-column gap-2 text-start">
 
-                        <!-- متوسط التقييم -->
-                        <div class="d-flex align-items-center gap-1">
-                            <i class="bi bi-star-fill" style="color: #f1c40f; font-size:18px;"></i>
-                            <span class="fw-semibold">{{ gym.avg_rating|floatformat:2 }}</span>
-                        </div>
-
-
-                        <!-- عدد التعليقات -->
-                        <div class="d-flex align-items-center gap-1">
-                            <span class="material-symbols-outlined" style="
-                                      font-size:20px;
-                                      background: var(--orange-grad);
-                                      -webkit-background-clip: text;
-                                      color: transparent;">
-                                chat_bubble
-                            </span>
-                            <span class="fw-semibold">{{ gym.comments_count }}</span>
-                        </div>
-
-                        <!-- وجود مدربين -->
-                        <span class="small text-muted mt-2">
-                            {% if gym.has_coach %}
-                            يوجد مدربين
-                            {% else %}
-                            بدون مدربين
-                            {% endif %}
-                        </span>
-
-                    </div>
-
-
-                    <!--  الجهة اليسرى الأحياء + اسم النادي + تفاصيل  -->
-                    <div class="d-flex flex-column gap-2 text-end">
 
                         <!-- الأحياء -->
                         <div class="d-flex flex-wrap gap-2 justify-content-end">
@@ -65,18 +32,75 @@
 
                         <!-- اسم النادي -->
                         <h4 class="fw-bold m-0" style="color: var(--text-dark);">
-                            {{ gym.user.username }}
+
+                            {{ gym.name|default:gym.user.username }}
+
                         </h4>
+                        <div class="d-flex align-items-center gap-1 small text-muted">
+                            <span>سعر الاشتراك الشهري:</span>
+                            <strong class="ms-1">{{ gym.monthly_price }}</strong>
+
+                            <!-- أيقونة الريال -->
+                            <span class="material-symbols-outlined" style="font-size:16px; color: var(--text-dark);">
+                                ﷼
+                            </span>
+                        </div>
+
 
                         <!-- عرض التفاصيل -->
-                        <a href="{% url 'gyms:gym_detail_view' gym.id %}" class="text-decoration-none fw-semibold"
-                            style="color: var(--orange-1);">
-                            <span class="material-symbols-outlined align-middle" style="font-size:20px;"> arrow_back
+                        <div class="justify-content-center">
+                            <a href="{% url 'gyms:gym_detail_view' gym.id %}" class="text-decoration-none fw-semibold "
+                                style="color: var(--orange-1);">
+                                <span class="material-symbols-outlined align-middle " style="font-size:20px;">
+                                    arrow_back
+                                </span>
+                                عرض التفاصيل
+                            </a>
+
+
+
+                        </div>
+                    </div>
+
+                    <!--  الجهة اليمنى تقييم + تعليقات + مدربين -->
+                    <div class="d-flex flex-column gap-2 text-end ">
+
+
+
+                        <!-- متوسط التقييم -->
+                        <div class="d-flex align-items-center gap-1 justify-content-end ">
+                            <i class="bi bi-star-fill" style="color: #f1c40f; font-size:18px;"></i>
+                            <span class="fw-semibold">{{ gym.avg_rating|default:0|floatformat:2 }}</span>
+                        </div>
+
+
+                        <!-- عدد التعليقات -->
+                        <div class="d-flex align-items-center gap-1 justify-content-end">
+                            <span class="material-symbols-outlined " style="
+                                      font-size:20px;
+                                      background: var(--orange-grad);
+                                      -webkit-background-clip: text;
+                                      color: transparent;">
+                                chat_bubble
                             </span>
-                            عرض التفاصيل
-                        </a>
+                            <span class="fw-semibold">{{ gym.comments_count }}</span>
+                        </div>
+
+                        <!-- وجود مدربين -->
+                        <span class="small text-muted mt-2 justify-content-end ">
+                            {% if gym.has_coach %}
+                            يوجد مدربين
+                            {% else %}
+                            بدون مدربين
+                            {% endif %}
+                        </span>
+
+
 
                     </div>
+
+
+
 
                 </div>
 

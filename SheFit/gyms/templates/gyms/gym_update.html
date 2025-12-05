@@ -20,6 +20,10 @@
 
                 {% csrf_token %}
 
+
+                <input type="text" placeholder="name" name="name" class="form-control" value="{{gym.name}}" />
+
+
                 <!-- صورة النادي -->
                 <div>
                     <label class="form-label fw-semibold">صورة النادي الحالية</label>
@@ -69,6 +73,16 @@
                     <label class="form-label fw-semibold">وصف النادي</label>
                     <textarea name="about" class="form-control" rows="4">{{ gym.about }}</textarea>
                 </div>
+
+                <!-- السعر و الموقع  -->
+
+                <label class="form-label">سعر الاشتراك الشهري</label>
+                <input type="number" step="0.01" name="monthly_price" class="form-control"
+                    value="{{ gym.monthly_price }}" required>
+
+                <label class="form-label mt-3">رابط الموقع الرسمي للنادي (اختياري)</label>
+                <input type="url" name="website" class="form-control" value="{{ gym.website }}">
+
 
                 <!-- زر التحديث -->
                 <button class="btn btn-primary w-100 py-2 fw-semibold rounded-3">

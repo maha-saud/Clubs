@@ -1,0 +1,136 @@
+{% load ar_time %}
+{% with replies_count=comment.replies.count %}
+<div class="comment-block mb-4">
+
+    <div class="p-3 bg-white rounded border shadow-sm">
+
+        <div class="d-flex align-items-start gap-3">
+
+            <!-- صورة المستخدم -->
+            <img src="{% if comment.user.coach %}{{ comment.user.coach.avatar.url }}
+         {% elif comment.user.gym %}{{ comment.user.gym.image.url }} 
+         {% else %}/static/images/default-user.png{% endif %}" class="rounded-circle" width="77" height="77">
+
+            <div class="flex-grow-1">
+
+                <div class="d-flex justify-content-between align-items-center mb-1">
+
+                    <!-- اليوزر ولنك له -->
+                    <h6 class="fw-bold m-0">
+
+                        <a href="
+        {% if comment.user.coach %}
+            {% url 'coaches:profile_coach_view' comment.user.coach.id %}
+        {% elif comment.user.gym %}
+            {% url 'gyms:gym_detail_view' comment.user.gym.id %}
+        {% else %}
+            #هنا رابط اليوزر اذا سوته امواج
+        {% endif %}
+    " class="text-decoration-none" style="color: var(--text-dark);">
+                            {{ comment.user.username }}
+                        </a>
+
+                    </h6>
+
+
+
+
+                    <!-- التقييم  و نوع الكومنت فقط للتعليقات الأساسية -->
+                    {% if comment.rating %}
+                    <div class="d-flex align-items-center justify-content-end gap-1 mb-2">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span>{{ comment.rating }}</span>
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            {{ c.get_comment_type_display }}
+                        </span>
+                    </div>
+                    {% endif %}
+
+
+                </div>
+
+                <!-- منشن لو فيه رد على شخص -->
+                {% if comment.reply_to %}
+                <span class="text-dark fw-semibold"> رداً على @{{ comment.reply_to.username }}</span>
+                {% endif %}
+
+                <!-- نص التعليق -->
+                <p class="mb-2 text-muted">{{ comment.comment }}</p>
+
+
+                <!-- الوقت تحتهم -->
+                <small class="text-muted d-block mb-1">{{ comment.created_at|ar_naturaltime }}</small>
+
+                {% if request.user == comment.user or request.user == comment.gym.user or request.user.is_staff %}
+                <form method="POST" action="{% url 'gyms:delete_comment_view' comment.id %}" class="d-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-sm btn-danger comment-btn" onclick="return confirm('تبين تحذفين هذا الرد؟')">
+                        حذف
+                    </button>
+                </form>
+                {% endif %}
+
+
+
+                <!-- زر الرد  -->
+                {% if request.user.is_authenticated %}
+                <button class="btn btn-sm btn-outline-primary comment-btn reply-btn mt-1">
+                    رد
+                </button>
+
+                <!-- فورم الرد على هذا التعليق -->
+                <form method="POST" action="{% url 'gyms:add_comment_view' comment.gym.id %}"
+                    class="reply-form mt-2 d-none">
+                    {% csrf_token %}
+                    <input type="hidden" name="parent" value="{{ comment.id }}">
+                    <textarea name="comment" class="form-control mb-2" rows="2" placeholder="اكتبي ردك..."
+                        required></textarea>
+                    <button class="btn btn-primary btn-sm comment-btn">إرسال</button>
+                </form>
+                {% endif %}
+
+                <!-- زر عرض الردود -->
+                {% if replies_count %}
+                <div class="mt-2 pt-2 border-top small text-muted">
+
+                    <button class="btn btn-link text-muted p-0 toggle-replies" data-target="replies-{{ comment.id }}"
+                        data-label-closed="عرض {{ replies_count }} {% if replies_count == 1 %}رد{% elif replies_count == 2 %}ردّان{% else %}ردود{% endif %} ▾"
+                        data-label-open="إخفاء الردود ▴">
+                        عرض {{ replies_count }}
+                        {% if replies_count == 1 %}رد{% elif replies_count == 2 %}ردّان{% else %}ردود{% endif %}
+                        ▾
+                    </button>
+
+                </div>
+
+                <!-- قائمة الردود -->
+                <div class="replies d-none mt-3 ms-5" id="replies-{{ comment.id }}">
+                    {% for child in comment.replies.all %}
+                    {% include "gyms/component/comment_block.html" with comment=child %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .comment-btn {
+        font-size: 14px !important;
+        padding: 6px 14px !important;
+        height: 36px !important;
+        line-height: 20px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-width: 50px !important;
+        border-radius: 8px !important;
+
+    }
+</style>
+
+{% endwith %}

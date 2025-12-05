@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Count, Avg
+from django.db.models import Count, Avg, Q
 from django.core.paginator import Paginator
 from django.http import HttpRequest
 from django.contrib import messages
@@ -12,9 +12,15 @@ from coaches.models import Coach
 
 def all_gyms_view(request: HttpRequest, hood_name):
 
-    gyms = Gym.objects.all().annotate(
-        avg_rating=Avg("comments__rating"),
-        comments_count=Count("comments")
+    #gyms = Gym.objects.all().annotate(avg_rating=Avg("comments__rating"),comments_count=Count("comments") )
+
+
+    gyms = (
+        Gym.objects
+        .annotate(
+            avg_rating=Avg("comments__rating"),
+            comments_count=Count("comments", filter=Q(comments__parent__isnull=True))
+        )
     )
 
     # لو طلب حي معين
@@ -40,10 +46,22 @@ def all_gyms_view(request: HttpRequest, hood_name):
     if hood_id != "all" and hood_id != "":
         gyms = gyms.filter(hoods__id=hood_id)
 
+    # فلترة السعر
+    price_sort = request.GET.get("price", "all")
+
+    if price_sort == "low":
+        gyms = gyms.order_by("monthly_price")  # الأرخص أولاً
+    elif price_sort == "high":
+        gyms = gyms.order_by("-monthly_price")  # الأغلى أولاً
+
     # Pagination
     page_number = request.GET.get("page", 1)
-    paginator = Paginator(gyms, 6)
+    paginator = Paginator(gyms, 6 )
     gyms_page = paginator.get_page(page_number)
+
+    #parent_comments_count=Count("comments", filter=Q(comments__parent__isnull=True))
+
+
 
     return render(request, "gyms/all_gyms.html", {
         "gyms": gyms_page,
@@ -53,7 +71,8 @@ def all_gyms_view(request: HttpRequest, hood_name):
         "selected_rating": rating_order,
         "selected_has_coach": has_coach,
         "selected_hood": str(hood_id),
-    }) # اخر ثلاث عشان الفلتره تحتفظ بالي حددته 
+        "selected_price": price_sort,
+    }) 
 
 
 def gym_detail_view(request: HttpRequest, gym_id: int):
@@ -111,6 +130,9 @@ def gym_update_view(request: HttpRequest, gym_id: int):
         # لو غيّر الصورة
         if "image" in request.FILES:
             gym.image = request.FILES["image"]
+        # تحديث الاسم
+        gym.name = request.POST.get("name")
+
 
         # تحديث الأحياء (ManyToMany)
         selected_hoods = request.POST.getlist("hoods")
@@ -121,6 +143,10 @@ def gym_update_view(request: HttpRequest, gym_id: int):
 
         # تحديث الوصف
         gym.about = request.POST.get("about")
+
+        # السعر و الموقع 
+        gym.monthly_price = request.POST.get("monthly_price")   
+        gym.website = request.POST.get("website") 
 
         # نحفظ التعديل
         gym.save()
@@ -223,3 +249,52 @@ def add_reply_view(request: HttpRequest, comment_id: int):
     # نرجع لصفحة تفاصيل النادي
     return redirect("gyms:gym_detail_view", gym_id=parent_comment.gym.id)
 
+
+
+def toggle_coach_gym(request, gym_id):
+    if not request.user.is_authenticated:
+        messages.error(request, "يجب تسجيل الدخول.")
+        return redirect("accounts:sign_in")
+
+    # المدرب نفسه
+    try:
+        coach = request.user.coach
+    except:
+        messages.error(request, "هذا الخيار خاص بالمدربين فقط.")
+        return redirect("gyms:gym_detail_view", gym_id=gym_id)
+
+    gym = get_object_or_404(Gym, pk=gym_id)
+
+    # لو المدرب غير منتسب لأي نادي
+    if coach.gym is None:
+        coach.gym = gym
+        coach.save()
+        messages.success(request, f"تم انتسابك لنادي {gym.user.username} بنجاح!")
+    
+    # لو المدرب منتسب لنفس النادي  يلغي
+    elif coach.gym == gym:
+        coach.gym = None
+        coach.save()
+        messages.success(request, "تم إلغاء الانتساب من النادي.")
+
+    # لو المدرب منتسب لنادي آخر
+    else:
+        messages.error(request, "لا يمكنك الانتساب لأكثر من نادي .")
+
+    return redirect("gyms:gym_detail_view", gym_id=gym_id)
+
+
+
+def delete_comment_view(request, comment_id):
+    comment = get_object_or_404(GymComment, pk=comment_id)
+
+    # السماح بالحذف فقط لصاحبه، أو صاحب النادي، أو موظف
+    if request.user != comment.user and request.user != comment.gym.user and not request.user.is_staff:
+        messages.error(request, "لا يمكنك حذف هذا التعليق.")
+        return redirect("gyms:gym_detail_view", gym_id=comment.gym.id)
+
+    gym_id = comment.gym.id
+    comment.delete()
+
+    messages.success(request, "تم حذف التعليق.")
+    return redirect("gyms:gym_detail_view", gym_id=gym_id)

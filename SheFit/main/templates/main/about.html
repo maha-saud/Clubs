@@ -1,0 +1,162 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block title %}عن SheFit{% endblock %}
+
+{% block content %}
+
+<!-- هيرو -->
+<section class="py-5" style="
+    background: linear-gradient(135deg, #d8672b 0%, #e57717 40%, #ff9b55 100%);
+    color: white;
+">
+    <div class="container text-center py-5">
+        <h1 class="fw-bold display-5 mb-3">عن SheFit</h1>
+        <p class="lead mb-0" style="max-width: 650px; margin:auto;">
+            منصّة صُممت خصيصًا لدعم المرأة… لتجد ناديها المناسب ومدربتها المثالية بخطوات بسيطة، ثقة أعلى، وتجربة أذكى.
+        </p>
+    </div>
+</section>
+
+
+<!-- من نحن -->
+<section class="py-5 bg-light">
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6 mb-4">
+                <h2 class="fw-bold mb-3">من نحن؟</h2>
+                <p class="text-muted fs-5">
+                    SheFit هي أول منصّة تجمع <strong>النوادي النسائية</strong> و<strong>المدربات المحترفات</strong>
+                    في مكان واحد؛ لتمنح المرأة مساحة آمنة، سهلة، وسريعة لاختيار الأفضل لها.
+                    نؤمن أن كل امرأة تستحق بيئة تدعمها… ومن هنا بدأت رحلتنا.
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <img src="{% static 'images/logo.png' %}" class="img-fluid rounded shadow-sm">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- رسالتنا -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">رسالتنا</h2>
+        <p class="text-muted fs-5" style="max-width: 750px; margin:auto;">
+            أن نختصر على المرأة الوقت والجهد، ونقدّم لها مكانًا واحدًا تتعرّف فيه على النوادي،
+            تقرأ التقييمات الحقيقية، وتشاهد المدربات، وتحجز بسهولة… لأن راحتك ووقتك يستحقّان الأفضل.
+        </p>
+    </div>
+</section>
+
+
+<!-- قيم SheFit -->
+<section class="py-5 bg-light">
+    <div class="container">
+
+        <h2 class="fw-bold text-center mb-5">قيمنا</h2>
+
+        <div class="row g-4 text-center">
+
+            <div class="col-md-4">
+                <div class="p-4 rounded shadow-sm bg-white h-100">
+                    <h4 class="fw-bold mb-2">الشفافية</h4>
+                    <p class="text-muted">
+                        تقييمات حقيقية، معلومات واضحة، وتجربة مبنية على الثقة.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-4 rounded shadow-sm bg-white h-100">
+                    <h4 class="fw-bold mb-2">سهولة الوصول</h4>
+                    <p class="text-muted">
+                        كل النوادي والمدربات في منصة واحدة… رحلة اختيار أبسط من أي وقت مضى.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-4 rounded shadow-sm bg-white h-100">
+                    <h4 class="fw-bold mb-2">دعم المرأة</h4>
+                    <p class="text-muted">
+                        نمنح المرأة أدوات أقوى لاتخاذ قرار يناسب أهدافها وصحتها وثقتها.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- لماذا SheFit؟ -->
+<section class="py-5">
+    <div class="container">
+
+        <h2 class="fw-bold text-center mb-5">ليش SheFit؟</h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <div class="p-4 rounded bg-white shadow-sm h-100">
+                    <h5 class="fw-bold mb-2">✔ لأنك تستحقين الأفضل</h5>
+                    <p class="text-muted">
+                        نقدّم لك مقارنة دقيقة بين النوادي، مع تقييمات موثوقة ، عشان تختارين نادي يناسبك فعليًا.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="p-4 rounded bg-white shadow-sm h-100">
+                    <h5 class="fw-bold mb-2">✔ مدربات محترفات</h5>
+                    <p class="text-muted">
+                        لكل مدربة صفحة احترافية، خبراتها، تخصصها، باقات الاشتراك، وآراء المتدربات.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="p-4 rounded bg-white shadow-sm h-100">
+                    <h5 class="fw-bold mb-2">✔ تجربة سلسة</h5>
+                    <p class="text-muted">
+                        كل شيء مصمم ليكون سريع، واضح، ومريح… من التصفح حتى الحجز.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="p-4 rounded bg-white shadow-sm h-100">
+                    <h5 class="fw-bold mb-2">✔ منصة سعودية برؤية حديثة</h5>
+                    <p class="text-muted">
+                        نواكب نمط الحياة الحديثة ونقدّم تجربة رقمية تليق بالمرأة السعودية.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- دعوة للعمل -->
+<section class="py-5 bg-light text-center">
+    <div class="container">
+        <h2 class="fw-bold mb-3">ابدئي رحلتك الآن</h2>
+        <p class="text-muted mb-4">اختاري ناديك، شاهدي المدربات، واقرئي تقييمات حقيقية.</p>
+        <a href="{% url 'gyms:all_gyms_view' 'all' %}" class="btn btn-primary px-4 py-2"
+            style="background: var(--orange-grad); border:none;">
+            استكشفي النوادي
+        </a>
+    </div>
+</section>
+
+{% endblock %}

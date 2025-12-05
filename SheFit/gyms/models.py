@@ -18,6 +18,8 @@ class Gym(models.Model):
     hoods =models.ManyToManyField(Hood)
     has_coach=models.BooleanField(default=True)
     about =models.TextField()
+    monthly_price = models.DecimalField(max_digits=8, decimal_places=2)  # سعر اشتراك شهري
+    website = models.URLField(max_length=300, null=True, blank=True) # رابط ال website الخاص للنادي نفسه اذا كان عندهم 
 
     def __str__(self) -> str:
         return self.user.username if self.user else "Gym"   

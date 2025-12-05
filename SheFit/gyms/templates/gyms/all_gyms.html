@@ -10,8 +10,8 @@
     <!-- فلترة التقييم -->
     <select name="rating" class="form-select w-auto">
         <option value="all">التقييم (الكل)</option>
-        <option value="high" {% if selected_rating == "high" %}selected{% endif %}>الأعلى تقييم</option>
-        <option value="low" {% if selected_rating == "low" %}selected{% endif %}>الأقل تقييم</option>
+        <option value="high" {% if selected_rating == "high" %}selected{% endif %}>الأعلى تقييماً</option>
+        <option value="low" {% if selected_rating == "low" %}selected{% endif %}>الأقل تقييماً</option>
     </select>
 
     <!-- فلترة وجود مدربين -->
@@ -25,12 +25,23 @@
     <select name="hood" class="form-select w-auto">
         <option value="all">الأحياء (الكل)</option>
         {% for h in hoods %}
-            <option value="{{ h.id }}"
-                {% if selected_hood == h.id|stringformat:"s" %}selected{% endif %}>
-                {{ h.name }}
-            </option>
+        <option value="{{ h.id }}" {% if selected_hood == h.id|stringformat:"s" %}selected{% endif %}>
+            {{ h.name }}
+        </option>
         {% endfor %}
     </select>
+
+    <!-- فلترة السعر -->
+    <select name="price" class="form-select w-auto">
+        <option value="all">السعر (الكل)</option>
+
+        <option value="low" {% if selected_price == "low" %}selected{% endif %}>من الاقل إلى الأغلى</option>
+
+        <option value="high" {% if selected_price == "high" %}selected{% endif %}> الأغلى إلى الاقل</option>
+    </select>
+
+
+
 
     <!-- زر تطبيق الفلترة -->
     <button class="btn btn-primary">تطبيق</button>
@@ -43,21 +54,21 @@
 <div class="pagination d-flex justify-content-center mt-4">
 
     {% if gyms.has_previous %}
-        <a href="?page=1">الأولى</a>
-        <a href="?page={{ gyms.previous_page_number }}">السابق</a>
+    <a href="?page=1">الأولى</a>
+    <a href="?page={{ gyms.previous_page_number }}">السابق</a>
     {% endif %}
 
     {% for page in gyms.paginator.page_range %}
-        {% if page == gyms.number %}
-            <a class="active-page">{{ page }}</a>
-        {% else %}
-            <a href="?page={{ page }}">{{ page }}</a>
-        {% endif %}
+    {% if page == gyms.number %}
+    <a class="active-page">{{ page }}</a>
+    {% else %}
+    <a href="?page={{ page }}">{{ page }}</a>
+    {% endif %}
     {% endfor %}
 
     {% if gyms.has_next %}
-        <a href="?page={{ gyms.next_page_number }}">التالي</a>
-        <a href="?page={{ gyms.paginator.num_pages }}">الأخيرة</a>
+    <a href="?page={{ gyms.next_page_number }}">التالي</a>
+    <a href="?page={{ gyms.paginator.num_pages }}">الأخيرة</a>
     {% endif %}
 
 </div>

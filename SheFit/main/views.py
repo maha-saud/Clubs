@@ -2,16 +2,28 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from gyms.models import Gym
 from coaches.models import Coach
-from django.db.models import Avg, Q
+from django.db.models import Avg, Q, Count
 
 # Create your views here.
 
 
 def home_view(request:HttpRequest):
-    top_gyms = Gym.objects.annotate(avg_rating=Avg("comments__rating")).order_by("-avg_rating")[:3]
+    #top_gyms = Gym.objects.annotate(avg_rating=Avg("comments__rating")).order_by("-avg_rating")[:3]
+    top_gyms = (
+    Gym.objects
+        .annotate(
+            avg_rating=Avg("comments__rating"),
+            comments_count=Count("comments", filter=Q(comments__parent__isnull=True))
+        )
+        .order_by("-avg_rating")[:3]
+)
     top_coaches= Coach.objects.all().annotate(avg_rating=Avg("coachcomment__rating")).order_by("-avg_rating")[:3]
 
     return render(request, "main/home.html", {"top_gyms": top_gyms, "top_coaches":top_coaches})
+
+
+def about_view(request:HttpRequest):
+    return render(request, "main/about.html")
 
 
 
