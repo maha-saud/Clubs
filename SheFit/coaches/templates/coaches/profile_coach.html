@@ -11,14 +11,12 @@
 
 <div class="container">
 
-    <!-- معلومات المدرب + الباقات -->
     <div class="row g-3 mb-4 align-items-stretch">
 
         <!-- معلومات المدرب -->
         <div class="col-lg-8">
             <div class="card p-4 shadow-sm h-100 position-relative">
 
-                <!-- favorite Icon -->
                 <a href="{% url 'accounts:add_favorite_coaches_view' coach.id %}"
                     class="btn p-2 position-absolute top-0 end-0 m-3" style="background: none; border: none;">
                     {% if user.is_authenticated and user.trainee %}
@@ -31,10 +29,9 @@
                 </a>
 
                 <div class="d-flex gap-3 align-items-start">
-                    <!-- الصورة -->
+  
                     <img src="{{ coach.avatar.url }}" class="rounded-circle" width="120" height="120">
 
-                    <!-- بيانات المستخدم -->
                     <div class="flex-grow-1">
                         <div class="d-flex justify-content-between">
                             <h4 class="fw-bold">{{ coach.user.first_name }} {{ coach.user.last_name }}</h4>
@@ -191,61 +188,84 @@
 
                 {% if posts %}
 
-
                 {% for p in posts %}
+
                 <div class="border rounded p-3 mb-2">
                     <div class="d-flex justify-content-between">
+
                         <div>
                             <h6 class="fw-bold mb-1">{{ p.title }}</h6>
                             <small class="text-muted">{{ p.content|truncatechars:50 }}</small>
                         </div>
 
-                        <button type="button" data-bs-toggle="modal"
-                            data-bs-target="#postModal" class="badge bg-success">
+                        {% if request.user == coach.user or request.user in subscribers or coach.gym %}
+                        <button type="button" class="badge bg-success border-0" data-bs-toggle="modal"
+                            data-bs-target="#postModal{{ p.id }}">
                             المزيد
                         </button>
+                        {% else %}
+                        <span class="text-muted small">مشتركات فقط</span>
+                        {% endif %}
 
                     </div>
                 </div>
 
-                {% if request.user == coach.user %}
-                <a href="{% url 'coaches:add_post_view' %}" class="btn btn-dark fw-bold"
-                    style="width:auto; padding:8px 22px; border-radius:12px;">
-                    اضف منشور
-                </a>
+                {# ----- إظهار المودال حسب الشروط ----- #}
+                {% if request.user == coach.user or request.user in subscribers or coach.gym %}
+                <div class="modal fade" id="postModal{{ p.id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">{{ p.title }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body">
+
+                                {% if p.img %}
+                                <div class="text-center mb-3">
+                                    <img src="{{ p.img.url }}" class="img-fluid rounded shadow-sm"
+                                        style="border-radius: 16px; max-height: 250px; object-fit: cover;">
+                                </div>
+                                {% endif %}
+
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h4 class="fw-bold m-0" style="font-size: 1.25rem;">
+                                        {{ p.title }}
+                                    </h4>
+
+                                    <small class="text-muted" style="font-size: 0.85rem;">
+                                        {{ p.created_at|date:"Y-m-d H:i" }}
+                                    </small>
+                                </div>
+
+                                <div class="p-3 rounded"
+                                    style="background: #f8f9fa; border: 1px solid #eee; line-height: 1.8; font-size: 1rem;">
+                                    {{ p.content|linebreaks }}
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer d-flex gap-3 mt-4">
+                                {% if request.user == coach.user or request.user.is_staff %}
+                                <a href="{% url 'coaches:update_post_view' p.id %}" class="btn btn-warning">تعديل</a>
+                                <a href="{% url 'coaches:delete_post_view' p.id %}" class="btn btn-danger"
+                                    onclick="return confirm('هل تودين حذف المنشور؟');">
+                                    حذف
+                                </a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
 
                 {% endfor %}
-                    <!-- المودال الخاص بكل بوست -->
-    <div class="modal fade" id="postModal{{ p.id }}" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
 
-          <div class="modal-header">
-            <h5 class="modal-title">{{ p.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-
-          <div class="modal-body">
-            {% if p.img %}
-                <img src="{{ p.img.url }}" class="img-fluid rounded mb-3">
-            {% endif %}
-            <p>{{ p.content }}</p>
-          </div>
-
-          <div class="modal-footer">
-            {% if request.user == coach.user %}
-              <a href="{% url 'coaches:update_post_view' p.id %}" class="btn btn-warning">تعديل</a>
-              <a href="{% url 'coaches:delete_post_view' p.id %}" class="btn btn-danger">حذف</a>
-            {% endif %}
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-                {%if not subscribers and not gyms %}
+                {# ----- إظهار رسالة عدم السماح بالمشاهدة إذا لا يوجد اشتراك ولا نادي ----- #}
+                {% if not subscribers and not coach.gym and request.user != coach.user%}
                 <div class="text-center d-flex flex-column align-items-center">
                     <p class="mb-3">يمكن فقط للمشتركات رؤية المنشورات</p>
 
@@ -254,22 +274,23 @@
                         اشتركي الآن
                     </a>
                 </div>
-                {%endif%}
+                {% endif %}
 
                 {% else %}
 
                 <div class="col text-center d-flex flex-column align-items-center justify-content-center">
                     <p class="mb-3">لا يوجد منشورات حالياً</p>
 
-                    {% if request.user == coach.user %}
+                    
+                </div>
+
+                {% endif %}
+                {% if request.user == coach.user %}
                     <a href="{% url 'coaches:add_post_view' %}" class="btn btn-dark fw-bold"
                         style="width:auto; padding:8px 22px; border-radius:12px;">
                         اضف منشور
                     </a>
                     {% endif %}
-                </div>
-
-                {% endif %}
 
             </div>
         </div>

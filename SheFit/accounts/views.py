@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate ,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db import IntegrityError, transaction
 from .forms import CoachSignUpForm, TraineeSignUpForm, GymSignUpForm
 from .models import Trainee 
 from coaches.models import Coach, UserSubscription
@@ -36,18 +37,21 @@ def coach_signup_view (request:HttpRequest):
     coach_form=CoachSignUpForm()
     if request.method =="POST":
         try:
-            new_user =User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
-            new_user.save()
+            with transaction.atomic():
+                new_user =User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
 
-            coach_form=CoachSignUpForm(request.POST, request.FILES)
-            if coach_form.is_valid():
-                coach = coach_form.save(commit=False)
-                coach.user = new_user
-                coach.save()
+                coach_form=CoachSignUpForm(request.POST, request.FILES)
+                if coach_form.is_valid():
+                    coach = coach_form.save(commit=False)
+                    coach.user = new_user
+                    coach.save()
+                else:
+                    raise IntegrityError("هناك خطأ في بيانات المدرب")
+
                 messages.success(request, "تم تسجيل الحساب بنجاح", "alert-success")
                 return redirect('accounts:signin_view')
-            else:
-                messages.error(request, "هناك خطأ في بيانات المدرب", "alert-warning")
+        except IntegrityError as e:
+            messages.error(request, "اسم المستخدم مستخدم بالفعل، الرجالء ادخال اخر", "alert-danger")
         except Exception as e:
             messages.error(request, f"حدث خطأ أثناء التسجيل {str(e)}", "alert-warning")  
 
@@ -58,18 +62,22 @@ def trainee_signup_view (request:HttpRequest):
     trainee_form=TraineeSignUpForm()
     if request.method =="POST":
         try:
-            new_user =User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
-            new_user.save()
+            with transaction.atomic():
+                new_user =User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
 
-            trainee_form=TraineeSignUpForm(request.POST, request.FILES)
-            if trainee_form.is_valid():
-                trainee = trainee_form.save(commit=False)
-                trainee.user = new_user
-                trainee.save()
+                trainee_form=TraineeSignUpForm(request.POST, request.FILES)
+                if trainee_form.is_valid():
+                    trainee = trainee_form.save(commit=False)
+                    trainee.user = new_user
+                    trainee.save()
+                else:
+                    raise IntegrityError("هناك خطأ في بيانات المتدرب")
+
                 messages.success(request, "تم تسجيل الحساب بنجاح", "alert-success")
                 return redirect('accounts:signin_view')
-            else:
-                messages.error(request, "هناك خطأ في بيانات المتدرب", "alert-warning")
+            
+        except IntegrityError as e:
+            messages.error(request, "اسم المستخدم مستخدم بالفعل، الرجالء ادخال اخر", "alert-danger")
         except Exception as e:
             messages.error(request, f"حدث خطأ أثناء التسجيل {str(e)}", "alert-warning")  
 
@@ -80,23 +88,25 @@ def gym_signup_view (request:HttpRequest):
     hoods = Hood.objects.all()
     if request.method =="POST":
         try:
-            new_user =User.objects.create_user(username=request.POST["username"], email=request.POST["email"], password=request.POST["password"])
-            new_user.save()
+            with transaction.atomic():
+                new_user =User.objects.create_user(username=request.POST["username"], email=request.POST["email"], password=request.POST["password"])
+                
+                gym_form=GymSignUpForm(request.POST, request.FILES)
+                if gym_form.is_valid():
+                    gym = gym_form.save(commit=False)
+                    gym.user = new_user
+                    gym.has_coach = request.POST.get("has_coach") == "True"
+                    gym.save()
 
-            gym_form=GymSignUpForm(request.POST, request.FILES)
-            if gym_form.is_valid():
-                gym = gym_form.save(commit=False)
-                gym.user = new_user
-                gym.has_coach = request.POST.get("has_coach") == "True"
-                gym.save()
-
-                selected_hoods = request.POST.getlist('hoods')
-                gym.hoods.set(selected_hoods)
+                    selected_hoods = request.POST.getlist('hoods')
+                    gym.hoods.set(selected_hoods)
+                else:
+                    raise IntegrityError("هناك خطأ في بيانات النادي")
 
                 messages.success(request, "تم تسجيل النادي بنجاح", "alert-success")
                 return redirect('accounts:signin_view')
-            else:
-                messages.error(request, "هناك خطأ في بيانات النادي", "alert-warning")
+        except IntegrityError as e:
+            messages.error(request, str(e), "alert-danger")
         except Exception as e:
             messages.error(request, f"حدث خطأ أثناء التسجيل {str(e)}", "alert-warning")  
 
