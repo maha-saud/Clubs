@@ -19,7 +19,7 @@
 
         <div class="row g-4 justify-content-center">
 
-            <!-- الكرت الأول (الأكثر شعبية) -->
+         
             {% for plan in plans %}
             <div class="col-md-4">
                 <div class="pricing-card popular h-100">
@@ -56,12 +56,12 @@
                         <span class="d-flex gap-3 mt-4 mb-4">
                             {% if request.user == coach.user or request.user.is_staff %}
                             <!-- زر التعديل -->
-                            <a href="{% url 'coaches:update_plan_view' coach.id %}" class="btn btn-warning btn-plan w-100" >
+                            <a href="{% url 'coaches:update_plan_view' plan.id %}" class="btn btn-warning btn-plan w-100" >
                                 تعديل
                             </a>
 
                             <!-- زر الحذف -->
-                            <a href="{% url 'coaches:delete_plan_view' coach.id %}" class="btn btn-danger btn-plan del w-100" 
+                            <a href="{% url 'coaches:delete_plan_view' plan.id %}" class="btn btn-danger btn-plan del w-100" 
                                 onclick="return confirm('هل تردين حذف الخطة؟');">
                                 حذف
                             </a>

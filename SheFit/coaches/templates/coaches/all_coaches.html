@@ -31,7 +31,7 @@
 </form>
 
 
-{% include 'coaches/component/coach_list.html' %}
+{% include 'coaches/component/coach_list.html' with coaches=coach_page%}
 
 <div class="pagination d-flex justify-content-center mt-4">
 
@@ -48,7 +48,7 @@
         {% endif %}
     {% endfor %}
 
-    {% if coach_paga.has_next %}
+    {% if coach_page.has_next %}
         <a href="?page={{ coach_page.next_page_number }}">التالي</a>
         <a href="?page={{ coach_page.paginator.num_pages }}">الأخيرة</a>
     {% endif %}

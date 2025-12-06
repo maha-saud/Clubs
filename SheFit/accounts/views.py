@@ -120,7 +120,7 @@ def logout_view (request:HttpRequest):
     return redirect(request.GET.get("next","/"))
 
 
-@login_required
+
 def profile_trainee_view(request:HttpRequest, train_id:int):
     trainee=Trainee.objects.get(pk=train_id)
     active_tab = request.GET.get('tab','favorite_coaches')

@@ -11,5 +11,6 @@ urlpatterns=[
    path('mode/',views.mode_view,name="mode_view"),
    path('search/',views.search_view,name="search_view"),
    path("about/", views.about_view, name="about_view"),
+   path("contact/", views.contact_view, name="contact_view"),
 
 ]

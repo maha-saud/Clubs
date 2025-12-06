@@ -6,7 +6,7 @@
 
 <h1 class="mb-4">نتائج البحث ({{total_count}})</h1>
 
-{% if gyms or coaches %}
+{% if results %}
 <h5>نتيجة البحث لـ {{request.GET.search}}</h5>
 
 {% include 'gyms/component/gyms_list.html' %}
@@ -17,22 +17,22 @@
 
 <div class="pagination d-flex justify-content-center mt-4">
 
-    {% if gyms.has_previous %}
+    {% if results.has_previous %}
         <a href="?page=1">الأولى</a>
-        <a href="?page={{ gyms.previous_page_number }}">السابق</a>
+        <a href="?page={{ results.previous_page_number }}">السابق</a>
     {% endif %}
 
-    {% for page in gyms.paginator.page_range %}
-        {% if page == gyms.number %}
+    {% for page in results.paginator.page_range %}
+        {% if page == results.number %}
             <a class="active-page">{{ page }}</a>
         {% else %}
             <a href="?page={{ page }}">{{ page }}</a>
         {% endif %}
     {% endfor %}
 
-    {% if gyms.has_next %}
-        <a href="?page={{ gyms.next_page_number }}">التالي</a>
-        <a href="?page={{ gyms.paginator.num_pages }}">الأخيرة</a>
+    {% if results.has_next %}
+        <a href="?page={{ results.next_page_number }}">التالي</a>
+        <a href="?page={{ results.paginator.num_pages }}">الأخيرة</a>
     {% endif %}
 
 </div>

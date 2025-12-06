@@ -11,6 +11,9 @@ import stripe
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
 
 # Create your views here.
 def all_coaches_view(request:HttpRequest):
@@ -46,7 +49,10 @@ def profile_coach_view(request:HttpRequest, coach_id:int):
     # المنشورات
     posts = Post.objects.filter(coach=coach)
 
-    return render(request,"coaches/profile_coach.html", {"coach":coach,"related_coaches":related_coaches ,"subscribers":subscribers, "total":total_subscribers,"posts":posts})
+    # متوسط التقييم
+    avarage_rating= coach.coachcomment_set.aggregate(avg=Avg('rating'))['avg']or 0
+
+    return render(request,"coaches/profile_coach.html", {"coach":coach,"related_coaches":related_coaches ,"subscribers":subscribers, "total":total_subscribers,"posts":posts, "avarage_rating":avarage_rating})
 
 
 def coach_update_view(request: HttpRequest, coach_id: int):
@@ -57,7 +63,7 @@ def coach_update_view(request: HttpRequest, coach_id: int):
          
     if request.user != coach.user and not request.user.is_staff:
         messages.warning(request,"فقط يمكن لصاحب الحساب التعديل","alert-warning")
-        return redirect("main:home_veiw")
+        return redirect("main:home_view")
     
     if request.method =="POST":
         coach.speciality = request.POST.get("speciality", coach.speciality)
@@ -110,7 +116,7 @@ def add_plan_view(request:HttpRequest):
             plan.coach = coach
             plan.save()
             messages.success(request, "تم إضافة الباقة بنجاح", "alert-success")
-            return redirect("coach:plans_list_view")
+            return redirect("coaches:plans_list_view",coach_id=coach.id)
     else:
         form = SubscriptionPlanForm()
 
@@ -123,12 +129,12 @@ def update_plan_view(request:HttpRequest, plan_id):
         plan=SubscriptionPlan.objects.get(pk=plan_id)
     except Coach.DoesNotExist:
         messages.error(request, "الخطة غير موجودة", "alert-warning") 
-        return redirect("coach:plans_list_view")
+        return redirect("coaches:plans_list_view",coach_id=coach.id)
 
          
     if request.user != coach.user:
         messages.warning(request,"فقط يمكن لصاحب الحساب التعديل","alert-warning")
-        return redirect("coach:plans_list_view")
+        return redirect("coaches:plans_list_view",coach_id=coach.id)
     
     if request.method =="POST":
         plan.name = request.POST.get("name", plan.name)
@@ -148,7 +154,7 @@ def delete_plan_view(request:HttpRequest, plan_id):
         coach= request.user.coach
     except Coach.DoesNotExist:
         messages.error(request, "الخطة غير موجودة", "alert-warning") 
-        return redirect("coach:plans_list_view")
+        return redirect("coaches:plans_list_view",coach_id=coach.id)
 
     if request.user != coach.user:
         messages.warning(request, "فقط يمكن لصاحب الخطة الحذف", "alert-warning")
@@ -160,9 +166,9 @@ def delete_plan_view(request:HttpRequest, plan_id):
         messages.success(request, "تم حذف الخطة بنجاح", "alert-success")
 
     except Exception as e:
-        messages.error(request, "هناك مشكلة لا تستطيع الحذف الان", "alert-danger")
+        messages.error(request, f"هناك مشكلة لا تستطيع الحذف الان{str(e)}", "alert-danger")
 
-    return redirect("coach:plans_list_view")
+    return redirect("coaches:plans_list_view",coach_id=coach.id)
 
 def plans_list_view(request:HttpRequest, coach_id): 
     coach = get_object_or_404(Coach, pk =coach_id) 
@@ -251,6 +257,17 @@ def payment_success(request:HttpRequest):
 
     #إنشاء اشتراك
     UserSubscription.objects.create(trainee= trainee, plan= plan)
+    # إرسال رسالة للمتدرب اذا اشترك
+    trainee_html = render_to_string("main/mail/subscribes_trainee.html", {"trainee":trainee, "plan":plan, "coach":plan.coach})   
+    email_to_trainee=EmailMessage("تم الاشتراك في الباقة", trainee_html,settings.EMAIL_HOST_USER,[trainee.user.email] )
+    email_to_trainee.content_subtype="html"
+    email_to_trainee.send()
+    #ارسال رسالة للمدرب انه في مشترك جديد
+    coach_html = render_to_string("main/mail/new_subscription_coach.html", {"trainee":trainee, "plan":plan, "coach":plan.coach})   
+    email_to_coach=EmailMessage("متدرب جديد اشترك معك", coach_html,settings.EMAIL_HOST_USER,[plan.coach.user.email] )
+    email_to_coach.content_subtype="html"
+    email_to_coach.send()
+
     messages.success(request, "تم الاشتراك بنجاح", "alert-success")
     return redirect("coaches:profile_coach_view", coach_id=plan.coach.id)
 

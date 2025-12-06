@@ -1,0 +1,22 @@
+{% extends 'main/mail/email_base.html' %}
+{% block title %}
+تم الاشتراك بنجاح
+{% endblock %}
+
+{% block subtitle%}
+شكرًا لأشتراكك معنا
+{%endblock%}
+
+{% block subject %}
+تم اشتراكك بنجاح
+{% endblock %}
+
+{% block content %}
+        مرحباً {{ trainee.user.first_name }}،  
+        تم اشتراكك في باقة  
+        <strong>{{ plan.title }}</strong>
+        مع المدرب  
+        <strong>{{ coach.user.first_name }}</strong>.
+{% endblock %}
+
+

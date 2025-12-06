@@ -1,0 +1,18 @@
+{% extends 'main/mail/email_base.html' %}
+{% block title %}
+مشترك جديد!
+{% endblock %}
+
+{% block subtitle%}
+اخر التحديثات
+{%endblock%}
+
+{% block subject %}
+مشترك جديد!
+{% endblock %}
+
+{% block content %}
+مدربتنا {{ coach.user.first_name }}،
+انضم متدرب جديد إلى باقتك:
+<strong>{{ trainee.user.first_name }} {{ trainee.user.last_name }}</strong>.
+{% endblock %}
