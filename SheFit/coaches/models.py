@@ -72,6 +72,16 @@ class CoachComment(models.Model):
     created_at= models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user} on {self.coach.user.username}"    
+        return f"{self.user} on {self.coach.user.username}"   
+
+class Post(models.Model):
+        coach=models.ForeignKey(Coach, on_delete=models.CASCADE)
+        title = models.CharField(max_length=200)
+        content = models.TextField()
+        img = models.ImageField(upload_to="images/", null=True, blank=True)
+        created_at = models.DateTimeField(auto_now_add=True)
+        def __str__(self):
+            return self.title
+
 
  

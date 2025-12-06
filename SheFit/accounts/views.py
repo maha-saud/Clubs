@@ -6,9 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CoachSignUpForm, TraineeSignUpForm, GymSignUpForm
 from .models import Trainee 
-from coaches.models import Coach
+from coaches.models import Coach, UserSubscription
 from gyms.models import Gym
 from gyms.models import Hood
+
 
 
 
@@ -115,12 +116,14 @@ def profile_trainee_view(request:HttpRequest, train_id:int):
     active_tab = request.GET.get('tab','favorite_coaches')
     favorite_coaches = trainee.favorite_coaches.all() if active_tab == 'favorite_coaches' else None
     favorite_gyms = trainee.favorite_gyms.all() if active_tab == 'favorite_gyms' else None
+    subscriptions = UserSubscription.objects.filter(trainee=trainee).select_related('plan','plan__coach')
 
     context = {
         "trainee":trainee,
         'active_tab':active_tab,
         'favorite_coaches':favorite_coaches,
-        'favorite_gyms':favorite_gyms
+        'favorite_gyms':favorite_gyms,
+        'subscriptions':subscriptions,
     }
     return render(request,"accounts/profile_trainee.html", context)
 

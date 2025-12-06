@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}إضافة منشور جديد{% endblock %}
+
+{% block content %}
+
+<section class="d-flex justify-content-center align-items-center mt-5 mb-5">
+    <div class="col-12 col-md-6">
+        <div class="card shadow-sm p-4">
+            <h2 class="mb-5 mt-3 text-center"><strong>تعديل منشور</strong></h2>
+
+        <form class="row g-3 needs-validation" action="{% url 'coaches:update_post_view' post.id %}" method="post" enctype="multipart/form-data">
+            {%csrf_token %}
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" name="title" placeholder="" value="{{post.title}}" required>
+                <label for="floatingInput">عنوان المنشور</label>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="aboutInput" name="content" placeholder="" required>{{post.content}}</textarea>
+                <label for="aboutInput">وصف المنشور</label>
+            </div>
+            
+            <div class="mb-3">
+                <input type="file" name="img" id="imageInput" class="form-control" placeholder="" accept="image/*">
+                <label for="imageInput" class="form-label">صورة للمنشور</label>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-dark w-100" type="submit">إضافة منشور</button>
+            </div>
+        </form>
+     
+        </div>
+    </div>
+</section>
+    {% endblock %}

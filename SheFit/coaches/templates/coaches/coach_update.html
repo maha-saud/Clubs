@@ -26,6 +26,11 @@
             </div>
 
             <div class="form-floating">
+                <textarea type="text" class="form-control" id="floatingInput" name="about" placeholder="عنك" required>{{coach.about}}</textarea>
+                <label for="floatingInput">نبذة عنك</label>
+            </div>
+
+            <div class="form-floating">
                 <input type="text" class="form-control" id="floatingInput" name="speciality" placeholder="" value="{{coach.speciality}}" required>
                 <label for="floatingInput">التخصص</label>
             </div>
@@ -33,6 +38,11 @@
             <div class="form-floating">
                 <input type="number" class="form-control" id="floatingInput" name="experience_years" placeholder=""  value="{{coach.experience_years}}" required>
                 <label for="floatingInput">سنوات الخبرة</label>
+            </div>
+
+            <div class="form-floating">
+                    <input type="url" name="website" id="webInput" placeholder="رابط الموقع الرسمي للنادي (اختياري)" class="form-control" value="{%if coach.website != None%}{{coach.website}}{%endif%}">
+                    <label for="webInput">رابط الموقع الرسمي للنادي (اختياري)</label>
             </div>
 
             <label for="">صورة الحساب</label>
@@ -44,7 +54,7 @@
             </div>
 
             <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" name="email" placeholder="" value="{{coach.user.email}}"  required>
+                <input type="email" class="form-control" id="floatingInput" name="email" placeholder="" value="{{coach.user.email}}"  required>
                 <label for="floatingInput">الايميل</label>
             </div>
 

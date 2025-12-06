@@ -4,63 +4,63 @@
     {% for coach in coaches %}
     <div class="col d-flex justify-content-center mb-5">
 
-        <div class="card text-center shadow p-4 border-0 position-relative"
-             style="width: 18rem; border-radius: 20px; ">
+      <div class="card text-center shadow p-4 border-0 position-relative" style="width: 18rem; border-radius: 20px; ">
 
-      <!-- favorite Icon -->
-      <a href="{%url 'accounts:add_favorite_coaches_view' coach.id%}" class="btn p-2 position-absolute top-0 start-0 m-3 " style="background: none; border: none;">
-       {% if user.is_authenticated and user.trainee %}
+        <!-- favorite Icon -->
+        <a href="{%url 'accounts:add_favorite_coaches_view' coach.id%}"
+          class="btn p-2 position-absolute top-0 start-0 m-3 " style="background: none; border: none;">
+          {% if user.is_authenticated and user.trainee %}
           {% if coach in user.trainee.favorite_coaches.all %}
           <i class="bi bi-heart-fill text-danger" style="font-size: 1.3rem;"></i>
-           
-         {%else%} 
-          <i class="bi bi-heart" style="font-size: 1.3rem;"></i>
-         
-         {% endif %}
-      {% endif %}
-   </a> 
 
-   {% if coach.gym %}
-        <p class="m-0 text-success fw-semibold">
+          {%else%}
+          <i class="bi bi-heart" style="font-size: 1.3rem;"></i>
+
+          {% endif %}
+          {% endif %}
+        </a>
+
+        <!-- Profile Image -->
+        <img src="{{ coach.avatar.url }}" class="rounded-circle mx-auto shadow"
+          style="width: 120px; height: 120px; object-fit: cover;">
+
+        <!-- Name -->
+        <h4 class="mt-3">
+          {{ coach.user.first_name }} {{ coach.user.last_name }}
+        </h4>
+
+        <!-- Speciality -->
+        <p class="mb-1">
+          {{ coach.speciality }}
+        </p>
+
+
+        {% if coach.gym %}
+        <p class="mb-2 text-success fw-semibold">
           منتسب لـ
           <a href="{% url 'gyms:gym_detail_view' coach.gym.id %}">
             {{ coach.gym.name|default:coach.gym.user.username }}
           </a>
         </p>
         {% else %}
-        <p class="m-0 text-muted">غير منتسب لأي نادي</p>
+        <p class="mb-2 text-muted">مدرب شخصي</p>
         {% endif %}
-        
-          <!-- Profile Image -->
-          <img src="{{ coach.avatar.url }}"
-               class="rounded-circle mx-auto shadow"
-               style="width: 120px; height: 120px; object-fit: cover;">
 
-          <!-- Name -->
-          <h4 class="mt-3">
-            {{ coach.user.first_name }} {{ coach.user.last_name }}
-          </h4>
+        <!-- Experience -->
+        <p class="text-warning">
+          خبرة: {{ coach.experience_years }} سنوات
+        </p>
 
-          <!-- Speciality -->
-          <p class="mb-1" >
-            {{ coach.speciality }}
-          </p>
 
-          <!-- Experience -->
-          <p class="text-warning">
-            خبرة: {{ coach.experience_years }} سنوات
-          </p>
 
-      
-          <a href="{% url 'coaches:profile_coach_view' coach.id %}"
-             class="btn-outline-success btn px-4 py-2 mt-2 "
-             style="border-radius: 30px;">
-            التفاصيل
-          </a>
+        <a href="{% url 'coaches:profile_coach_view' coach.id %}" class="btn-outline-success btn px-4 py-2 mt-2 "
+          style="border-radius: 30px;">
+          التفاصيل
+        </a>
 
-        </div>
+      </div>
 
-   
+
 
     </div>
     {% endfor %}

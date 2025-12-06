@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpRequest
 from django.contrib import messages
-from .models import Coach, CoachComment ,SubscriptionPlan, UserSubscription
+from .models import Coach, CoachComment ,SubscriptionPlan, UserSubscription, Post
 from accounts.models import Trainee
-from .forms import SubscriptionPlanForm
+from .forms import SubscriptionPlanForm, PostForm
 from django.db.models import Count, Avg
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -38,10 +38,16 @@ def all_coaches_view(request:HttpRequest):
 
 def profile_coach_view(request:HttpRequest, coach_id:int):
     coach=Coach.objects.get(pk=coach_id)
+    #مدربين اخرين
     related_coaches= Coach.objects.all().exclude(pk=coach_id)[0:4]
-    subscribers = Trainee.objects.filter(usersubscription__plan__coach = coach).distinct()[0:4]
+    #المشتركون وعددهم
+    subscribers = UserSubscription.objects.filter(plan__coach = coach).select_related("trainee")[0:4]
     total_subscribers = subscribers.count()
-    return render(request,"coaches/profile_coach.html", {"coach":coach,"related_coaches":related_coaches ,"subscribers":subscribers, "total":total_subscribers})
+    # المنشورات
+    posts = Post.objects.filter(coach=coach)
+
+    return render(request,"coaches/profile_coach.html", {"coach":coach,"related_coaches":related_coaches ,"subscribers":subscribers, "total":total_subscribers,"posts":posts})
+
 
 def coach_update_view(request: HttpRequest, coach_id: int):
     try:
@@ -57,6 +63,14 @@ def coach_update_view(request: HttpRequest, coach_id: int):
         coach.speciality = request.POST.get("speciality", coach.speciality)
         coach.experience_years = request.POST.get("experience_years", coach.experience_years)
         coach.phone = request.POST.get("phone",coach.phone)
+        coach.website = request.POST.get("website",coach.website)
+        coach.about = request.POST.get("about",coach.about)
+        
+        coach.user.email = request.POST.get("email",coach.user.email)
+        coach.user.first_name = request.POST.get("first_name",coach.user.first_name)
+        coach.user.last_name = request.POST.get("last_name",coach.user.last_name)
+        coach.user.save()
+
 
         if "avatar" in request.FILES: coach.avatar = request.FILES["avatar"]
         coach.save()
@@ -64,6 +78,7 @@ def coach_update_view(request: HttpRequest, coach_id: int):
         return redirect("coaches:profile_coach_view" ,coach_id=coach.id)
     return render(request,"coaches/coach_update.html", {"coach":coach} )
 
+@login_required
 def coach_delete_view(request: HttpRequest, coach_id: int):
 
     if not request.user.is_staff:
@@ -95,6 +110,7 @@ def add_plan_view(request:HttpRequest):
             plan.coach = coach
             plan.save()
             messages.success(request, "تم إضافة الباقة بنجاح", "alert-success")
+            return redirect("coach:plans_list_view")
     else:
         form = SubscriptionPlanForm()
 
@@ -243,7 +259,7 @@ def payment_cancel(request:HttpRequest):
     messages.warning(request, "تم إالغاء عملية الدفع", "alert-warning")
     return redirect(request.META.get('HTTP_REFERER') or "/")
     
-    
+@login_required
 def add_to_cart_view(request:HttpRequest, plan_id):
     trainee= request.user.trainee
     plan = get_object_or_404(SubscriptionPlan,pk = plan_id)
@@ -264,6 +280,7 @@ def cart_view(request:HttpRequest):
         plan = get_object_or_404(SubscriptionPlan, id=plan_id)
     return render(request, "coaches/cart.html", {"plan":plan})
 
+@login_required
 def remove_from_cart_view(request:HttpRequest):
 
     if "cart"  in request.session:
@@ -282,4 +299,72 @@ def add_comment_view(request:HttpRequest, coach_id):
         new_comment.save()
         messages.success(request, "تم إضافة تعليق بنجاح","alert-success")
     return redirect("coaches:profile_coach_view",coach_id=coach_id)
+
+# المنشورات
+@login_required
+def add_post_view(request:HttpRequest):
+    try:
+        coach= request.user.coach
+    except Coach.DoesNotExist:
+        messages.error(request,"يجب أن تكون مدرب لإضافة منشور ","alert-danger")
+        return redirect("accounts:coach_signup_view") 
+    
+    if request.method =="POST":
+        post_form = PostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.coach = coach
+            post.save()
+            messages.success(request, "تم إضافة منشور بنجاح", "alert-success")
+            return redirect("coaches:profile_coach_view" ,coach_id=coach.id)
+    else:
+        post_form = PostForm()
+
+    return render(request, "coaches/add_post.html")
+
+@login_required
+def update_post_view(request:HttpRequest, post_id):
+    try:
+        coach= request.user.coach
+        post=Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        messages.error(request, "المنشور غير موجودة", "alert-warning") 
+        return redirect("coaches:profile_coach_view" ,coach_id=coach.id)
+
+         
+    if request.user != coach.user:
+        messages.warning(request,"فقط يمكن لصاحب الحساب التعديل على المنشور","alert-warning")
+        return redirect("coaches:profile_coach_view" ,coach_id=coach.id)
+    
+    if request.method =="POST":
+        post.title = request.POST.get("title", post.title)
+        post.content = request.POST.get("content", post.content)
+        if "img" in request.FILES: post.img = request.FILES["img"]
+        post.save()
+
+        messages.success(request,"تم تحديث المنشور بنجاح", "alert-success")
+        return redirect("coaches:profile_coach_view" ,coach_id=coach.id)
+    return render(request,"coaches/update_post.html", {"post":post} )
+
+@login_required
+def delete_post_view(request:HttpRequest, post_id):
+    try:
+        coach= request.user.coach
+    except Post.DoesNotExist:
+        messages.error(request, "المنشور غير موجودة", "alert-warning") 
+        return redirect("coaches:profile_coach_view" ,coach_id=coach.id)
+
+    if request.user != coach.user:
+        messages.warning(request, "فقط يمكن لصاحب المنشور الحذف", "alert-warning")
+        return redirect("coaches:profile_coach_view" ,coach_id=coach.id)
+
+    try:
+        post = Post.objects.get(pk=post_id)
+        post.delete()
+        messages.success(request, "تم حذف المنشور بنجاح", "alert-success")
+
+    except Exception as e:
+        messages.error(request, "هناك مشكلة لا تستطيع الحذف الان", "alert-danger")
+
+    return redirect("coaches:profile_coach_view" ,coach_id=coach.id)
 

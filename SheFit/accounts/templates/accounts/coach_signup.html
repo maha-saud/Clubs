@@ -26,12 +26,10 @@
             </div>
 
             <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" name="about" placeholder="عنك" required>
+                <textarea type="text" class="form-control" id="floatingInput" name="about" placeholder="عنك" required></textarea>
                 <label for="floatingInput">نبذة عنك</label>
             </div>
 
-            
-            
             <div class="form-floating">
                 <input type="text" class="form-control" id="floatingInput" name="speciality" placeholder="" required>
                 <label for="floatingInput">التخصص</label>
@@ -42,8 +40,13 @@
                 <label for="floatingInput">سنوات الخبرة</label>
             </div>
 
+            <div class="form-floating">
+                    <input type="url" name="website" id="webInput" placeholder="رابط الموقع الرسمي للنادي (اختياري)" class="form-control">
+                    <label for="webInput">رابط الموقع الرسمي للنادي (اختياري)</label>
+            </div>
+
             <label for="">صورة الحساب</label>
-            <input type="file" name="avatar" class="form-control" accept="image/*" >
+            <input type="file" name="avatar" class="form-control" accept="image/*" required>
 
             <div class="form-floating">
                 <input type="text" class="form-control" id="floatingInput" name="phone" placeholder="" required>
@@ -51,7 +54,7 @@
             </div>
 
             <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" name="email" placeholder="" required>
+                <input type="email" class="form-control" id="floatingInput" name="email" placeholder="" required>
                 <label for="floatingInput">الايميل</label>
             </div>
 

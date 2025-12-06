@@ -21,4 +21,7 @@ urlpatterns=[
     path("cart/",views.cart_view,name="cart_view"),
     path("cart/add/<int:plan_id>",views.add_to_cart_view,name="add_to_cart_view"),
     path("cart/remove/",views.remove_from_cart_view,name="remove_from_cart_view"),
+    path('add/post/', views.add_post_view, name="add_post_view"),
+    path("update/post/<post_id>/", views.update_post_view, name="update_post_view"),
+    path("delete/post/<post_id>/", views.delete_post_view, name="delete_post_view"),
 ]

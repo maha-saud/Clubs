@@ -1,5 +1,5 @@
 from django import forms
-from .models import Coach, CoachComment, SubscriptionPlan
+from .models import Coach, CoachComment, SubscriptionPlan, Post
 
 
 class CoachForm(forms.ModelForm):
@@ -18,3 +18,9 @@ class SubscriptionPlanForm(forms.ModelForm):
     class Meta:
         model = SubscriptionPlan
         fields = ['name','description','duration_days', 'price', 'max_subscribers']
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ["title", "content", "img"]
+           
