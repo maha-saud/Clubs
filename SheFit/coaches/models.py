@@ -5,6 +5,13 @@ from gyms.models import Gym
 from django.utils import timezone
 from datetime import timedelta
 
+from django.core.validators import RegexValidator  # ⬅ أعلى الملف
+
+saudi_phone_validator = RegexValidator(
+    regex=r'^(05|9665|\+9665)\d{8}$',
+    message="رقم الجوال غير صحيح (مثال: 05xxxxxxxx)"
+)
+
 
 # Create your models here.
 class Coach(models.Model):
@@ -12,7 +19,7 @@ class Coach(models.Model):
 
     speciality = models.TextField()
     experience_years = models.IntegerField()
-    phone = models.CharField(max_length=10)
+    phone = models.CharField(max_length=20, validators=[saudi_phone_validator], verbose_name="رقم الجوال")    
     gym = models.ForeignKey(Gym, on_delete=models.SET_NULL, null=True, blank=True, related_name="coaches")
     avatar =models.ImageField(upload_to="images/" ,default='avatars/default.png')
     about= models.TextField(default="")
