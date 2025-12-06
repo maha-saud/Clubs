@@ -6,7 +6,6 @@
 
       <div class="card text-center shadow p-4 border-0 position-relative" style="width: 18rem; border-radius: 20px; ">
 
-        <!-- favorite Icon -->
         <a href="{%url 'accounts:add_favorite_coaches_view' coach.id%}"
           class="btn p-2 position-absolute top-0 start-0 m-3 " style="background: none; border: none;">
           {% if user.is_authenticated and user.trainee %}

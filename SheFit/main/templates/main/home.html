@@ -2,12 +2,132 @@
 {% load static %}
 {% block title %}الصفحة الرئيسية{% endblock %}
 
+{% block style %}
+<style>
+
+:root {
+    --shift-orange: #ff6a00;
+    --shift-peach: #ff8c3c;
+    --shift-dark: #1a1a1a;
+    --shift-white: #ffffff;
+}
+
+/* ========= هيرو =========== */
+
+.hero-section {
+    height: 70vh;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.72) contrast(1.15);
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.35) 0%,
+        rgba(0,0,0,0.60) 100%
+    );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    color: var(--shift-white);
+    animation: fadeUp 1.2s ease;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.4;
+    text-shadow: 0 4px 14px rgba(0,0,0,0.35);
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    max-width: 650px;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(35px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ======= عناوين الأقسام ======= */
+
+.container h3 {
+    font-size: 1.7rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ff6a00, #ffa35c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ======= رابط المزيد ======= */
+
+.link-gradient {
+    font-weight: 600;
+    background: linear-gradient(90deg, #ff6a00, #ffa35c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.3s ease;
+}
+
+.link-gradient:hover {
+    opacity: 0.7;
+    transform: translateX(-4px);
+}
+
+/* ======= بطاقات النوادي والمدربين ======= */
+
+.gym-card, .coach-card {
+    border-radius: 20px !important;
+    transition: .3s ease;
+    overflow: hidden;
+}
+
+.gym-card:hover, .coach-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.gym-card img, .coach-card img {
+    border-radius: 16px;
+}
+
+/* ===== تحسين المسافات ===== */
+
+.section-spacing {
+    margin-top: 70px;
+    margin-bottom: 40px;
+}
+
+</style>
+{% endblock %}
+
 {% block content %}
 
 <!-- هيرو -->
 <section class="hero-section position-relative">
 
-    <!-- صورة الخلفية -->
     <div class="hero-bg">
         <video class="hero-video" autoplay loop muted playsinline>
             <source src="{% static 'videos/hero.mp4' %}" type="video/mp4">
@@ -15,51 +135,35 @@
         <div class="hero-overlay"></div>
     </div>
 
-
     <div class="hero-content text-center d-flex flex-column justify-content-center align-items-center">
-        <h1 class="fw-bold mb-3">اختاري ناديك… واحجزي كوتش أحلامك — بكل سهولة ومن مكانك</h1>
+        <h1 class="fw-bold mb-3">اختاري ناديك…<br>واحجزي كوتش أحلامك بكل سهولة ومن مكانك</h1>
         <p class="lead mb-4">كل نوادي الرياض في مكان واحد — مدربات، خطط تدريب، تقييمات، وكل اللي تحتاجينه لتبدئين</p>
     </div>
 
 </section>
 
-
-<!-- المحتوى تحت الهيرو -->
+<!-- المحتوى -->
 <div class="container mt-5 mb-5">
 
-    <!-- العنوان -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold m-0">أعلى النوادي تقييماً</h3>
-        <a href="{% url 'gyms:all_gyms_view' 'all' %}"
-            class="text-decoration-none d-flex align-items-center link-gradient">
+        <a href="{% url 'gyms:all_gyms_view' 'all' %}" class="text-decoration-none d-flex align-items-center link-gradient">
             <i class="bi bi-arrow-left-circle fs-4"></i>
             <span class="ms-1">للمزيد من النوادي</span>
         </a>
-
     </div>
 
-    <!-- عرض أعلى 3 نوادي -->
-   
-        {% include "gyms/component/gyms_list.html" with gyms=top_gyms %}
+    {% include "gyms/component/gyms_list.html" with gyms=top_gyms %}
 
-
-   
     <div class="d-flex justify-content-between align-items-center mt-5 mb-5">
         <h3 class="fw-bold m-0">أعلى المدربين تقييماً</h3>
-        <a href="{% url 'coaches:all_coaches_view'  %}"
-            class="text-decoration-none d-flex align-items-center link-gradient">
+        <a href="{% url 'coaches:all_coaches_view' %}" class="text-decoration-none d-flex align-items-center link-gradient">
             <i class="bi bi-arrow-left-circle fs-4"></i>
             <span class="ms-1">للمزيد من المدربين</span>
         </a>
-
     </div>
 
-    <!-- عرض أعلى 3 مدربين -->
-        {% include 'coaches/component/coach_list.html' with coaches=top_coaches %}
-        
-   
-
-
+    {% include 'coaches/component/coach_list.html' with coaches=top_coaches %}
 
 </div>
 

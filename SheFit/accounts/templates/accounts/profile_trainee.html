@@ -5,7 +5,6 @@
 
 {% block style %}
 <style>
-  
     .tp-profile-page {
         padding-bottom: 3rem;
     }
@@ -270,7 +269,7 @@
                             <div class="tp-header-title">
                                 الملف الشخصي للمتدرب
                             </div>
-                        
+
                         </div>
 
                     </div>
@@ -288,12 +287,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if active_tab == 'favorite_gyms' %}active{% endif %}"
-                                href="?tab=favorite_gyms">
-                                النوادي المفضلة
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link {% if active_tab == 'subscriptions' %}active{% endif %}"
                                 href="?tab=subscriptions">
                                 الاشتراكات
@@ -304,13 +297,89 @@
                     <div class="tab-content mt-3">
 
                         {% if active_tab == 'comments' %}
-                        <div class="tp-card">
-                            <h6 class="tp-card-title">التعليقات</h6>
+                        <div class="row g-3 mb-4 align-items-stretch">
 
-                            {# هنا ممكن تربطين التعليقات الخاصة بالمتدرب إذا عندك موديل جاهز #}
-                            <p class="tp-empty-text">
-                                لا توجد تعليقات مرتبطة بهذا المتدرب حالياً.
-                            </p>
+                            <div class="col">
+                                <div class="card p-4 shadow-sm h-100">
+
+                                    <h5 class="fw-bold mb-3">التعليقات</h5>
+
+                                    {% for c in coach_comments %}
+                                    <div class="card shadow-sm p-3 mb-3">
+
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <img src="{{ c.user.trainee.avatar.url }}" class="rounded-circle me-3"
+                                                    width="50" height="50">
+                                                <div>
+                                                    <h6 class="mb-0 fw-bold">{{ c.user.first_name }} {{ c.user.last_name}}</h6>
+                                                    <small class="text-muted">{{ c.created_at|date:"Y d M" }}</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="fs-5">
+                                                {{ c.rating }} <i class="text-warning bi bi-star-fill"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <small class="fw-bold">
+                                                تعليق على مدربه:
+                                                <a href="{% url 'coaches:profile_coach_view' c.coach.id %}"
+                                                    class="text-decoration-none">
+                                                    {{ c.coach.user.username }}
+                                                </a>
+                                            </small>
+                                        </div>
+
+                                        <p class="mt-3 mb-2 text-muted">{{ c.comment }}</p>
+
+                                    </div>
+                                    {% empty %}
+                                    <p>لا يوجد تعليقات للمدربين.</p>
+                                    {% endfor %}
+
+
+                                    {% for c in gym_comments %}
+                                    <div class="card shadow-sm p-3 mb-3">
+
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <img src="{{ c.user.trainee.avatar.url }}" class="rounded-circle me-3"
+                                                    width="50" height="50">
+                                                <div>
+                                                    <h6 class="mb-0 fw-bold">{{ c.user.first_name }} {{ c.user.last_name}}</h6>
+                                                    <small class="text-muted">{{ c.created_at|date:"Y d M" }}</small>
+                                                </div>
+                                            </div>
+
+                                            {% if c.rating %}
+                                            <div class="fs-5">
+                                                {{ c.rating }} <i class="text-warning bi bi-star-fill"></i>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <small class="fw-bold">
+                                                تعليق على نادي:
+                                                <a href="{% url 'gyms:gym_detail_view' c.gym.id %}"
+                                                    class="text-decoration-none">
+                                                    {{ c.gym.name }}
+                                                </a>
+                                            </small>
+                                        </div>
+
+                                        <p class="mt-3 mb-2 text-muted">{{ c.comment }}</p>
+
+                                    </div>
+                                    {% empty %}
+                                    <p>لا يوجد تعليقات على النوادي.</p>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+
                         </div>
 
                         {% elif active_tab == 'favorite_coaches' %}
@@ -329,25 +398,10 @@
                             {% endif %}
                         </div>
 
-                        {% elif active_tab == 'favorite_gyms' %}
-                        <div class="tp-card">
-                            <h6 class="tp-card-title">النوادي المفضلة</h6>
-
-                            {% if favorite_gyms %}
-                            <p class="tp-favorite-info">
-                                قائمة النوادي التي قام المتدرب بإضافتها للمفضلة.
-                            </p>
-                            {% include 'coaches/component/coach_list.html' with coaches=favorite_gyms %}
-                            {% else %}
-                            <p class="tp-empty-text">
-                                لم تقم بإضافة أي نادي للمفضلة حتى الآن.
-                            </p>
-                            {% endif %}
-                        </div>
 
                         {% elif active_tab == 'subscriptions' %}
                         <div class="tp-card">
-                            <h6 class="tp-card-title">الاشتراكات الحالية والسابقة</h6>
+                            <h6 class="tp-card-title">الاشتراكات الحالية </h6>
 
                             {% if subscriptions %}
                             {% for sub in subscriptions %}

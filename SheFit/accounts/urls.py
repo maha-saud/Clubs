@@ -14,5 +14,4 @@ urlpatterns=[
    path('logout/',views.logout_view,name="logout_view"),
    path('profile/<int:train_id>/',views.profile_trainee_view,name="profile_trainee_view"),
    path('favorite/add/<int:coach_id>/',views.add_favorite_coaches_view,name="add_favorite_coaches_view"),
-   path('favorite/add/<int:gym_id>/',views.add_favorite_gyms_view,name="add_favorite_gyms_view"),
 ]

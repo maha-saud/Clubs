@@ -4,65 +4,178 @@
 
 {% block style %}
 <style>
-    body {
-        font-family: "Arial", sans-serif;
-        background-color: #f8f9fa;
-    }
-    .card {
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        transition: transform 0.2s;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-    }
+
+/* ==========================================
+   SHIFT – Premium Fitness Auth UI
+   Elevated Gradient + Cinematic Cards
+   ========================================== */
+
+:root {
+    --shift-orange: #ff6a00;
+    --shift-peach: #ff9a4f;
+    --shift-white: #ffffff;
+    --shift-black: #1a1a1a;
+    --shift-soft: #fef4ec;
+    --shift-gray: #6c6c6c;
+}
+
+/* خلفية ناعمة جداً فيها عمق */
+body {
+    background: linear-gradient(135deg, #fff5ec 0%, #ffe1cc 40%, #ffd0aa 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+/* هيدر */
+.container h1 {
+    font-size: 2.6rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.container p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* البطاقة – مستوى جديد */
+.shift-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 2rem 2.3rem;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+    text-align: center;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: 0.35s ease;
+}
+
+/* إضاءة سينمائية داخل البطاقة */
+.shift-card::before {
+    content: "";
+    position: absolute;
+    top: -60%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center,
+        rgba(255,140,60,0.18),
+        transparent 60%
+    );
+    transform: scale(0.8);
+    opacity: 0;
+    transition: 0.5s ease;
+}
+
+.shift-card:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* حركة البطاقة */
+.shift-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.14);
+}
+
+/* الأيقونات */
+.shift-icon {
+    font-size: 3.6rem;
+    margin-bottom: 1.1rem;
+    background: linear-gradient(90deg, #ff6a00, #ff944b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.35s ease;
+}
+
+.shift-card:hover .shift-icon {
+    transform: scale(1.12);
+}
+
+/* العنوان */
+.shift-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: .6rem;
+    color: #333;
+}
+
+/* وصف */
+.shift-text {
+    font-size: 1.05rem;
+    color: var(--shift-gray);
+    margin-bottom: 1.7rem;
+}
+
+/* أزرار احترافية */
+.shift-btn {
+    width: 100%;
+    padding: .85rem;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1.05rem;
+    border: none;
+    transition: .35s ease;
+}
+
+.btn-orange {
+    background: linear-gradient(90deg, #ff7b1a, #ff9f52);
+    color: var(--shift-white);
+    box-shadow: 0 4px 12px rgba(255,126,0,0.35);
+}
+
+.btn-orange:hover {
+    background: linear-gradient(90deg, #e86800, #ff8c2f);
+    box-shadow: 0 6px 16px rgba(255,126,0,0.45);
+    transform: translateY(-2px);
+}
+
 </style>
 {% endblock %}
+
+
 {% block content %}
+
 <div class="container text-center my-5">
-    <h1 class="fw-bold">أهلًا بكم في شيفت</h1>
-    <p class="text-muted">أنضم إلينا لمجتمع صحي</p>
+    <h1 class="fw-bold" style="color: var(--shift-black) !important;">أهلًا بكم في شيفت</h1>
+    <p class="text-muted">منصة تقدم لك كل ما تحتاجينه في رحلتك الصحية</p>
 </div>
 
 <div class="container">
     <div class="row g-4 justify-content-center">
-       
+
+        <!-- نادي -->
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="card p-4 h-100">
-                <div class="card-body">
-                    <div class="card-icon text-success mb-3" style="font-size:2.5rem;">🟢</div>
-                    <h5 class="card-title fw-bold">نادي</h5>
-                    <p class="card-text text-muted">انشئ حساب ليجدك المتدربات</p>
-                    <a href="{% url 'accounts:gym_signup_view' %}" class="btn btn-success">دخول</a>
-                </div>
+            <div class="shift-card">
+                <i class="bi bi-building shift-icon"></i>
+                <h5 class="shift-title">نادي</h5>
+                <p class="shift-text">أنشئ حساب لناديك ليصل إليك العملاء بسهولة</p>
+                <a href="{% url 'accounts:gym_signup_view' %}" class="shift-btn btn-orange text-decoration-none">دخول</a>
             </div>
         </div>
 
-        
+        <!-- مدربة -->
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="card p-4 h-100">
-                <div class="card-body">
-                    <div class="card-icon text-primary mb-3" style="font-size:2.5rem;">🔵</div>
-                    <h5 class="card-title fw-bold">مدربة</h5>
-                    <p class="card-text text-muted">دربي عدد اكبر من المتدربات</p>
-                    <a href="{% url 'accounts:coach_signup_view' %}" class="btn btn-primary">دخول</a>
-                </div>
+            <div class="shift-card">
+                <i class="bi bi-person shift-icon"></i>
+                <h5 class="shift-title">مدربة</h5>
+                <p class="shift-text">وسّعي نطاق تدريبك واديري المتدربات باحترافية</p>
+                <a href="{% url 'accounts:coach_signup_view' %}" class="shift-btn btn-orange text-decoration-none">دخول</a>
             </div>
         </div>
 
-        
+        <!-- متدربة -->
         <div class="col-12 col-md-6 col-lg-4">
-            <div class="card p-4 h-100">
-                <div class="card-body">
-                    <div class="card-icon text-warning mb-3" style="font-size:2.5rem;">🟡</div>
-                    <h5 class="card-title fw-bold">متدربة</h5>
-                    <p class="card-text text-muted">انضمي الى نادي وقيمه</p>
-                    <a href="{% url 'accounts:trainee_signup_view' %}" class="btn btn-warning text-white">دخول</a>
-                </div>
+            <div class="shift-card">
+                <i class="bi bi-people shift-icon"></i>
+                <h5 class="shift-title">متدربة</h5>
+                <p class="shift-text">انضمي لنادٍ يناسبك وقيّمي تجربتك بكل سهولة</p>
+                <a href="{% url 'accounts:trainee_signup_view' %}" class="shift-btn btn-orange text-decoration-none">دخول</a>
             </div>
         </div>
+
     </div>
 </div>
-
 
 {% endblock %}
