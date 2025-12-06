@@ -19,6 +19,10 @@ class Trainee(models.Model):
 
     favorite_coaches = models.ManyToManyField("coaches.Coach", related_name="favorited_by",blank=True)
     favorite_gyms = models.ManyToManyField(Gym, related_name="favorited_by",blank=True)
+    
+    
+
     def __str__(self):
-        return self.age
+        return f"{self.user.username} - {self.get_goal_display()}"
+
 
