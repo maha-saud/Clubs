@@ -44,7 +44,18 @@ def profile_coach_view(request:HttpRequest, coach_id:int):
     #مدربين اخرين
     related_coaches= Coach.objects.all().exclude(pk=coach_id)[0:4]
     #المشتركون وعددهم
-    subscribers = UserSubscription.objects.filter(plan__coach = coach).select_related("trainee")[0:4]
+    all_subscriptions = UserSubscription.objects.filter(plan__coach=coach)
+
+    # المشتركين للعرض فقط
+    subscribers = all_subscriptions.select_related("trainee")[:4]
+    total_subscribers = all_subscriptions.count()
+
+    # هل المستخدم الحالي مشترك؟
+    is_subscriber = False
+    if request.user.is_authenticated:
+        is_subscriber = all_subscriptions.filter(
+            trainee__user=request.user
+        ).exists()
     total_subscribers = subscribers.count()
     # المنشورات
     posts = Post.objects.filter(coach=coach)
@@ -52,7 +63,7 @@ def profile_coach_view(request:HttpRequest, coach_id:int):
     # متوسط التقييم
     avarage_rating= coach.coachcomment_set.aggregate(avg=Avg('rating'))['avg']or 0
 
-    return render(request,"coaches/profile_coach.html", {"coach":coach,"related_coaches":related_coaches ,"subscribers":subscribers, "total":total_subscribers,"posts":posts, "avarage_rating":avarage_rating})
+    return render(request,"coaches/profile_coach.html", {"coach":coach,"related_coaches":related_coaches ,"subscribers":subscribers, "total":total_subscribers,"posts":posts, "avarage_rating":avarage_rating,"is_subscriber": is_subscriber})
 
 
 def coach_update_view(request: HttpRequest, coach_id: int):

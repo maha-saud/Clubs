@@ -203,7 +203,8 @@
                             <small class="text-muted">{{ p.content|truncatechars:50 }}</small>
                         </div>
 
-                        {% if request.user == coach.user or request.user in subscribers or coach.gym %}
+                    {% if request.user == coach.user or is_subscriber or coach.gym %}
+
                         <button type="button" class="badge bg-success border-0" data-bs-toggle="modal"
                             data-bs-target="#postModal{{ p.id }}">
                             المزيد
@@ -216,7 +217,7 @@
                 </div>
 
                 {# ----- إظهار المودال حسب الشروط ----- #}
-                {% if request.user == coach.user or request.user in subscribers or coach.gym %}
+               {% if request.user == coach.user or is_subscriber or coach.gym %}
                 <div class="modal fade" id="postModal{{ p.id }}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable modal-lg">
                         <div class="modal-content">
