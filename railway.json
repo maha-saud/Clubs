@@ -1,0 +1,9 @@
+{
+    "$schema": "https://railway.app/railway.schema.json",
+    "build": {
+        "builder": "NIXPACKS"
+    },
+    "deploy": {
+        "startCommand": "cd SheFit && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn SheFit.wsgi"
+    }
+}
