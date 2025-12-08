@@ -1,0 +1,1677 @@
+[
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 4,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 4,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 4,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 4,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 5,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 5,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 5,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 5,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 6,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 6,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 6,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 6,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add hood",
+    "content_type": 7,
+    "codename": "add_hood"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change hood",
+    "content_type": 7,
+    "codename": "change_hood"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete hood",
+    "content_type": 7,
+    "codename": "delete_hood"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view hood",
+    "content_type": 7,
+    "codename": "view_hood"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add gym",
+    "content_type": 8,
+    "codename": "add_gym"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change gym",
+    "content_type": 8,
+    "codename": "change_gym"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete gym",
+    "content_type": 8,
+    "codename": "delete_gym"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view gym",
+    "content_type": 8,
+    "codename": "view_gym"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add coach",
+    "content_type": 9,
+    "codename": "add_coach"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change coach",
+    "content_type": 9,
+    "codename": "change_coach"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete coach",
+    "content_type": 9,
+    "codename": "delete_coach"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view coach",
+    "content_type": 9,
+    "codename": "view_coach"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add trainee",
+    "content_type": 10,
+    "codename": "add_trainee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change trainee",
+    "content_type": 10,
+    "codename": "change_trainee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete trainee",
+    "content_type": 10,
+    "codename": "delete_trainee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view trainee",
+    "content_type": 10,
+    "codename": "view_trainee"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add gym comment",
+    "content_type": 11,
+    "codename": "add_gymcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change gym comment",
+    "content_type": 11,
+    "codename": "change_gymcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete gym comment",
+    "content_type": 11,
+    "codename": "delete_gymcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view gym comment",
+    "content_type": 11,
+    "codename": "view_gymcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add coach comment",
+    "content_type": 12,
+    "codename": "add_coachcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change coach comment",
+    "content_type": 12,
+    "codename": "change_coachcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete coach comment",
+    "content_type": 12,
+    "codename": "delete_coachcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view coach comment",
+    "content_type": 12,
+    "codename": "view_coachcomment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add subscription plan",
+    "content_type": 13,
+    "codename": "add_subscriptionplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change subscription plan",
+    "content_type": 13,
+    "codename": "change_subscriptionplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete subscription plan",
+    "content_type": 13,
+    "codename": "delete_subscriptionplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view subscription plan",
+    "content_type": 13,
+    "codename": "view_subscriptionplan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 53,
+  "fields": {
+    "name": "Can add user subscription",
+    "content_type": 14,
+    "codename": "add_usersubscription"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 54,
+  "fields": {
+    "name": "Can change user subscription",
+    "content_type": 14,
+    "codename": "change_usersubscription"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 55,
+  "fields": {
+    "name": "Can delete user subscription",
+    "content_type": 14,
+    "codename": "delete_usersubscription"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 56,
+  "fields": {
+    "name": "Can view user subscription",
+    "content_type": 14,
+    "codename": "view_usersubscription"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 57,
+  "fields": {
+    "name": "Can add post",
+    "content_type": 15,
+    "codename": "add_post"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 58,
+  "fields": {
+    "name": "Can change post",
+    "content_type": 15,
+    "codename": "change_post"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 59,
+  "fields": {
+    "name": "Can delete post",
+    "content_type": 15,
+    "codename": "delete_post"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 60,
+  "fields": {
+    "name": "Can view post",
+    "content_type": 15,
+    "codename": "view_post"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 61,
+  "fields": {
+    "name": "Can add contact",
+    "content_type": 16,
+    "codename": "add_contact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 62,
+  "fields": {
+    "name": "Can change contact",
+    "content_type": 16,
+    "codename": "change_contact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 63,
+  "fields": {
+    "name": "Can delete contact",
+    "content_type": 16,
+    "codename": "delete_contact"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 64,
+  "fields": {
+    "name": "Can view contact",
+    "content_type": 16,
+    "codename": "view_contact"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$KdTv0HumXE87PWdzxagWO5$AJACc/qCBLckAix4eebLXYR1KviH5UGxXL3GRJyYykE=",
+    "last_login": "2025-12-07T07:27:55.616Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "al-maha2244@hotmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-12-02T05:35:27.868Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$c11lqcsf17FrojkixG6upb$UiI5HvRoktCjjGOYk9GLyoEGAXZNkLSGGj8CzQCk4lY=",
+    "last_login": "2025-12-06T17:12:49.542Z",
+    "is_superuser": false,
+    "username": "maha",
+    "first_name": "„Â« ",
+    "last_name": "”⁄Êœ",
+    "email": "al-maha@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T07:00:25.785Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$CC3VUIaE6SAF32r4f6sKV6$9RKG47iZN+YWG6Pig69y2aZO/+vvTiZPgj1FGUuTiKA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "raghad",
+    "first_name": "—€œ",
+    "last_name": "”«·„",
+    "email": "raghad@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T07:20:59.113Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$sHXqveYxGkDLDFjfVRGrKD$V8bJPnvwC+WbVneFeega5+4QXemko6zL/68Y4vtcFiQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "gym",
+    "first_name": "",
+    "last_name": "",
+    "email": "gym@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T08:27:27.953Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$IKapM0YVRMCsYFTPFH1y1c$lnX+2rZ7KySVNBAjGLRc0T7RyuqfMAHiALRnSmD2wrY=",
+    "last_login": "2025-12-06T15:12:09.766Z",
+    "is_superuser": false,
+    "username": "ghadah",
+    "first_name": "€«œÂ",
+    "last_name": "”⁄Ìœ",
+    "email": "ghadah@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T19:34:28.083Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$U5VxYdtBUHTRCyvQDtyduK$Owrao/Mt3gUV9pcXocJstu0jMpQUN9EQpVUBoiVhvic=",
+    "last_login": "2025-12-07T05:13:57.368Z",
+    "is_superuser": false,
+    "username": "jood",
+    "first_name": "ÃÊœ",
+    "last_name": "«·Õ«—ÀÌ",
+    "email": "jood@gimail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T19:38:39.944Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$A1WteSEbCJJt8UI4UnuTHM$ljV9hlvWRyZnX15MOLvoxMOPUJS+jUxwjVAX9r7ivoA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "roro",
+    "first_name": "—€œ",
+    "last_name": "„Õ„œ",
+    "email": "roro@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T19:41:31.000Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$mHAUrSIYThzRy9xXb6buWS$3qzbphzaKCwZCU/BRB5uMUej06DLgvF96KV0tkY4kCA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "jory",
+    "first_name": "ÃÊ—Ì",
+    "last_name": "«·⁄Ê›Ì",
+    "email": "jory@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T19:44:00.674Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$dIOnL0SVEpTa77SXF87DqG$RDb87lKAc7VaJ3yFy+Zjc1vDcJu/k+uIY2HlYvmbUBQ=",
+    "last_login": "2025-12-05T16:23:18.267Z",
+    "is_superuser": false,
+    "username": "nora",
+    "first_name": "‰Ê—Â",
+    "last_name": "›Âœ",
+    "email": "ÏŒﬁ‘@·Â…‘Â„“ƒŒ…",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T19:46:03.087Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$W64TdsAyb6HkRACq9zPYUb$AAVPeHwJziSBdo56VUBU3t7DOrk/7WpeKeHtMpm72YE=",
+    "last_login": "2025-12-07T18:50:58.241Z",
+    "is_superuser": false,
+    "username": "sara",
+    "first_name": "”«—Â",
+    "last_name": "”«·„",
+    "email": "sara@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T19:49:47.855Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 12,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$NQlqHYMYL5Q89dybW201ts$HzhI4mXreEJ/yy9INsRojGoES5etLEhBlCi2dpVWOG0=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "gym1",
+    "first_name": "",
+    "last_name": "",
+    "email": "gym@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-02T20:07:21.091Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 13,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$rt0GRmdCDkqlpYXxlhK53X$iMPQGeE9s1dKEByB5v39dt18k98h5ApB+zbmzkE/LGM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "puregym",
+    "first_name": "",
+    "last_name": "",
+    "email": "puregym@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-03T07:14:11.671Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 14,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$tSbPpXUb05UgZfyJHi53TC$Fbc5YiOJQDV4cYY+85auv/RE0d09lmoSvWbcbVtVzkE=",
+    "last_login": "2025-12-06T13:28:07.150Z",
+    "is_superuser": false,
+    "username": "in2fitness",
+    "first_name": "",
+    "last_name": "",
+    "email": "in2fitness@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-03T08:03:03.408Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 15,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$9NwSMAPh6Sq7tYayxHkhGj$SLUG8dy5yf1+41ZATbLGPxDy3s1/AXJ/atLdqIflhF8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "activgyms",
+    "first_name": "",
+    "last_name": "",
+    "email": "info@activgyms.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-03T08:27:20.114Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 16,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$Q3eq7EkJWdMge33oglBIAB$AlW+QrsuPbEFBLiQJCrQ0wLGhpSmzerndDkWwy4goIk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "fitnesstime",
+    "first_name": "",
+    "last_name": "",
+    "email": "Info@fitnesstime.com.sa",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-03T08:43:29.618Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 17,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$Jl6sn8hCG1j4eogugWwYwf$efMMwV9M9q9iVkVIZMZM/bq71Fs+vxIJ0P/ykfmcA80=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "VitalityFitness",
+    "first_name": "",
+    "last_name": "",
+    "email": "VitalityFitness@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-03T09:00:54.045Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 18,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$WeF1mbZURHalvcaSF89tLJ$9DSBSfpZN7NnfILhPCPdPMshMMsS3/7Sva6kFa53nhc=",
+    "last_login": "2025-12-04T07:07:42.978Z",
+    "is_superuser": false,
+    "username": "fit",
+    "first_name": "",
+    "last_name": "",
+    "email": "fit@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-04T07:07:30.408Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 19,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$ZpTyWDielGR91tSDLuoCDx$MuYktJAtcDrese/Jn/rIAkckGaoojM4seGAYgESbgsM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "maha22",
+    "first_name": "jlnhl",
+    "last_name": "jkjhbkh",
+    "email": "hjvjhg",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-04T09:02:18.350Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 20,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$pKrLUADea5XyZlh55gMTZd$aFBkG4gIoIYXFQRCdcQX2SWGnLzJ7v6VVHiElix0kws=",
+    "last_login": "2025-12-06T17:16:07.281Z",
+    "is_superuser": false,
+    "username": "«„Ê«Ã",
+    "first_name": "«„Ê«Ã",
+    "last_name": "«·“Â—«‰Ì",
+    "email": "amwaj@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-05T16:28:59.683Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 21,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$yJBIQkGjuM2D6VGoeT2RDF$+cbHADqqYU7ljSfM+/v3mwQIeOt1M5GWXEamE33+dzA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ljlnck;j;",
+    "first_name": "",
+    "last_name": "",
+    "email": ";kksnc'/ol/jsnO;",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T08:27:00.517Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 22,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$k8Iz2wqOIQSrR1yTeeLpfA$kzO5ehjjI7I51MjjFUo6fPc7YfQJ3pIMKV3M2bcZUYQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "HHHH",
+    "first_name": "",
+    "last_name": "",
+    "email": "HHHH@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T08:27:39.197Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 23,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$FgCt2q3cI6rRXd6DWtZkei$uKe7yvGjMo3l6b0D9ZTFtJmw9FcqznF1W+74JFMbcGo=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "hehehe",
+    "first_name": "",
+    "last_name": "",
+    "email": "hehehe@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T08:30:15.907Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 24,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$5jlaV9m6F5bRn9hJqrNYAw$gaUNuEsumYEl30LzX/EJQxAllaWrTORb9EXjYhR5/mc=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "hhhh",
+    "first_name": "",
+    "last_name": "",
+    "email": "hhhh@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T08:45:15.341Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 25,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$hSXwpgJqZsDFdqsMCbF9br$AmdP2Zo9jyospouk/ftkn2lja2hfoBk/5sqZgkjiwXc=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "hhh",
+    "first_name": "",
+    "last_name": "",
+    "email": "hhh@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T08:51:52.270Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 26,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$uvUYqMi4QvxDeGbDOmGYB1$3czoosovHXwTpR9zTB4ykkGr6MwI9CmhrwIB+hPeckk=",
+    "last_login": "2025-12-06T08:56:48.885Z",
+    "is_superuser": false,
+    "username": "najla",
+    "first_name": "‰Ã·«¡",
+    "last_name": "⁄»œ«··Â",
+    "email": "najla@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T08:56:41.975Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 27,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$Sitdypm82I5tuPFaweXRHB$FCFlc1siN5yfIShl2TAjL7GLJ1gUDDyPiOZQrfvzvFw=",
+    "last_login": "2025-12-06T09:00:34.641Z",
+    "is_superuser": false,
+    "username": "rafah",
+    "first_name": "—›«Â ",
+    "last_name": "’«·Õ",
+    "email": "roro@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T09:00:25.788Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 28,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$VN6XhJBOqwvc9kEPqKNSgA$JSaa7iJrBgOtj8qXVvJfhFVxR5VCq4e4OSfBD9zi+Os=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "lologym",
+    "first_name": "",
+    "last_name": "",
+    "email": "lolo@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T09:06:04.603Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 29,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$ftYR8oQElQshNdjUOBe4YB$tq30fpqDiVBr8mUWeMdji+whnUjoRwNNv4j7/yGZ/SA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Hajar",
+    "first_name": "Â«Ã—",
+    "last_name": "”⁄Ìœ",
+    "email": "Hajar@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:08:23.442Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 30,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$i9DT5Zy1aflekSswbRVK9k$hU4byA5/78v3Qe3NV5Wh0J+Mj245bF0wpBMex74iGcM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "fofo",
+    "first_name": "›«ÿ„…",
+    "last_name": "„Õ„œ",
+    "email": "fofo@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:25:17.753Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 31,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$Ne9zqXTMdTIL6jJNSyhJWa$2dOk1GSSMHCw45ExT5K8NDP0qQYG0KDq9YUUtbvDrM0=",
+    "last_login": "2025-12-07T08:04:57.023Z",
+    "is_superuser": false,
+    "username": "sana",
+    "first_name": "”‰«¡",
+    "last_name": "«Õ„œ",
+    "email": "al-maha2244@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:26:45Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 32,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$SFL7DEhw8wV6m0EKd3XV00$JqbgIOHAhI0jzqWDZibd5RexVQ8Z6TIHzhbBu3bURtA=",
+    "last_login": "2025-12-07T06:09:16.823Z",
+    "is_superuser": false,
+    "username": "shatha",
+    "first_name": "‘–Ï",
+    "last_name": "Ê·Ìœ",
+    "email": "shatha@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:28:08.002Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 33,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$3FnKXTekAIPLdxY3Bs6A4v$rqNLnxTh5VyoVet/BHjMm+tcO/mtzPcXuBDyaJ4tppo=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "rihanna",
+    "first_name": "—ÌÕ«‰Â",
+    "last_name": "«»—«ÂÌ„",
+    "email": "riri20@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:29:36.357Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 34,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$qDSlSznYNEe6lqwJBRy6Sw$nSj9Wke98uvrjEVcewxPByOuOwpfulmbiK/H+e5lEPE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "abrar",
+    "first_name": "«»—«—",
+    "last_name": "»œ—",
+    "email": "biro66@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:30:33.574Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 35,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$TF9i6Kb7hu5tiz5poLby6T$vWxyh6GX+jmUK3fgdnRQx426MF5ngs4jSnhY1FvziKs=",
+    "last_login": "2025-12-07T07:08:42.973Z",
+    "is_superuser": false,
+    "username": "lama",
+    "first_name": "·„Ï",
+    "last_name": "›Ì’·",
+    "email": "al-maha2244@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:31:25Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 36,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$r2ctdVplkL6XqvpXmvwND5$BBbtAyW6gtqsd94R5Bw8ESet6FAd+8ruXZDBr6sfIq4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "rawan",
+    "first_name": "—Ê«‰",
+    "last_name": " —ﬂÌ",
+    "email": "roro4499@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:32:31.884Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 38,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$FzjNubrhZoFJiWHsROwaIp$Ej4Z7a7KMbPJqboRlTZhTOLt2NBjqt8MCHJTfsgZrm4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "hessa",
+    "first_name": "Õ’Â",
+    "last_name": "“«Ìœ",
+    "email": "heso22@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:34:39.984Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 39,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$3uyYYWZ9UsYi2uoJ1eZYGy$wdG1pLaqWlitiXI4qz/q2kPu1vS4f2dVuUUnzB4sEcI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "hind",
+    "first_name": "Â‰œ",
+    "last_name": "⁄«œ·",
+    "email": "hindo22@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:35:49.393Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 40,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$vIA1jvOTcurpW7LbZ9iprG$Slbrc5eP+oqo8HERJSsXHG0Ul44ZhmUPzsq0xSGmjUA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "hanan",
+    "first_name": "Õ‰«‰",
+    "last_name": "⁄»œ«··Â",
+    "email": "hanan22@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:37:05.079Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 41,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$wdrjmtF3gIJAxIHpw8E33C$TQ57yClTpHYjR2g7MVqTA78j94b0+RSf35vyjVDYLI0=",
+    "last_login": "2025-12-06T20:37:54.926Z",
+    "is_superuser": false,
+    "username": "memo",
+    "first_name": "„Â«",
+    "last_name": "”⁄Êœ",
+    "email": "al-maha2244@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:38:34.162Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 42,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$HZ907gIoi2wvaPxIoNHROQ$WoQoBHvAPNJ7pbSPXi/7jgeOrLoTtsVb7w4T02m1Ec0=",
+    "last_login": "2025-12-06T17:54:54.012Z",
+    "is_superuser": false,
+    "username": "optimo",
+    "first_name": "",
+    "last_name": "",
+    "email": "optimo@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T17:54:47.049Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 43,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$yzaK8LI53JMCfSAJ2gD7aB$pwhtsOifczC2kP0+JvPqBTjBnFVFZh2TNXOEmTLP1gk=",
+    "last_login": "2025-12-07T08:01:56.301Z",
+    "is_superuser": false,
+    "username": "FitnessDay",
+    "first_name": "",
+    "last_name": "",
+    "email": "FitnessDay@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T18:26:43.900Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 44,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$Kw4XyEJqzH1c2Z3LcfYTqk$uHcudgMbpkWAtPJ1mUjmRZ5PDQ6vPBchd7vCQviB0fg=",
+    "last_login": "2025-12-06T18:42:05.398Z",
+    "is_superuser": false,
+    "username": "lavafitness",
+    "first_name": "",
+    "last_name": "",
+    "email": "lavafitness@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T18:41:57.801Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 45,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$oPxfZ6kMbjidbEG5DE09LG$Z8WxOGNUxm9Sdn9VApcBpaygGayo6Z3c+hq4UzgsXzc=",
+    "last_login": "2025-12-07T08:07:59.836Z",
+    "is_superuser": false,
+    "username": "Fas",
+    "first_name": "ﬂÊ ‘ ›«”",
+    "last_name": "„Õ„œ",
+    "email": "mahasf228@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T18:57:01.793Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 47,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$njHQHWPWu8P5fslubBHnqt$r9a9wWLi6LxfR32UZ6npkW4EXKc5UQno3AauTafWms4=",
+    "last_login": "2025-12-06T22:03:18.096Z",
+    "is_superuser": false,
+    "username": "jojojojojojo",
+    "first_name": "« «ƒ‰",
+    "last_name": "” „«Ï⁄",
+    "email": "ohhoho@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T22:02:44.812Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 48,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$6VWC0mF8oGgqnH0kXf4atm$sTe/QBer8DCrQ9n2z5Phhc45BtCKcQegDlarTRpxJGA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "jojojojojojoo",
+    "first_name": "hhh",
+    "last_name": "hhh",
+    "email": "hhhh@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T22:04:50.466Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 49,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$uei9G4hnNuvHOlz9muIzhh$uoBATO75S635ES7rVM3CkSPLtNqik2PhZBZwi1nX/2M=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "yoyoyo",
+    "first_name": "Ì«—«",
+    "last_name": "”«·„",
+    "email": "aldodo@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T22:36:53.763Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 50,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$WRj6zzbpPWEwwrdmB6h4qQ$Mwl1EBbq6ymChuCxqRHgR6wVO6Ig5slulNTF80ZtfXE=",
+    "last_login": "2025-12-06T23:24:10.971Z",
+    "is_superuser": false,
+    "username": "lolololo",
+    "first_name": "kk",
+    "last_name": "kkk",
+    "email": "lolo@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T22:54:48.449Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 51,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$rgPLWSBqaNdrPGi8ipIuCQ$S1ByTNTy31OqNHHPr5tkdFgZFKdqfw5mvVrP7xoCr2k=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "hoho",
+    "first_name": "",
+    "last_name": "",
+    "email": "hhhhhh@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T23:17:05.209Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 52,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$um0XjbwyIWXloWiFQsBgOr$18SGmP6DZSX2rNovlnDNbMFLNE6fDm4ri7SC62d2pts=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "jojo",
+    "first_name": "joo",
+    "last_name": "jojo",
+    "email": "jknjkdc@hotmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-06T23:18:34.975Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 1,
+  "fields": {
+    "user": 20,
+    "age": 22,
+    "height": 160.0,
+    "weight": 60.0,
+    "goal": "maintain",
+    "avatar": "images/avatar_3DLfjYg.jpg",
+    "favorite_coaches": [
+      1,
+      2
+    ],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 2,
+  "fields": {
+    "user": 27,
+    "age": 23,
+    "height": 150.0,
+    "weight": 60.0,
+    "goal": "lose",
+    "avatar": "images/contact_mUFgDGr.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 3,
+  "fields": {
+    "user": 29,
+    "age": 50,
+    "height": 160.0,
+    "weight": 60.0,
+    "goal": "maintain",
+    "avatar": "images/photo_5882090675929549776_x.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 4,
+  "fields": {
+    "user": 30,
+    "age": 40,
+    "height": 150.0,
+    "weight": 80.0,
+    "goal": "lose",
+    "avatar": "images/photo_5882090675929549773_x.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 5,
+  "fields": {
+    "user": 31,
+    "age": 30,
+    "height": 150.0,
+    "weight": 40.0,
+    "goal": "gain",
+    "avatar": "images/photo_5882090675929549769_x.jpg",
+    "favorite_coaches": [
+      8
+    ],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 6,
+  "fields": {
+    "user": 32,
+    "age": 22,
+    "height": 170.0,
+    "weight": 90.0,
+    "goal": "lose",
+    "avatar": "images/photo_5882090675929549772_x.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 7,
+  "fields": {
+    "user": 33,
+    "age": 25,
+    "height": 159.0,
+    "weight": 60.0,
+    "goal": "lose",
+    "avatar": "images/photo_5882090675929549769_x_y6pUMxF.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 8,
+  "fields": {
+    "user": 34,
+    "age": 35,
+    "height": 160.0,
+    "weight": 50.0,
+    "goal": "gain",
+    "avatar": "images/photo_5882090675929549775_x.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 9,
+  "fields": {
+    "user": 35,
+    "age": 30,
+    "height": 166.0,
+    "weight": 50.0,
+    "goal": "gain",
+    "avatar": "images/photo_5882090675929549771_y.jpg",
+    "favorite_coaches": [
+      8
+    ],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 10,
+  "fields": {
+    "user": 36,
+    "age": 31,
+    "height": 170.0,
+    "weight": 65.0,
+    "goal": "maintain",
+    "avatar": "images/photo_5882090675929549771_y_cbrHZ3C.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 12,
+  "fields": {
+    "user": 38,
+    "age": 19,
+    "height": 160.0,
+    "weight": 45.0,
+    "goal": "gain",
+    "avatar": "images/photo_5882090675929549770_x_F8vD5vE.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 13,
+  "fields": {
+    "user": 39,
+    "age": 18,
+    "height": 170.0,
+    "weight": 60.0,
+    "goal": "gain",
+    "avatar": "images/photo_5882090675929549768_y.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 14,
+  "fields": {
+    "user": 40,
+    "age": 45,
+    "height": 160.0,
+    "weight": 80.0,
+    "goal": "lose",
+    "avatar": "images/photo_5882090675929549768_y_3CeLBwS.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 15,
+  "fields": {
+    "user": 41,
+    "age": 22,
+    "height": 166.0,
+    "weight": 50.0,
+    "goal": "gain",
+    "avatar": "images/avatar_XXV1b8d.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+},
+{
+  "model": "accounts.trainee",
+  "pk": 16,
+  "fields": {
+    "user": 52,
+    "age": 6666,
+    "height": 777.0,
+    "weight": 777.0,
+    "goal": "lose",
+    "avatar": "images/photo_5882090675929549772_x_VbjzRuM.jpg",
+    "favorite_coaches": [],
+    "favorite_gyms": []
+  }
+}
+]

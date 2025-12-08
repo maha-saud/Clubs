@@ -1,0 +1,429 @@
+[
+{
+  "model": "gyms.hood",
+  "pk": 1,
+  "fields": {
+    "name": "ÇáãáŞÇÁ"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 2,
+  "fields": {
+    "name": "ÇáäÑÌÓ"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 3,
+  "fields": {
+    "name": "ŞÑØÈÉ"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 4,
+  "fields": {
+    "name": "ÇáíÇÓãíä"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 5,
+  "fields": {
+    "name": "ÇáÍãÑÇÁ"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 6,
+  "fields": {
+    "name": "ÇáÑÈæÉ"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 7,
+  "fields": {
+    "name": "ÇáÕÍÇİÉ"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 8,
+  "fields": {
+    "name": "ÇáÚÒíÒíÉ"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 9,
+  "fields": {
+    "name": "ÇáäÓíã"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 10,
+  "fields": {
+    "name": "ÇáÑÈíÚ"
+  }
+},
+{
+  "model": "gyms.hood",
+  "pk": 11,
+  "fields": {
+    "name": "ÇáÑíÇä"
+  }
+},
+{
+  "model": "gyms.gym",
+  "pk": 3,
+  "fields": {
+    "user": 13,
+    "name": "ÈíæÑ Ìíã",
+    "image": "images/puregym_9GvJRhd.webp",
+    "has_coach": true,
+    "about": "äÍä ãáÊÒãæä ÈÊæİíÑ ãÑÇßÒ ÑíÇÖíÉ ÚÇáíÉ ÇáÌæÏÉ æÈÃÓÚÇÑ ãÚŞæáÉ ááÌãíÚ. ãåãÊäÇ åí ÊæİíÑ ÈíÆÉ ÂãäÉ äÙíİÉ ææÏíøÉ áÃÚÖÇÆäÇ¡ ãÚ ÇáÏÚã æÇáÇáåÇã ÇáĞí íÍÊÇÌæäå İí Ãí æŞÊ íŞÚ äÇÏí ÈíæÑ Ìíã ááÓíÏÇÊ İí ãäØŞÉ ÇáÍãÑÇÁ İí ÇáÑíÇÖ Úáì ÈõÚÏ ãÓÇİÉ ŞÕíÑÉ ãä ÛÑäÇØÉ ãæá æãŞÇÈá ÇáãŞÇåí æÇáãØÇÚã ĞÇÊ ÇáÔÚÈíÉ ÇáæÇÓÚÉ æåæ ãä ÃİÖá ÇáäæÇÏí ÇáÑíÇÖíÉ ááÓíÏÇÊ İí ÇáÑíÇÖ. İÈİÖá ãæŞÚå ÇáãÊãíøÒ æÌÏæá ÇáÍÕÕ ÇáÊÏÑíÈíÉ ÇáãÊßÇãá İíå¡ ÃÕÈÍ ÈÅãßÇäß ÇáæÕæá ÈÓåæáÉ Åáì ÇáãæŞÚ áããÇÑÓÉ ÇáÊãÇÑíä ÇáÑíÇÖíÉ İí ÇáæŞÊ ÇáøĞí íäÇÓÈß. ÈÇáÅÖÇİÉ Åáì Ğáß¡ íÊÃáøİ ÇáãÑßÒ ãä ØÇÈŞíä íÊãíøÒÇä ÈãÓÇÍÇÊ ãİÊæÍÉ ææÇÓÚÉ æíÊÖãøä ãäØŞÉ ãÎÕøÕÉ áÊãÇÑíä ÇáßÇÑÏíæ æãÓÇÑÇÊ ØæíáÉ áããÇÑÓÉ ÑíÇÖÉ ÇáãÔí.",
+    "monthly_price": "599.99",
+    "website": "https://ksa.puregymarabia.com/gyms/al-hamra-woman/",
+    "hoods": [
+      1,
+      5,
+      7,
+      9
+    ]
+  }
+},
+{
+  "model": "gyms.gym",
+  "pk": 4,
+  "fields": {
+    "user": 14,
+    "name": "Çä Êæ İÊäÓ",
+    "image": "images/OIP_5_les77yL.webp",
+    "has_coach": true,
+    "about": "Åä2 İÊäÓ åí ÇáŞáÈ ÇáäÇÈÖ áËŞÇİÉ ÇááíÇŞÉ ÇáÈÏäíÉ İí ÇáããáßÉ ÇáÚÑÈíÉ ÇáÓÚæÏíÉ. äÍä ÃßËÑ ãä ãÌÑÏ ÕÇáÉ ÑíÇÖíÉ — äÍä İí ÍÑßÉ ãÓÊãÑÉ áÏÚã æÊËŞíİ ãİåæã ÇáÑíÇÖÉ. ÈİÖá ÎÏãÇÊäÇ ÇáãÊßÇãáÉ æÊæÇÌÏäÇ İí ãÌãæÚÉ æÇÓÚÉ ãä ÇáãÏä æÇáãäÇØŞ¡ äÖãä áßã ÑÍáÉ ÌãÇÚíÉ ãáíÆÉ ÈÇáÕÍÉ¡ ÃíäãÇ ßäÊã. İí Åä2 İÊäÓ ¡ äáÊÒã ÈÈäÇÁ ãÌÊãÚ ÍíË ÊÔÚÑ ÈÇáÊŞÏíÑ æÇáÏÚã İí ãÓíÑÊß ÇáÑíÇÖíÉ. ÇáæáÇÁ áíÓ ãÌÑÏ ßáãÉ ÈÇáäÓÈÉ áäÇ¡ Èá åæ ãÈÏÃ ÃÓÇÓí íÙåÑ İí ßá äÔÇØ äŞæã Èå.",
+    "monthly_price": "799.99",
+    "website": "https://in2fitness.sa/ab/",
+    "hoods": [
+      1,
+      2,
+      3,
+      7,
+      9
+    ]
+  }
+},
+{
+  "model": "gyms.gym",
+  "pk": 5,
+  "fields": {
+    "user": 15,
+    "name": "ÃßÊíİ",
+    "image": "images/unnamed.webp",
+    "has_coach": true,
+    "about": "åæ äÇÏí ÑíÇÖí íŞÏã ãÌãæÚÉ ãÊäæÚÉ ãä ÇáÎÏãÇÊ æÇáãÑÇİŞ. íÊãíÒ ÇáäÇÏí ÈæÌæÏ ÃÌåÒÉ ÊÏÑíÈíÉ ÌÏíÏÉ æããÊÇÒÉ¡ ÈÇáÅÖÇİÉ Åáì ãÏÑÈíä ãÍÊÑİíä. íæİÑ ÇáäÇÏí ÍÕÕğÇ ÌãÇÚíÉ æİÑÕğÇ ááÊÏÑíÈ ÇáİÑÏí¡ ããÇ íÌÚáå ãßÇäğÇ ãËÇáíğÇ ááÃÔÎÇÕ ÇáĞíä íÓÚæä áÊÍŞíŞ ÃåÏÇİåã ÇáÑíÇÖíÉ. ßãÇ íÊæİÑ ÊØÈíŞ íÓÇÚÏ ÇáÃÚÖÇÁ Úáì ÅÏÇÑÉ ÚÖæíÊåã æãÊÇÈÚÉ ÊŞÏãåã.",
+    "monthly_price": "499.99",
+    "website": "https://www.activgyms.com/ar/routing/",
+    "hoods": [
+      1,
+      2,
+      4
+    ]
+  }
+},
+{
+  "model": "gyms.gym",
+  "pk": 6,
+  "fields": {
+    "user": 16,
+    "name": "æŞÊ ÇááíÇŞÉ",
+    "image": "images/fitnesstime.jpg",
+    "has_coach": true,
+    "about": "æŞÊ ÇááíÇŞÉ åæ äÇÏí ÑíÇÖí íŞÏã ãÌãæÚÉ ãÊäæÚÉ ãä ÇáÎÏãÇÊ ÇáÑíÇÖíÉ æÇááíÇŞÉ ÇáÈÏäíÉ İí ÇáããáßÉ ÇáÚÑÈíÉ ÇáÓÚæÏíÉ. íæİÑ ÇáäÇÏí ÕÇáÇÊ ÑíÇÖíÉ ãÌåÒÉ ÈÃÍÏË ÇáÃÌåÒÉ¡ æÌáÓÇÊ ÊÏÑíÈ ÌãÇÚí¡ æãÑÇİŞ ÊÏÑíÈ ãÊÎÕÕÉ. íÊæİÑ ÚÏÉ ÃäæÇÚ ãä ÇáÇÔÊÑÇßÇÊ¡ ãËá ÇáÇÔÊÑÇß ÇáÃÓÇÓí ÇáĞí íÔãá ÕÇáÇÊ ÑíÇÖíÉ æÌáÓÇÊ ÊÏÑíÈ ÌãÇÚí¡ æÇáÇÔÊÑÇß ÈáÓ ÇáĞí íÔãá ãÑÇİŞ ÅÖÇİíÉ ãËá ÇáÓÇæäÇ æÇáÌÇßæÒí. ÇáÃÓÚÇÑ ÊÎÊáİ ÍÓÈ äæÚ ÇáÇÔÊÑÇß æãÏÉ ÇáÇÔÊÑÇß¡ ÍíË ÊÈÏÃ ÇáÃÓÚÇÑ ãä 876 ÑíÇá ÓÚæÏí ÔåÑíğÇ.",
+    "monthly_price": "349.99",
+    "website": "https://join.fitnesstime.com.sa/ar-sa",
+    "hoods": [
+      1,
+      4,
+      7,
+      8
+    ]
+  }
+},
+{
+  "model": "gyms.gym",
+  "pk": 7,
+  "fields": {
+    "user": 17,
+    "name": " İíÊÇáíÊí",
+    "image": "images/OIP_6.webp",
+    "has_coach": true,
+    "about": "äÇÏí İíÊÇáíÊí åæ äÇÏí ÑíÇÖí æáíÇŞÉ ááÓíÏÇÊ íŞÚ İí Íí ÇáÑÈíÚ ÈÇáÑíÇÖ. íŞÏã ÇáäÇÏí ãÌãæÚÉ ãÊäæÚÉ ãä ÇáÊãÇÑíä ÇáÑíÇÖíÉ æÇááíÇŞÉ ÇáÈÏäíÉ¡ æíŞÏã ÃßËÑ ãä 100 ÍÕÉ ÊãÑíä ÑíÇÖí ÃÓÈæÚíğÇ. íæİÑ ÇáäÇÏí ÃíÖğÇ ÎÏãÇÊ ÕÍíÉ æÚÇİíÉ ãÊßÇãáÉ¡ æíåÏİ Åáì ÏÚã ÑÍáÇÊ ÇáÃÚÖÇÁ ÇáÑíÇÖíÉ. íãßä ááÒæÇÑ ÒíÇÑÉ ÇáäÇÏí ãä ÇáÇËäíä Åáì ÇáÎãíÓ ãä ÇáÓÇÚÉ 7:00 ÕÈÇÍğÇ ÍÊì 11:00 ãÓÇÁğ¡ æíÔãá íæã ÇáÌãÚÉ ãä ÇáÓÇÚÉ 1:00 ÍÊì 9:00 ãÓÇÁğ¡ æíÔãá íæã ÇáÓÈÊ ãä ÇáÓÇÚÉ 10:00 ÍÊì 11:00 ãÓÇÁğ.",
+    "monthly_price": "249.99",
+    "website": "https://v-fitness.com/",
+    "hoods": [
+      10
+    ]
+  }
+},
+{
+  "model": "gyms.gym",
+  "pk": 8,
+  "fields": {
+    "user": 42,
+    "name": "ÃæÈÊíãæ",
+    "image": "images/HIGH350393_172037_654346.jpg",
+    "has_coach": true,
+    "about": "äÇÏí İÇÎÑ ááíÇŞÉ + ÑİÇåíÉ: íŞÏã ãäØŞÉ ŞæÉ¡ ßÇÑÏíæ¡ ÊÏÑíÈ ÔÎÕí¡ íæÌÇ¡ ÈíáÇÊÓ¡ ÏÑÇÌÇÊ ÏÇÎáíÉ¡ ÓÈÇ¡ ãÓÈÍ¡ ÓÇæäÇ/ÈÎÇÑ æÛíÑåÇ ãä ÎÏãÇÊ ÑİÇåíÉ",
+    "monthly_price": "1999.99",
+    "website": "https://optimo.com.sa/",
+    "hoods": [
+      1
+    ]
+  }
+},
+{
+  "model": "gyms.gym",
+  "pk": 9,
+  "fields": {
+    "user": 43,
+    "name": "íæã ÇááíÇŞÉ",
+    "image": "images/MtCOJS49cQjldLQWSltHqCyyUCEKnwZZWARXTlWg.avif",
+    "has_coach": true,
+    "about": "íæã ÇááíÇŞÉ åæ äÇÏò äÓÇÆí ãÊÎÕÕ İí ÈäÇÁ ÃÓáæÈ ÍíÇÉ ÕÍí æãÓÊÏÇã¡ íÑßøÒ Úáì Êãßíä ÇáãÑÃÉ ãä ÇáæÕæá áÃİÖá äÓÎÉ ãä áíÇŞÊåÇ ÇáÈÏäíÉ æÇáÕÍíÉ ÏÇÎá ÈíÆÉ ÂãäÉ¡ ãÍİøÒÉ¡ æãåíøÃÉ ÈÇáßÇãá ááäÓÇÁ.\r\n\r\näŞÏøã ÈÑÇãÌ ÊÏÑíÈ ãÊßÇãáÉ ÊÔãá ÊãÇÑíä ÇáŞæÉ¡ ÇáßÇÑÏíæ¡ ÊÍÓíä ÇááíÇŞÉ ÇáÚÇãÉ¡ æÍÕÕ ÌãÇÚíÉ ãÏÑæÓÉ ÊäÇÓÈ ÌãíÚ ÇáãÓÊæíÇÊ – ãä ÇáãÈÊÏÆÇÊ Åáì ÇáãÊŞÏãÇÊ.\r\níÚãá İí ÇáäÇÏí İÑíŞ ãä ÇáãÏÑÈÇÊ ÇáãÄåáÇÊ ÇááÇÊí íŞÏøãä ÅÔÑÇİğÇ ÇÍÊÑÇİíğÇ æÎØØ ÊÏÑíÈ ãÕããÉ ÈÚäÇíÉ ÍÓÈ ÃåÏÇİ ßá ãÔÊÑßÉ.\r\n\r\nİí íæã ÇááíÇŞÉ äÄãä Ãä ÇáÑíÇÖÉ áíÓÊ ãÌÑÏ ÊãÑíä¡ Èá ŞÑÇÑ ÍíÇÉ. áĞáß äÍÑÕ Úáì ÊæİíÑ ÊÌÑÈÉ ÊÏÑíÈ ãÑíÍÉ¡ ÏÇÚãÉ¡ æÎÇáíÉ ãä ÇáÖÛØ¡ ÊÓÇÚÏ ßá ÓíÏÉ Úáì ÇáÇáÊÒÇã¡ ÇáÇÓÊãÑÇÑíÉ¡ æÊÍŞíŞ äÊÇÆÌ æÇŞÚíÉ æØæíáÉ ÇáãÏì.",
+    "monthly_price": "411.00",
+    "website": "https://womenfitnessdays.com/ar",
+    "hoods": [
+      11
+    ]
+  }
+},
+{
+  "model": "gyms.gym",
+  "pk": 10,
+  "fields": {
+    "user": 44,
+    "name": "áÇİÇ İÊäÓ",
+    "image": "images/900x503_07AE8BA5-6DFA-4A8F-8981-3ABD6DF8E083.jpg",
+    "has_coach": false,
+    "about": "äÇÏò äÓÇÆí ãÎÕÕ ááÊÏÑíÈ ÇáĞÇÊí¡ íæİøÑ ãÓÇÍÉ ãÑíÍÉ æÂãäÉ áããÇÑÓÉ ÇáÑíÇÖÉ ÈÏæä ãÏÑøÈÇÊ Ãæ ÈÑÇãÌ ÊÏÑíÈ ÅáÒÇãíÉ.\r\níÚÊãÏ ÇáäÇÏí Úáì İßÑÉ ÅÊÇÍÉ ÇáÃÌåÒÉ ÇáÑíÇÖíÉ ÇáÍÏíËÉ ááÇÓÊÎÏÇã ÇáÍÑ¡ ÈÍíË ÊÊãÑä ßá ãÔÊÑßÉ ÍÓÈ ÌÏæáåÇ æÎØÊåÇ ÇáÎÇÕÉ.\r\n\r\níÖã ÇáäÇÏí ÃÌåÒÉ ßÇÑÏíæ æÊãÇÑíä ŞæÉ ÃÓÇÓíÉ¡ ãÚ ÊäÙíã ÇáãÓÇÍÇÊ ÈØÑíŞÉ ÊÓåøá ÇáÊãÑíä æÊÖãä ÇáÎÕæÕíÉ.\r\nåĞÇ ÇáäÇÏí ãäÇÓÈ ááÓíÏÇÊ ÇááæÇÊí íãÊáßä ÎÈÑÉ ÓÇÈŞÉ İí ÇáÊãÑíä Ãæ íİÖáä ÇáÇáÊÒÇã ÈÑæÊíä ÔÎÕí Ïæä ÊÏÎá Ãæ ãÊÇÈÚÉ ãÈÇÔÑÉ.",
+    "monthly_price": "499.99",
+    "website": null,
+    "hoods": [
+      10
+    ]
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 2,
+  "fields": {
+    "gym": 3,
+    "user": 1,
+    "parent": null,
+    "reply_to": null,
+    "comment_type": "member",
+    "rating": 5,
+    "comment": "åĞÇ ÇİÖá äÇÏí ãæÌæÏ İí ÇáÑíÇÖ æ ÇäÕÍ İíå æ ÈŞæå ",
+    "created_at": "2025-12-03T17:47:45.805Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 19,
+  "fields": {
+    "gym": 3,
+    "user": 11,
+    "parent": 2,
+    "reply_to": 1,
+    "comment_type": null,
+    "rating": null,
+    "comment": "ÈÓã Çááå ÇáÑÍãä ÇáÑÍíã ",
+    "created_at": "2025-12-04T05:43:02.591Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 25,
+  "fields": {
+    "gym": 3,
+    "user": 1,
+    "parent": null,
+    "reply_to": null,
+    "comment_type": "member",
+    "rating": 2,
+    "comment": "ÇÇÇ",
+    "created_at": "2025-12-05T03:58:53.298Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 28,
+  "fields": {
+    "gym": 3,
+    "user": 1,
+    "parent": null,
+    "reply_to": null,
+    "comment_type": "visitor",
+    "rating": 5,
+    "comment": "ÇÎÑ ÊÚÏíá ÊÚÈäí ãÑå",
+    "created_at": "2025-12-05T07:48:00.389Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 29,
+  "fields": {
+    "gym": 3,
+    "user": 1,
+    "parent": 28,
+    "reply_to": 1,
+    "comment_type": null,
+    "rating": null,
+    "comment": "ßİæ ãíãí ÇäÊí ÊÓÊØíÚíä ßãáí İÎæÑå İíäí ãÇÔÇÁÇááå ÊÈÇÑß Çááå",
+    "created_at": "2025-12-05T07:48:46.321Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 30,
+  "fields": {
+    "gym": 3,
+    "user": 1,
+    "parent": 29,
+    "reply_to": 1,
+    "comment_type": null,
+    "rating": null,
+    "comment": "ÇÓØæÑå",
+    "created_at": "2025-12-05T07:53:28.124Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 31,
+  "fields": {
+    "gym": 3,
+    "user": 10,
+    "parent": null,
+    "reply_to": null,
+    "comment_type": "member",
+    "rating": 5,
+    "comment": "hi",
+    "created_at": "2025-12-05T08:11:58.274Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 32,
+  "fields": {
+    "gym": 3,
+    "user": 14,
+    "parent": 31,
+    "reply_to": 10,
+    "comment_type": null,
+    "rating": null,
+    "comment": "hiiii",
+    "created_at": "2025-12-05T09:39:37.081Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 33,
+  "fields": {
+    "gym": 4,
+    "user": 31,
+    "parent": null,
+    "reply_to": null,
+    "comment_type": "member",
+    "rating": 5,
+    "comment": "ÇİÖá äÇÏí ÇäÕÍ Èå",
+    "created_at": "2025-12-07T00:19:01.172Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 34,
+  "fields": {
+    "gym": 5,
+    "user": 31,
+    "parent": null,
+    "reply_to": null,
+    "comment_type": "visitor",
+    "rating": 1,
+    "comment": "ÇáäÇÏí ÓíÆ ááÇÓİ ",
+    "created_at": "2025-12-07T00:27:19.519Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 35,
+  "fields": {
+    "gym": 4,
+    "user": 7,
+    "parent": 33,
+    "reply_to": 31,
+    "comment_type": null,
+    "rating": null,
+    "comment": "ÇíÔ ÇİÖá Ôí ÇÚÌÈß İí ÇáäÇÏí ¿",
+    "created_at": "2025-12-07T00:28:01.868Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 36,
+  "fields": {
+    "gym": 9,
+    "user": 35,
+    "parent": null,
+    "reply_to": null,
+    "comment_type": "question",
+    "rating": 2,
+    "comment": "ãÊì ÇæŞÇÊ ÇáäÇÏí ¿",
+    "created_at": "2025-12-07T05:57:13.312Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 37,
+  "fields": {
+    "gym": 9,
+    "user": 43,
+    "parent": 36,
+    "reply_to": 35,
+    "comment_type": null,
+    "rating": null,
+    "comment": "ßá ÇáÇíÇã ãÇÚÏÇ ÇáÌãÚÉ¡ ãä 8 ÕÈÇÍÇğ ÍÊì 11 áíáÇğ",
+    "created_at": "2025-12-07T05:58:30.013Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 38,
+  "fields": {
+    "gym": 3,
+    "user": 43,
+    "parent": 2,
+    "reply_to": 1,
+    "comment_type": null,
+    "rating": null,
+    "comment": "áíÔ¿",
+    "created_at": "2025-12-07T07:03:08.109Z"
+  }
+},
+{
+  "model": "gyms.gymcomment",
+  "pk": 39,
+  "fields": {
+    "gym": 3,
+    "user": 45,
+    "parent": 19,
+    "reply_to": 11,
+    "comment_type": null,
+    "rating": null,
+    "comment": "ÇåáÇ\r\n",
+    "created_at": "2025-12-07T08:36:48.733Z"
+  }
+}
+]
